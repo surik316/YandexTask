@@ -64,14 +64,14 @@ extension APIClient: NetworkServiceProtocol{
                print("DataTask error: \(error.localizedDescription)")
                return
             }
-            guard let response = response as? HTTPURLResponse, let data = data else {
+            guard let data = data else {
                print("Empty Response")
                return
             }
-            print("Response status code: \(response.statusCode)")
+            //print("Response status code: \(response.statusCode)")
             do {
                 let decoder = JSONDecoder()
-                print(String(decoding: data, as: UTF8.self))
+                //print(String(decoding: data, as: UTF8.self))
                 let jsonData = try decoder.decode(ModelLogo.self, from: data)
                 completion(.success(jsonData))
             }
@@ -95,7 +95,7 @@ extension APIClient: NetworkServiceProtocol{
                }
                print("Response status code: \(response.statusCode)")
                do {
-                print(String(decoding: data, as: UTF8.self))
+               // print(String(decoding: data, as: UTF8.self))
                 let decoder = JSONDecoder()
                 let jsonData = try decoder.decode(ListStock.self, from: data)
                 DispatchQueue.main.async {

@@ -153,22 +153,18 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeDeleteFavourite = UIContextualAction(style: .normal, title: "удалить") { (action, view, completion) in
-            print("swipe")
             if (constist(arrayStocks: self.presenter.storageLikedStocks, stock: self.presenter.storageStocks[indexPath.row])){
                 if self.isLableTappedFavourite {
-                    print("aasd")
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageLikedStocks[indexPath.row])
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
                 }
                 else{
-                    print("fuck")
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageStocks[indexPath.row])
                 }
             }
             
-            print(self.presenter.storageLikedStocks.count)
         }
         swipeDeleteFavourite.image = UIImage(systemName: "delete.left.fill")
         swipeDeleteFavourite.backgroundColor = .red
@@ -215,16 +211,11 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
             cell.differenceLabel.text = "-$" + change + "(" + percentage + "%" + ")"
             cell.differenceLabel.textColor = UIColor(red: 178/255, green: 36/255, blue: 36/255, alpha: 1)
         }
-        cell.delegate = self
+        //cell.delegate = self
         
         cell.layer.cornerRadius = 16
         cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor(red: 240/255, green: 244/255, blue: 247/255, alpha: 1) : .white
         return cell
-    }
-}
-extension ListViewController: StarButtonImageDelegate{
-    func starButton(tag: Int) {
-        print(tag)
     }
 }
 extension ListViewController: UISearchResultsUpdating {

@@ -20,7 +20,6 @@ class CustomCell: UITableViewCell {
     var currentPriceLabel = UILabel()
     var differenceLabel = UILabel()
     var isFavourite: Bool = false
-    var delegate: StarButtonImageDelegate?
     
     var logoCompanyImageView = UIImageView ()
     
@@ -54,10 +53,6 @@ class CustomCell: UITableViewCell {
     
         abbreviationLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         abbreviationLabel.textAlignment = .left
-    }
-    @objc func buttonTapped(_ sender: UIButton){
-        delegate?.starButton(tag: sender.tag)
-        print("aaa")
     }
     func configureCorporationNameLabel(){
         
