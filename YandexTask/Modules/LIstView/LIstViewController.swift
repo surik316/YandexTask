@@ -59,14 +59,13 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         }
     func setupTableView(){
         view.addSubview(tableView)
-        //tableView.dataSource = self
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),//верх
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16), //лево
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16), // право
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)//низ
         ])
-        //tableView.allowsSelection = false
+        tableView.allowsSelection = false
         self.tableView.separatorColor = UIColor.clear
     }
     

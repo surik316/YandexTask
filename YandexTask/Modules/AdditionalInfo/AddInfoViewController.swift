@@ -14,7 +14,6 @@ class AddInfoViewController: UIViewController{
     
     override func viewDidLoad() {
         self.viewDidLoad()
-        print("!!@!@")
     }
 }
 extension AddInfoViewController: AddInfoViewProtocol{
