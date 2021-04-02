@@ -16,13 +16,14 @@ protocol ListViewProtocol: class{
 protocol ListViewPresenterProtocol: class {
     init(view: ListViewProtocol, networkService: NetworkServiceProtocol)
     func fetchStockData(completion: @escaping () -> ())
-    func fetchStocksImage(symbol: String, completion: @escaping (Result<Data,Error>) -> ())
+    func fetchStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
     var storageStocks: [ModelStock] {get set}
     var storageLikedStocks: [ModelStock] {get set}
-    func load(url: URL, completion: @escaping (Result<Data, Error>)->Void)
+    //func load(url: URL, completion: @escaping (Result<Data, Error>)->Void)
 }
 
 class ListPresenter: ListViewPresenterProtocol {
+    
 
     weak var view: ListViewProtocol?
     var apiClient : NetworkServiceProtocol!
@@ -34,21 +35,22 @@ class ListPresenter: ListViewPresenterProtocol {
         self.view = view
         self.apiClient = networkService
     }
-    func load(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        
-        apiClient.fetchDataLogo(url: url) { (result) in
-                
-                switch result{
-                case.success(let data):
-                    DispatchQueue.main.async {
-                        completion(.success(data))
-                    }
-                case .failure(let error):
-                    print("apiClinetLOAD:\(error.localizedDescription)")
-                }
-        }
-    }
-    func fetchStockData(completion: @escaping () -> ()){
+//    func load(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+//
+//        apiClient.fetchDataImage(url: url) { (result) in
+//
+//            switch result{
+//            case.success(let data):
+//                DispatchQueue.main.async {
+//                    completion(.success(data))
+//                }
+//            case .failure(let error):
+//                print("apiClinetLOAD:\(error.localizedDescription)")
+//            }
+//        }
+//    }
+    
+    func fetchStockData(completion: @escaping () -> ()) {
             apiClient.getStocksData() { [weak self] (result) in
                 guard let self = self else {return }
                 switch result{
@@ -60,14 +62,15 @@ class ListPresenter: ListViewPresenterProtocol {
                 }
             }
     }
-    func fetchStocksImage(symbol: String, completion: @escaping (Result<Data,Error>) -> ()){
-        self.apiClient.getLogoUrl(for: (symbol)) { [weak self] (result)  in
+    
+    func fetchStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ()) {
+        self.apiClient.getLogoUrl(for: (symbol)) { (result)  in
 
-            guard let self = self else {return }
             switch result{
             case .success(let logo):
-
-                self.load(url: URL(string: logo.url) ?? self.defaultUrl!, completion: completion)
+                
+                completion(.success(URL(string: logo.url)))
+                //self.load(url: URL(string: logo.url) ?? self.defaultUrl!, completion: completion)
                 
             case .failure(let error):
 

@@ -6,5 +6,6 @@ target 'YandexTask' do
   use_frameworks!
 
   # Pods for YandexTask
-
+  pod 'TinyConstraints'
+  pod 'Kingfisher'
 end

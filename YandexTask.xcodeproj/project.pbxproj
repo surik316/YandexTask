@@ -7,10 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		73471ED02611F6C000AF7F4B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73471ECF2611F6C000AF7F4B /* Extensions.swift */; };
 		73694D3A260E36FA00EFEAFB /* AddInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D39260E36FA00EFEAFB /* AddInfoViewController.swift */; };
 		73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D3C260E379E00EFEAFB /* AddInfoPresenter.swift */; };
 		73694D43260E37CB00EFEAFB /* AddInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D42260E37CB00EFEAFB /* AddInfoModel.swift */; };
+		7382F0A02617835C00651E45 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F09F2617835C00651E45 /* Date.swift */; };
+		7382F0A42617836700651E45 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F0A32617836700651E45 /* UIColor.swift */; };
+		7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F0A62617837600651E45 /* NSAttributedString.swift */; };
+		7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F0A9261783F700651E45 /* HelperEntities.swift */; };
+		739C90292617856200BC1C93 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739C90282617856200BC1C93 /* NewsCell.swift */; };
+		739C902D2617858200BC1C93 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739C902C2617858200BC1C93 /* AboutView.swift */; };
 		73C7A1CA25F534E6007BB42F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1C925F534E6007BB42F /* AppDelegate.swift */; };
 		73C7A1D325F534E9007BB42F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73C7A1D225F534E9007BB42F /* Assets.xcassets */; };
 		73C7A1D625F534E9007BB42F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C7A1D425F534E9007BB42F /* LaunchScreen.storyboard */; };
@@ -20,17 +25,21 @@
 		73C7A1F625F53C0A007BB42F /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1F525F53C0A007BB42F /* APIClient.swift */; };
 		73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1FB25F53C63007BB42F /* LIstViewController.swift */; };
 		73C7A21325F55FD0007BB42F /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A21225F55FD0007BB42F /* CustomCell.swift */; };
-		73C7A21825F6A2DB007BB42F /* HelperEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A21725F6A2DB007BB42F /* HelperEntities.swift */; };
 		9D64627FA6EFC8A22A56073B /* Pods_YandexTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8A51CD277723ED991CA79B /* Pods_YandexTask.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3C8A51CD277723ED991CA79B /* Pods_YandexTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YandexTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		709315CF0E277DEF1B326934 /* Pods-YandexTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexTask.debug.xcconfig"; path = "Target Support Files/Pods-YandexTask/Pods-YandexTask.debug.xcconfig"; sourceTree = "<group>"; };
-		73471ECF2611F6C000AF7F4B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		73694D39260E36FA00EFEAFB /* AddInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoViewController.swift; sourceTree = "<group>"; };
 		73694D3C260E379E00EFEAFB /* AddInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoPresenter.swift; sourceTree = "<group>"; };
 		73694D42260E37CB00EFEAFB /* AddInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoModel.swift; sourceTree = "<group>"; };
+		7382F09F2617835C00651E45 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		7382F0A32617836700651E45 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		7382F0A62617837600651E45 /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
+		7382F0A9261783F700651E45 /* HelperEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HelperEntities.swift; path = Modules/LIstView/HelperEntities.swift; sourceTree = "<group>"; };
+		739C90282617856200BC1C93 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		739C902C2617858200BC1C93 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		73C7A1C625F534E6007BB42F /* YandexTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandexTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C7A1C925F534E6007BB42F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73C7A1D225F534E9007BB42F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -42,7 +51,6 @@
 		73C7A1F525F53C0A007BB42F /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		73C7A1FB25F53C63007BB42F /* LIstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIstViewController.swift; sourceTree = "<group>"; };
 		73C7A21225F55FD0007BB42F /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		73C7A21725F6A2DB007BB42F /* HelperEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperEntities.swift; sourceTree = "<group>"; };
 		85EEFE1EAB6B3950E9605E27 /* Pods-YandexTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexTask.release.xcconfig"; path = "Target Support Files/Pods-YandexTask/Pods-YandexTask.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,10 +70,30 @@
 			isa = PBXGroup;
 			children = (
 				73694D39260E36FA00EFEAFB /* AddInfoViewController.swift */,
+				739C90272617855300BC1C93 /* VIews */,
 				73694D3C260E379E00EFEAFB /* AddInfoPresenter.swift */,
 				73694D42260E37CB00EFEAFB /* AddInfoModel.swift */,
 			);
 			path = AdditionalInfo;
+			sourceTree = "<group>";
+		};
+		7382F09E2617834100651E45 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7382F09F2617835C00651E45 /* Date.swift */,
+				7382F0A32617836700651E45 /* UIColor.swift */,
+				7382F0A62617837600651E45 /* NSAttributedString.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		739C90272617855300BC1C93 /* VIews */ = {
+			isa = PBXGroup;
+			children = (
+				739C90282617856200BC1C93 /* NewsCell.swift */,
+				739C902C2617858200BC1C93 /* AboutView.swift */,
+			);
+			path = VIews;
 			sourceTree = "<group>";
 		};
 		73C7A1BD25F534E6007BB42F = {
@@ -93,7 +121,8 @@
 				73C7A1F225F53BEB007BB42F /* ModuleBuilder.swift */,
 				73C7A1F825F53C34007BB42F /* Modules */,
 				73C7A1F525F53C0A007BB42F /* APIClient.swift */,
-				73C7A21725F6A2DB007BB42F /* HelperEntities.swift */,
+				7382F0A9261783F700651E45 /* HelperEntities.swift */,
+				7382F09E2617834100651E45 /* Extensions */,
 				73C7A1D225F534E9007BB42F /* Assets.xcassets */,
 				73C7A1D425F534E9007BB42F /* LaunchScreen.storyboard */,
 				73C7A1D725F534E9007BB42F /* Info.plist */,
@@ -116,7 +145,6 @@
 				73C7A1E425F537A2007BB42F /* ModelStock.swift */,
 				73C7A1EF25F53BB8007BB42F /* ListPresenter.swift */,
 				73C7A1FB25F53C63007BB42F /* LIstViewController.swift */,
-				73471ECF2611F6C000AF7F4B /* Extensions.swift */,
 				73C7A21125F55FBA007BB42F /* Views */,
 			);
 			path = LIstView;
@@ -158,6 +186,7 @@
 				73C7A1C225F534E6007BB42F /* Sources */,
 				73C7A1C325F534E6007BB42F /* Frameworks */,
 				73C7A1C425F534E6007BB42F /* Resources */,
+				8752255336E76890A826B2B2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -235,6 +264,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8752255336E76890A826B2B2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -242,17 +288,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				739C902D2617858200BC1C93 /* AboutView.swift in Sources */,
 				73C7A1E525F537A2007BB42F /* ModelStock.swift in Sources */,
+				7382F0A42617836700651E45 /* UIColor.swift in Sources */,
 				73C7A1F325F53BEB007BB42F /* ModuleBuilder.swift in Sources */,
 				73C7A1CA25F534E6007BB42F /* AppDelegate.swift in Sources */,
+				739C90292617856200BC1C93 /* NewsCell.swift in Sources */,
+				7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */,
 				73C7A1F025F53BB8007BB42F /* ListPresenter.swift in Sources */,
-				73C7A21825F6A2DB007BB42F /* HelperEntities.swift in Sources */,
 				73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */,
+				7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */,
 				73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */,
-				73471ED02611F6C000AF7F4B /* Extensions.swift in Sources */,
 				73C7A21325F55FD0007BB42F /* CustomCell.swift in Sources */,
 				73694D3A260E36FA00EFEAFB /* AddInfoViewController.swift in Sources */,
 				73C7A1F625F53C0A007BB42F /* APIClient.swift in Sources */,
+				7382F0A02617835C00651E45 /* Date.swift in Sources */,
 				73694D43260E37CB00EFEAFB /* AddInfoModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,7 +450,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = maks.YandexTask;
+				PRODUCT_BUNDLE_IDENTIFIER = m.YandexTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -420,7 +470,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = maks.YandexTask;
+				PRODUCT_BUNDLE_IDENTIFIER = m.YandexTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

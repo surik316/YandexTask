@@ -10,7 +10,7 @@ import UIKit
 
 protocol Builder {
     static func createModule() -> UIViewController
-    static func createAddInfoModule() -> UIViewController
+    static func createAddInfoModule(modelStock: ModelStock) -> UIViewController
 }
 
 class ListBuilder: Builder{
@@ -21,10 +21,10 @@ class ListBuilder: Builder{
         view.presenter = presenter
         return view
     }
-    static func createAddInfoModule() -> UIViewController {
+    static func createAddInfoModule(modelStock: ModelStock) -> UIViewController {
         let networkService = APIClient()
         let view = AddInfoViewController()
-        let presenter = AddInfoPresenter(view: view , networkService: networkService)
+        let presenter = AddInfoPresenter(view: view , networkService: networkService, model: modelStock)
         view.presenter = presenter
         return view
     }

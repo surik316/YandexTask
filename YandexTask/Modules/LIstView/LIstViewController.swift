@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import  UIKit
+import UIKit
+import Kingfisher
 
 class ListViewController: UIViewController, UISearchBarDelegate{
     
@@ -15,30 +16,25 @@ class ListViewController: UIViewController, UISearchBarDelegate{
     private let headerStock = UILabel()
     private let headerFavourite = UILabel()
     var isLableTappedFavourite = false
+    var tableView = UITableView()
+    var filteredStocks: [ModelStock]?
+    
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    var filteredStocks: [ModelStock]?
     var isFiltering: Bool {
       return searchController.isActive && !isSearchBarEmpty
     }
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight =  68.0
-        tableView.register(CustomCell.self, forCellReuseIdentifier: "custom")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        UserDefaults.standard.setValue("pk_395e07bffa824330b9708189588cc026", forKey: "apiToken")
         navigationItem.hidesSearchBarWhenScrolling = true
         navigationItem.searchController = searchController
-        loadStocksData()
         
+        loadStocksData()
         setupTableView()
         setupHeaders()
         setupSearchController()
@@ -50,23 +46,30 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         searchController.searchBar.placeholder = "Find company or ticker"
         definesPresentationContext = true
     }
+    
     private func loadStocksData() {
-            
             presenter.fetchStockData{ [weak self] in
                 self?.tableView.dataSource = self
                 self?.tableView.reloadData()
             }
-        }
+    }
+    
     func setupTableView(){
         view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight =  68.0
+        tableView.register(CustomCell.self, forCellReuseIdentifier: "custom")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.separatorColor = UIColor.clear
+        tableView.showsVerticalScrollIndicator = false
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),//верх
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16), //лево
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16), // право
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)//низ
         ])
-        tableView.allowsSelection = false
-        self.tableView.separatorColor = UIColor.clear
     }
     
     func setupHeaders(){
@@ -77,7 +80,8 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         headerStock.text = "Stocks"
         headerStock.font = UIFont(name: "Helvetica-Bold", size: 28)
         headerStock.isUserInteractionEnabled = true
-        let tapStockHeader = UITapGestureRecognizer(target: self, action: #selector(ListViewController.stockLabelTapped))
+        let tapStockHeader = UITapGestureRecognizer(target: self, action:
+                                                        #selector(ListViewController.stockLabelTapped))
         headerStock.addGestureRecognizer(tapStockHeader)
         
         headerFavourite.translatesAutoresizingMaskIntoConstraints = false
@@ -97,27 +101,27 @@ class ListViewController: UIViewController, UISearchBarDelegate{
             
         ])
     }
+    
     private func filterStocks(for searchText: String) {
         if isLableTappedFavourite{
             filteredStocks = presenter.storageLikedStocks.filter { stock in
                 return stock.symbol.lowercased().contains(searchText.lowercased()) || stock.companyName.lowercased().contains(searchText.lowercased())
-                
             }
         }
         else{
             filteredStocks = presenter.storageStocks.filter { stock in
                 return stock.symbol.lowercased().contains(searchText.lowercased()) || stock.companyName.lowercased().contains(searchText.lowercased())
-                
             }
         }
       tableView.reloadData()
     }
 }
+
 extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
             return 1
-        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering && searchController.searchBar.text != ""{
@@ -132,6 +136,12 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
         else{
             return 0
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let model = presenter.storageStocks[indexPath.row]
+        let viewController = ListBuilder.createAddInfoModule(modelStock: model)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             let headerView = UIView()
@@ -186,15 +196,14 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 stock = presenter.storageLikedStocks[indexPath.row]
             }
         }
-        presenter.fetchStocksImage(symbol: stock?.symbol ?? "BOWX") { (result)  in
+        presenter.fetchStocksImage(symbol: stock?.symbol ?? "BOWX") { (result) in
             switch result{
-            case .success(let data):
-                    if let image = UIImage(data: data){
-                        cell.logoCompany = image
-                    }
-                    cell.layoutSubviews()
+            case .success(let url):
+                DispatchQueue.main.async {
+                    cell.logoCompanyImageView.kf.setImage(with: url)
+                }
             case .failure(let error):
-                print("Error image\(error.localizedDescription)")
+                print("error \(error)")
             }
         }
         cell.abbreviationLabel.text = stock?.symbol
@@ -205,26 +214,28 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
         let percentage = String(format: "%.2f", abs( mod_iexClose / (stock?.previousClose ?? 0)))
         if stock?.iexClose ?? 0 > stock?.previousClose ?? 0{
             cell.differenceLabel.text = "+$" + change + "(" + percentage + "%" + ")"
-            cell.differenceLabel.textColor = UIColor(red: 36/255, green: 178/255, blue: 93/255, alpha: 1)
+            //red: 36/255, green: 178/255, blue: 93/255, alpha: 1
+            cell.differenceLabel.textColor = UIColor.rgba(36, 178, 93)
         }
         else{
             cell.differenceLabel.text = "-$" + change + "(" + percentage + "%" + ")"
-            cell.differenceLabel.textColor = UIColor(red: 178/255, green: 36/255, blue: 36/255, alpha: 1)
+            //red: 178/255, green: 36/255, blue: 36/255, alpha: 1
+            cell.differenceLabel.textColor = UIColor.rgba(178, 36, 36)
         }
-        //cell.delegate = self
-        
         cell.layer.cornerRadius = 16
-        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor(red: 240/255, green: 244/255, blue: 247/255, alpha: 1) : .white
+        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor.rgba(240, 244, 247) : .white
         return cell
     }
 }
 extension ListViewController: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
         filterStocks(for: searchController.searchBar.text ?? "")
     }
     
 }
 extension ListViewController{
+    
     func setToSelectedLabel(label: UILabel){
         label.font = UIFont(name: "Helvetica Bold", size: 28)
         label.textColor = .black
@@ -246,14 +257,13 @@ extension ListViewController{
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
         }
     @objc
         func favouriteLabelTapped(sender: UITapGestureRecognizer) {
+            
             isLableTappedFavourite = true
             setToDefaultLabelConfig(label: headerStock)
             setToSelectedLabel(label: headerFavourite)
-            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

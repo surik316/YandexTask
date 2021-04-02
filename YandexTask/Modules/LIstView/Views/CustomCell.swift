@@ -7,9 +7,7 @@
 
 import Foundation
 import UIKit
-protocol StarButtonImageDelegate{
-    func starButton(tag: Int)
-}
+
 class CustomCell: UITableViewCell {
     
 
@@ -20,7 +18,7 @@ class CustomCell: UITableViewCell {
     var currentPriceLabel = UILabel()
     var differenceLabel = UILabel()
     var isFavourite: Bool = false
-    
+    var starIcon = UIImage(systemName: "star.square")
     var logoCompanyImageView = UIImageView ()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -55,28 +53,26 @@ class CustomCell: UITableViewCell {
         abbreviationLabel.textAlignment = .left
     }
     func configureCorporationNameLabel(){
-        
-        
         corporationNameLabel.font = UIFont(name: "Helvetica", size: 12)
         corporationNameLabel.adjustsFontSizeToFitWidth = false
         corporationNameLabel.minimumScaleFactor = 0.5
         corporationNameLabel.adjustsFontSizeToFitWidth = false
         corporationNameLabel.lineBreakMode = .byTruncatingTail
-
     }
     
-    func configureCurrentPriceLabel(){
+    func configureCurrentPriceLabel() {
         currentPriceLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         currentPriceLabel.textAlignment = .right
         currentPriceLabel.sizeToFit()
     }
     
-    func configureDifferenceLabel(){
+    func configureDifferenceLabel() {
         differenceLabel.font = UIFont(name: "Helvetica", size: 12)
         differenceLabel.textAlignment = .right
         differenceLabel.sizeToFit()
     }
-    func setLogoViewConstraint(){
+    
+    func setLogoViewConstraint() {
         logoCompanyImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             logoCompanyImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -86,14 +82,14 @@ class CustomCell: UITableViewCell {
         ])
     }
     
-    func setAbbreviationLabelConstraint(){
+    func setAbbreviationLabelConstraint() {
         abbreviationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             abbreviationLabel.leadingAnchor.constraint(equalTo: self.logoCompanyImageView.trailingAnchor, constant: 12),
             abbreviationLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14),
         ])
     }
-    func setCorporationNameLabelConstraint(){
+    func setCorporationNameLabelConstraint() {
         corporationNameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             corporationNameLabel.leadingAnchor.constraint(equalTo: self.abbreviationLabel.leadingAnchor),
@@ -103,14 +99,14 @@ class CustomCell: UITableViewCell {
         corporationNameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
     }
     
-    func setCurrentPriceLabelConstraint(){
+    func setCurrentPriceLabelConstraint() {
         currentPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             currentPriceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -17),
             currentPriceLabel.topAnchor.constraint(equalTo: self.abbreviationLabel.topAnchor)
         ])
     }
-    func setDiffernceConstraint(){
+    func setDiffernceConstraint() {
         differenceLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             differenceLabel.topAnchor.constraint(equalTo: self.currentPriceLabel.bottomAnchor),
@@ -122,6 +118,7 @@ class CustomCell: UITableViewCell {
         super.prepareForReuse()
         self.accessoryType = .none
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if logoCompany != nil{
