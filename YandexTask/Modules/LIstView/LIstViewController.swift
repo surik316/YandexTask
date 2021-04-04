@@ -15,8 +15,8 @@ class ListViewController: UIViewController, UISearchBarDelegate{
     private let searchController = UISearchController(searchResultsController: nil)
     private let headerStock = UILabel()
     private let headerFavourite = UILabel()
-    var isLableTappedFavourite = false
     var tableView = UITableView()
+    var isLableTappedFavourite = false
     var filteredStocks: [ModelStock]?
     
     var isSearchBarEmpty: Bool {
@@ -30,7 +30,7 @@ class ListViewController: UIViewController, UISearchBarDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        UserDefaults.standard.setValue("pk_395e07bffa824330b9708189588cc026", forKey: "apiToken")
+        UserDefaults.standard.setValue("pk_5e1cf781419e4cc79ccf56075a4cbf6f", forKey: "apiToken")
         navigationItem.hidesSearchBarWhenScrolling = true
         navigationItem.searchController = searchController
         
@@ -139,7 +139,13 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let model = presenter.storageStocks[indexPath.row]
+        var model: ModelStock
+        if (isLableTappedFavourite) {
+            model = presenter.storageLikedStocks[indexPath.row]
+        }
+        else {
+            model = presenter.storageStocks[indexPath.row]
+        }
         let viewController = ListBuilder.createAddInfoModule(modelStock: model)
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -163,7 +169,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeDeleteFavourite = UIContextualAction(style: .normal, title: "удалить") { (action, view, completion) in
-            if (constist(arrayStocks: self.presenter.storageLikedStocks, stock: self.presenter.storageStocks[indexPath.row])){
                 if self.isLableTappedFavourite {
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageLikedStocks[indexPath.row])
                     DispatchQueue.main.async {
@@ -173,8 +178,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 else{
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageStocks[indexPath.row])
                 }
-            }
-            
         }
         swipeDeleteFavourite.image = UIImage(systemName: "delete.left.fill")
         swipeDeleteFavourite.backgroundColor = .red
@@ -214,12 +217,10 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
         let percentage = String(format: "%.2f", abs( mod_iexClose / (stock?.previousClose ?? 0)))
         if stock?.iexClose ?? 0 > stock?.previousClose ?? 0{
             cell.differenceLabel.text = "+$" + change + "(" + percentage + "%" + ")"
-            //red: 36/255, green: 178/255, blue: 93/255, alpha: 1
             cell.differenceLabel.textColor = UIColor.rgba(36, 178, 93)
         }
         else{
             cell.differenceLabel.text = "-$" + change + "(" + percentage + "%" + ")"
-            //red: 178/255, green: 36/255, blue: 36/255, alpha: 1
             cell.differenceLabel.textColor = UIColor.rgba(178, 36, 36)
         }
         cell.layer.cornerRadius = 16

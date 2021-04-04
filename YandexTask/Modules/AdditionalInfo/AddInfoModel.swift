@@ -14,7 +14,6 @@ struct NewsElement: Codable {
     let url, summary: String
     let related: String?
     let image: String
-    //let hasPaywall: UIImage?
 }
 
 typealias News = [NewsElement]
@@ -23,13 +22,18 @@ typealias News = [NewsElement]
 struct ModelAbout: Codable {
     let symbol, companyName, industry: String
     let website: String
-    let welcomeDescription, securityName, sector, address: String
+    let description, securityName, sector, address: String
     let state, city, zip, country: String
     let phone: String
+}
+struct ModelFinancial: Codable {
+    let accountsPayableCurrent, accountsReceivableNetCurrent, accruedIncomeTaxesNoncurrent: Int
 
     enum CodingKeys: String, CodingKey {
-        case symbol, companyName, industry, website
-        case welcomeDescription = "description"
-        case securityName, sector, address, state, city, zip, country, phone
+        case accountsPayableCurrent = "AccountsPayableCurrent"
+        case accountsReceivableNetCurrent = "AccountsReceivableNetCurrent"
+        case accruedIncomeTaxesNoncurrent = "AccruedIncomeTaxesNoncurrent"
     }
 }
+
+typealias Financials = [ModelFinancial]

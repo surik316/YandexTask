@@ -40,8 +40,9 @@ class AboutView: UIView {
     func setCorpNameLableConstraints() {
         corpNameLable.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            corpNameLable.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            corpNameLable.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             corpNameLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 98),
+            corpNameLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -28),
         ])
     }
     
@@ -74,9 +75,16 @@ class AboutView: UIView {
     
     func configCorpNameLable() {
         corpNameLable.font = UIFont(name: "Helvetica Bold", size: 36)
+        corpNameLable.numberOfLines = 2
+        corpNameLable.minimumScaleFactor = 0.5
+        corpNameLable.adjustsFontSizeToFitWidth = true
     }
     func configSectorOfCompanyLable() {
         sectorOfCompanyLable.font = UIFont(name: "Helvetica Bold", size: 24)
+        sectorOfCompanyLable.numberOfLines = 2
+        sectorOfCompanyLable.textAlignment = .center
+        sectorOfCompanyLable.minimumScaleFactor = 0.5
+        sectorOfCompanyLable.adjustsFontSizeToFitWidth = true
     }
     func configAboutCompanyLable() {
         aboutCompany.font = UIFont(name: "Helvetica", size: 14)
@@ -84,6 +92,8 @@ class AboutView: UIView {
     }
     func configPlaceAndPhoneLable() {
         placeAndPhoneLable.font = UIFont(name: "Helvetica", size: 14)
+        placeAndPhoneLable.minimumScaleFactor = 0.5
+        placeAndPhoneLable.adjustsFontSizeToFitWidth = true
     }
     
     required init?(coder: NSCoder) {

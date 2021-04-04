@@ -10,6 +10,7 @@ import Foundation
 protocol AddInfoViewProtocol: class{
     func succes(model: ModelStock)
     func gotNews()
+    func gotAbout()
     func failure(error: Error)
 }
 
@@ -19,7 +20,10 @@ protocol AddInfoPresenterProtocol: class {
     func getNewsData()
     func getTitles() -> [String]
     func getStorageCount() -> Int?
-    var storageNews: [NewsElement]? {get set}
+    func getAboutCompanyData()
+    func getFinancialData()
+    var storageNews: [NewsElement]? {get}
+    var storageAbout: ModelAbout? {get}
     //func getNewsImage(url: String,  completion: @escaping (Result<Data,Error>) -> ())
 }
 
@@ -30,7 +34,8 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
     var modelStock: ModelStock?
     var storageNews : [NewsElement]?
     var storageAbout: ModelAbout?
-    let segmentTitles = ["Chart", "Summary", "News", "Forecasts", "Ideas"]
+    var storageFinancial: ModelFinancial?
+    let segmentTitles = [ "News", "About", "Financials"]
     
     required init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock) {
         self.view = view
@@ -38,7 +43,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
         self.modelStock = model
     }
     public func setView(){
-        self.view?.succes(model: modelStock!) //сделать дефолтную модель
+        self.view?.succes(model: modelStock ?? ModelStock()) //сделать дефолтную модель
     }
     func getNewsData() {
         apiClient.fetchNewsData(for: modelStock?.symbol ?? "") { (result) in
@@ -64,12 +69,23 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
 //                }
 //        }
 //    }
+    func getFinancialData() {
+        apiClient.fetchFinancialData(for: modelStock?.symbol ?? "") { (result) in
+            switch result{
+            
+            case .success(let financialData):
+                self.storageFinancial = financialData
+            case .failure(let error):
+                print("fetctFinancialData Error: \(error)")
+            }
+        }
+    }
     func getAboutCompanyData() {
         apiClient.fetchAboutCompanyData(for: modelStock?.symbol ?? "") { (result) in
             switch result {
             case .success(let aboutCompanyData):
                 self.storageAbout = aboutCompanyData
-                //self.view?.gotNews()
+                self.view?.gotAbout()
             case .failure(let error):
                 print("fetchNewsData Error: \(error)")
             }

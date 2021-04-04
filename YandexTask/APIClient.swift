@@ -14,6 +14,7 @@ protocol NetworkServiceProtocol{
     //func fetchDataImage(url: URL, completion: @escaping (Result<Data , Error>) -> Void)
     func fetchNewsData(for symbol: String, completion: @escaping (Result<[NewsElement], Error>) -> Void)
     func fetchAboutCompanyData(for symbol: String, completion: @escaping (Result<ModelAbout, Error>) -> Void)
+    func fetchFinancialData(for symbol: String, completion: @escaping (Result<ModelFinancial, Error>) -> Void)
     var defalulturlNews: URL {get}
 }
 
@@ -55,6 +56,16 @@ class APIClient {
         return result.url
     }
     
+    private func makeFinancialsUrl(for symbol: String) -> URL? {
+        //https://cloud.iexapis.com/stable/time-series/REPORTED_FINANCIALS/AAP
+        var result = URLComponents()
+        result.scheme = "https"
+        result.host = "cloud.iexapis.com"
+        result.path = "/stable/ime-series/REPORTED_FINANCIALS/\(symbol)"
+        result.query = "token=\(UserDefaults.standard.object(forKey: "apiToken") ?? "")"
+        return result.url
+    }
+    
     var defalulturlNews: URL {
         return URL(string: "https://us.123rf.com/450wm/alhovik/alhovik1709/alhovik170900031/86481591-stock-vector-breaking-news-background-world-global-tv-news-banner-design.jpg?ver=6")!
     }
@@ -75,6 +86,32 @@ extension APIClient: NetworkServiceProtocol{
 //        }
 //        dataTask?.resume()
 //    }
+    func fetchFinancialData(for symbol: String, completion: @escaping (Result<ModelFinancial, Error>) -> Void){
+        let newsURL = makeFinancialsUrl(for: symbol)
+        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
+            
+            if let error = error {
+               print("DataTask error: \(error.localizedDescription)")
+               return
+            }
+            guard let data = data else {
+               print("Empty Response")
+               return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(ModelFinancial.self, from: data)
+                print(jsonData)
+                DispatchQueue.main.async {
+                    completion(.success(jsonData))
+                }
+            }
+            catch let error {
+                completion(.failure(error))
+            }
+        }
+        dataTask?.resume()
+    }
     func fetchNewsData(for symbol: String, completion: @escaping (Result<News, Error>) -> Void){
         let newsURL = makeNewsUrl(for: symbol)
         dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
@@ -115,6 +152,7 @@ extension APIClient: NetworkServiceProtocol{
             do {
                 let decoder = JSONDecoder()
                 let jsonData = try decoder.decode(ModelAbout.self, from: data)
+                //print(jsonData)
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
@@ -151,7 +189,7 @@ extension APIClient: NetworkServiceProtocol{
     }
     
     func getStocksData(completion: @escaping (Result<[ModelStock], Error>) -> Void) {
-        let stockURL = makeNoticableUrl(for: "iexvolume?")
+        let stockURL = makeNoticableUrl(for: "mostactive?")
             dataTask = URLSession.shared.dataTask(with: stockURL!) { (data, response, error) in
                 if let error = error {
                    print("DataTask error: \(error.localizedDescription)")

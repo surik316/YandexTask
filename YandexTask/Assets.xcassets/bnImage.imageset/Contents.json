@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "TSLA.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "bnImage.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },

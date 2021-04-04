@@ -9,20 +9,22 @@ import Foundation
 import  UIKit
 
 struct ModelStock: Codable {
-    let symbol, companyName, primaryExchange: String
+    let symbol, companyName: String
     let latestPrice: Double?
-    let latestTime: String
-    let latestUpdate: Int?
     let previousClose: Double?
-    let previousVolume: Int?
     let change, changePercent: Double?
-    let avgTotalVolume: Int?
     let iexOpen: Double?
-    let iexOpenTime: Int?
     let iexClose: Double?
-    let iexCloseTime, marketCap: Int?
-    let week52High, week52Low, ytdChange: Double?
-    var logo: Data?
+    init() {
+        self.symbol = "SMTH"
+        self.companyName = "someName"
+        self.change = 111
+        self.latestPrice = 111
+        self.previousClose = 111
+        self.changePercent = 0.1
+        self.iexOpen = 111
+        self.iexClose = 111
+    }
 }
 
 typealias ListStock = [ModelStock]

@@ -17,6 +17,7 @@ class AddInfoViewController: UIViewController {
     let subtitleLabel = UILabel()
     var titleStackView = UIStackView()
     var tableView = UITableView()
+    var aboutView = AboutView()
     
     lazy var segmnetedControll : UISegmentedControl = {
         let controll = UISegmentedControl(items: presenter.getTitles())
@@ -29,10 +30,13 @@ class AddInfoViewController: UIViewController {
         view.backgroundColor = .white
         presenter.setView()
         presenter.getNewsData()
+        presenter.getAboutCompanyData()
+        presenter.getFinancialData()
+        navigationItem.titleView = titleStackView
         
         setupSegmentControl()
-        navigationItem.titleView = titleStackView
         setupTableView()
+        setupAboutView()
     }
     override func viewWillLayoutSubviews() {
           super.viewWillLayoutSubviews()
@@ -44,11 +48,12 @@ class AddInfoViewController: UIViewController {
               titleStackView.axis = .horizontal
               titleStackView.spacing = 20.0
           }
-      }
+    }
     private func setupSegmentControl(){
         view.addSubview(segmnetedControll)
         segmnetedControll.edgesToSuperview(excluding: .bottom,
                                            insets: UIEdgeInsets(top: 24, left: 20, bottom: 0, right: 20), usingSafeArea: true)
+        segmnetedControll.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         segmnetedControll.height(30)
     }
     private func setupTableView() {
@@ -63,6 +68,12 @@ class AddInfoViewController: UIViewController {
         setupTableViewConstraints()
     }
     
+    private func setupAboutView() {
+        view.addSubview(aboutView)
+        aboutView.isHidden = true
+        setupAboutViewConstraints()
+    }
+    
     private func setupTableViewConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -73,17 +84,48 @@ class AddInfoViewController: UIViewController {
             
         ])
     }
-    private func updateView() {
-            if segmnetedControll.selectedSegmentIndex == 0 {
-                //remove(asChildViewController: secondViewController)
-                //add(asChildViewController: firstViewController)
-            } else if (segmnetedControll.selectedSegmentIndex == 1) {
-//                remove(asChildViewController: firstViewController)
-//                add(asChildViewController: secondViewController)
-            }
+    
+    private func setupAboutViewConstraints() {
+        aboutView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            aboutView.topAnchor.constraint(equalTo: segmnetedControll.bottomAnchor, constant: 18),
+            aboutView.leadingAnchor.constraint(equalTo: segmnetedControll.leadingAnchor),
+            aboutView.trailingAnchor.constraint(equalTo: segmnetedControll.trailingAnchor),
+            aboutView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
+        ])
+    }
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex{
+        case 0:
+            tableView.isHidden = false
+            aboutView.isHidden = true
+        case 1:
+            tableView.isHidden = true
+            aboutView.isHidden = false
+        case 2:
+            print(2);
+        default:
+            print(-1)
+        }
     }
 }
 extension AddInfoViewController: AddInfoViewProtocol{
+    func gotAbout() {
+        DispatchQueue.main.async {
+            self.aboutView.corpNameLable.text = self.presenter.storageAbout?.companyName
+            
+            self.aboutView.sectorOfCompanyLable.text = self.presenter.storageAbout?.industry
+            self.aboutView.aboutCompany.text = self.presenter.storageAbout?.description
+            let country = (self.presenter.storageAbout?.country ?? "Country") + ", "
+            let state = (self.presenter.storageAbout?.state ?? "State") + ", "
+            let adress = (self.presenter.storageAbout?.address ?? "Adress") + ", "
+            let phone = self.presenter.storageAbout?.phone ?? "88005553535"
+            self.aboutView.placeAndPhoneLable.text = country + state + adress + phone
+            
+        }
+    }
+    
     func gotNews() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -109,7 +151,7 @@ extension AddInfoViewController: AddInfoViewProtocol{
     }
     
     func failure(error: Error) {
-        print("ViewController: \(error.localizedDescription)")
+        print("ViewController addInfo: \(error.localizedDescription)")
     }
 }
 extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UITextViewDelegate {
@@ -129,9 +171,8 @@ extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UI
         NewsCell
         cell.headLineLabel.text = presenter.storageNews?[indexPath.row].headline
         cell.summaryTextView.text = presenter.storageNews?[indexPath.row].summary
-        let timeInterval = Double(presenter.storageNews?[indexPath.row].datetime ?? 1617273044000)
-        let myNSDate = Date(timeIntervalSince1970: timeInterval)
-        
+        let timeInterval = Double(presenter.storageNews?[indexPath.row].datetime ?? 0)
+        let myNSDate = Date(timeIntervalSince1970: timeInterval/1000)
         let relatedText = (presenter.storageNews?[indexPath.row].source) ?? "No related"
         cell.sourceAndDataTimeLabel.text = relatedText + ", " + myNSDate.asString()
         
@@ -139,11 +180,10 @@ extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UI
         cell.urlTextView.attributedText = attributedString
         
         cell.newsImageView.kf.indicatorType = .activity
-        cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""))
+        cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""), placeholder: UIImage(named: "bnImage"))
+        //cell.newsImageView.kf.placeholder = UIImage(named: "bnImage")
         return cell
     }
-    
-    
 }
 
 

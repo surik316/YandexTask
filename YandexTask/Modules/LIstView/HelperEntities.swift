@@ -9,25 +9,19 @@ import Foundation
 
 func constist(arrayStocks: [ModelStock], stock: ModelStock) -> Bool{
 
-    if arrayStocks.count == 0 {
-        return false
-    }
-    else {
-        for i in 0...arrayStocks.count - 1{
-            if arrayStocks[i].companyName == stock.companyName {
-                return true
-            }
+    for item in arrayStocks{
+        
+        if item.companyName == stock.companyName {
+            print(stock.companyName)
+            print(arrayStocks)
+            return true
         }
     }
     return false
 }
 func delete( arrayStocks: inout [ModelStock], stock: ModelStock){
-    if arrayStocks.count != 0 {
-        for i in 0...arrayStocks.count - 1{
-            if arrayStocks[i].companyName == stock.companyName {
-                arrayStocks.remove(at: i)
-                return
-            }
-        }
+    
+    if let index = arrayStocks.firstIndex(where: {$0.companyName == stock.companyName}){
+        arrayStocks.remove(at: index)
     }
 }
