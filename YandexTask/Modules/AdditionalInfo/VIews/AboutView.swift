@@ -42,7 +42,7 @@ class AboutView: UIView {
         NSLayoutConstraint.activate([
             corpNameLable.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             corpNameLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 98),
-            corpNameLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -28),
+            corpNameLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -98),
         ])
     }
     
@@ -50,8 +50,10 @@ class AboutView: UIView {
         sectorOfCompanyLable.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sectorOfCompanyLable.topAnchor.constraint(equalTo: corpNameLable.bottomAnchor, constant: 28),
-            sectorOfCompanyLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 28),
-            sectorOfCompanyLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -28),
+//            sectorOfCompanyLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 28),
+//            sectorOfCompanyLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -28),
+            sectorOfCompanyLable.centerXAnchor.constraint(equalTo: centerXAnchor),
+            sectorOfCompanyLable.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 56)
         ])
     }
     
@@ -78,6 +80,7 @@ class AboutView: UIView {
         corpNameLable.numberOfLines = 2
         corpNameLable.minimumScaleFactor = 0.5
         corpNameLable.adjustsFontSizeToFitWidth = true
+        corpNameLable.textAlignment = .center
     }
     func configSectorOfCompanyLable() {
         sectorOfCompanyLable.font = UIFont(name: "Helvetica Bold", size: 24)

@@ -20,6 +20,7 @@ class CustomCell: UITableViewCell {
     var isFavourite: Bool = false
     var starIcon = UIImage(systemName: "star.square")
     var logoCompanyImageView = UIImageView ()
+    var starImageView = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,18 +30,22 @@ class CustomCell: UITableViewCell {
         self.addSubview(corporationNameLabel)
         self.addSubview(currentPriceLabel)
         self.addSubview(differenceLabel)
+        self.addSubview(starImageView)
         
         configureLogoView()
         configureAbbreviationLabel()
         configureCorporationNameLabel()
         configureCurrentPriceLabel()
         configureDifferenceLabel()
+        configureStarImageView()
+        
         
         setLogoViewConstraint()
         setAbbreviationLabelConstraint()
         setCorporationNameLabelConstraint()
         setCurrentPriceLabelConstraint()
         setDiffernceConstraint()
+        setStarImageViewConstraints()
        
     }
     func configureLogoView(){
@@ -59,7 +64,11 @@ class CustomCell: UITableViewCell {
         corporationNameLabel.adjustsFontSizeToFitWidth = false
         corporationNameLabel.lineBreakMode = .byTruncatingTail
     }
-    
+    func configureStarImageView() {
+        starImageView.image = UIImage(named: "star")
+        starImageView.isHidden = true
+        
+    }
     func configureCurrentPriceLabel() {
         currentPriceLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         currentPriceLabel.textAlignment = .right
@@ -81,7 +90,15 @@ class CustomCell: UITableViewCell {
             logoCompanyImageView.widthAnchor.constraint(equalTo: logoCompanyImageView.heightAnchor),
         ])
     }
-    
+    func setStarImageViewConstraints() {
+        starImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            starImageView.topAnchor.constraint(equalTo: abbreviationLabel.topAnchor, constant: 1),
+            starImageView.leadingAnchor.constraint(equalTo: abbreviationLabel.trailingAnchor, constant: 6),
+            starImageView.heightAnchor.constraint(equalToConstant: 16),
+            starImageView.widthAnchor.constraint(equalTo: starImageView.heightAnchor),
+        ])
+    }
     func setAbbreviationLabelConstraint() {
         abbreviationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -124,6 +141,7 @@ class CustomCell: UITableViewCell {
         if logoCompany != nil{
             logoCompanyImageView.image = logoCompany
         }
+        
     }
     
     required init?(coder: NSCoder) {

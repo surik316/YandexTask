@@ -15,6 +15,7 @@ struct ModelStock: Codable {
     let change, changePercent: Double?
     let iexOpen: Double?
     let iexClose: Double?
+    var isFavourite: Bool? = false;
     init() {
         self.symbol = "SMTH"
         self.companyName = "someName"

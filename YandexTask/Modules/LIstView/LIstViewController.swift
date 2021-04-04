@@ -160,7 +160,9 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeAddFavourite = UIContextualAction(style: .normal, title: "Добавить") { (action, view, completion) in
             if (!constist(arrayStocks: self.presenter.storageLikedStocks, stock: self.presenter.storageStocks[indexPath.row])){
+                self.presenter.storageStocks[indexPath.row].isFavourite = true
                 self.presenter.storageLikedStocks.append(self.presenter.storageStocks[indexPath.row])
+                tableView.reloadRows(at: [indexPath], with: .fade)
             }
         }
         swipeAddFavourite.image = UIImage(systemName: "hand.thumbsup.fill")
@@ -170,12 +172,16 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeDeleteFavourite = UIContextualAction(style: .normal, title: "удалить") { (action, view, completion) in
                 if self.isLableTappedFavourite {
+                    self.presenter.storageStocks[indexPath.row].isFavourite = false
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageLikedStocks[indexPath.row])
+                    
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
                 }
                 else{
+                    self.presenter.storageStocks[indexPath.row].isFavourite = false
+                    tableView.reloadRows(at: [indexPath], with: .fade)
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageStocks[indexPath.row])
                 }
         }
@@ -209,6 +215,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 print("error \(error)")
             }
         }
+        cell.starImageView.isHidden = !(stock?.isFavourite ?? false)
         cell.abbreviationLabel.text = stock?.symbol
         cell.corporationNameLabel.text = stock?.companyName
         cell.currentPriceLabel.text = "$"+String(format: "%.2f", stock?.latestPrice ?? 0)
