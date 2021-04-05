@@ -18,6 +18,7 @@ class AddInfoViewController: UIViewController {
     var titleStackView = UIStackView()
     var tableView = UITableView()
     var aboutView = AboutView()
+    var previousDayView = PreviousDayView()
     
     lazy var segmnetedControll : UISegmentedControl = {
         let controll = UISegmentedControl(items: presenter.getTitles())
@@ -31,12 +32,13 @@ class AddInfoViewController: UIViewController {
         presenter.setView()
         presenter.getNewsData()
         presenter.getAboutCompanyData()
-        presenter.getFinancialData()
+        presenter.getPreviousDayData()
         navigationItem.titleView = titleStackView
         
         setupSegmentControl()
         setupTableView()
         setupAboutView()
+        setupPreviousDayView()
     }
     override func viewWillLayoutSubviews() {
           super.viewWillLayoutSubviews()
@@ -73,7 +75,11 @@ class AddInfoViewController: UIViewController {
         aboutView.isHidden = true
         setupAboutViewConstraints()
     }
-    
+    private func setupPreviousDayView() {
+        view.addSubview(previousDayView)
+        previousDayView.isHidden = true
+        setupPreviousDayConstraint()
+    }
     private func setupTableViewConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -95,22 +101,75 @@ class AddInfoViewController: UIViewController {
             
         ])
     }
+    func setupPreviousDayConstraint() {
+        previousDayView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            previousDayView.topAnchor.constraint(equalTo: segmnetedControll.bottomAnchor, constant: 18),
+            previousDayView.leadingAnchor.constraint(equalTo: segmnetedControll.leadingAnchor),
+            previousDayView.trailingAnchor.constraint(equalTo: segmnetedControll.trailingAnchor),
+            previousDayView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -48)
+            
+        ])
+    }
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex{
         case 0:
             tableView.isHidden = false
             aboutView.isHidden = true
+            previousDayView.isHidden = true
         case 1:
             tableView.isHidden = true
             aboutView.isHidden = false
+            previousDayView.isHidden = true
         case 2:
-            print(2);
+            tableView.isHidden = true
+            aboutView.isHidden = true
+            previousDayView.isHidden = false
         default:
-            print(-1)
+            print("Other index")
         }
     }
 }
+extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+            UIApplication.shared.open(URL)
+            return false
+        }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.getStorageCount() ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "news", for:  indexPath) as!
+        NewsCell
+        cell.headLineLabel.text = presenter.storageNews?[indexPath.row].headline
+        cell.summaryTextView.text = presenter.storageNews?[indexPath.row].summary
+        let timeInterval = Double(presenter.storageNews?[indexPath.row].datetime ?? 0)
+        let myNSDate = Date(timeIntervalSince1970: timeInterval/1000)
+        let relatedText = (presenter.storageNews?[indexPath.row].source) ?? "No related"
+        cell.sourceAndDataTimeLabel.text = relatedText + ", " + myNSDate.asString()
+        
+        let attributedString = NSAttributedString.makeHyperlink(for: presenter.storageNews?[indexPath.row].url ?? "", in: cell.urlTextView.text ?? "", as: "Article")
+        cell.urlTextView.attributedText = attributedString
+        
+        cell.newsImageView.kf.indicatorType = .activity
+        cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""), placeholder: UIImage(named: "bnImage"))
+        return cell
+    }
+}
 extension AddInfoViewController: AddInfoViewProtocol{
+    func gotPreviousDay() {
+        DispatchQueue.main.async {
+            self.previousDayView.closePriceLabel.text = "$ " + String(self.presenter.storagePreviousDay?.closePrice ?? 0)
+            self.previousDayView.highestPriceLabel.text = "$ " + String(self.presenter.storagePreviousDay?.highPrice ?? 0)
+            self.previousDayView.lowestPriceLabel.text = "$ " + String(self.presenter.storagePreviousDay?.lowPrice ?? 0)
+            self.previousDayView.openPriceLabel.text = "$ " + String(self.presenter.storagePreviousDay?.openPrice ?? 0)
+        }
+    }
+    
     func gotAbout() {
         DispatchQueue.main.async {
             self.aboutView.corpNameLable.text = self.presenter.storageAbout?.companyName
@@ -152,37 +211,6 @@ extension AddInfoViewController: AddInfoViewProtocol{
     
     func failure(error: Error) {
         print("ViewController addInfo: \(error.localizedDescription)")
-    }
-}
-extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UITextViewDelegate {
-    
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-            UIApplication.shared.open(URL)
-            return false
-        }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.getStorageCount() ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "news", for:  indexPath) as!
-        NewsCell
-        cell.headLineLabel.text = presenter.storageNews?[indexPath.row].headline
-        cell.summaryTextView.text = presenter.storageNews?[indexPath.row].summary
-        let timeInterval = Double(presenter.storageNews?[indexPath.row].datetime ?? 0)
-        let myNSDate = Date(timeIntervalSince1970: timeInterval/1000)
-        let relatedText = (presenter.storageNews?[indexPath.row].source) ?? "No related"
-        cell.sourceAndDataTimeLabel.text = relatedText + ", " + myNSDate.asString()
-        
-        let attributedString = NSAttributedString.makeHyperlink(for: presenter.storageNews?[indexPath.row].url ?? "", in: cell.urlTextView.text ?? "", as: "Article")
-        cell.urlTextView.attributedText = attributedString
-        
-        cell.newsImageView.kf.indicatorType = .activity
-        cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""), placeholder: UIImage(named: "bnImage"))
-        //cell.newsImageView.kf.placeholder = UIImage(named: "bnImage")
-        return cell
     }
 }
 

@@ -16,7 +16,6 @@ class AboutView: UIView {
     var placeAndPhoneLable = UILabel()
     
     init() {
-        //didTapContinue = handleContinue
         super.init(frame: .zero)
         setup()
     }
@@ -50,8 +49,6 @@ class AboutView: UIView {
         sectorOfCompanyLable.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sectorOfCompanyLable.topAnchor.constraint(equalTo: corpNameLable.bottomAnchor, constant: 28),
-//            sectorOfCompanyLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 28),
-//            sectorOfCompanyLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -28),
             sectorOfCompanyLable.centerXAnchor.constraint(equalTo: centerXAnchor),
             sectorOfCompanyLable.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 56)
         ])

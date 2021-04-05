@@ -159,7 +159,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeAddFavourite = UIContextualAction(style: .normal, title: "Добавить") { (action, view, completion) in
-            if (!constist(arrayStocks: self.presenter.storageLikedStocks, stock: self.presenter.storageStocks[indexPath.row])){
+            if (!constist(arrayStocks: self.presenter.storageLikedStocks, stock: self.presenter.storageStocks[indexPath.row]) && !self.isLableTappedFavourite){
                 self.presenter.storageStocks[indexPath.row].isFavourite = true
                 self.presenter.storageLikedStocks.append(self.presenter.storageStocks[indexPath.row])
                 tableView.reloadRows(at: [indexPath], with: .fade)

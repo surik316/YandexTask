@@ -10,7 +10,6 @@ import UIKit
 
 class CustomCell: UITableViewCell {
     
-
     var logoCompany: UIImage?
     var messageView = UITextView()
     var abbreviationLabel =  UILabel()
@@ -48,27 +47,31 @@ class CustomCell: UITableViewCell {
         setStarImageViewConstraints()
        
     }
-    func configureLogoView(){
+    
+    func configureLogoView() {
         logoCompanyImageView.layer.cornerRadius = 10
         logoCompanyImageView.clipsToBounds = true
     }
-    func configureAbbreviationLabel(){
+    
+    func configureAbbreviationLabel() {
     
         abbreviationLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         abbreviationLabel.textAlignment = .left
     }
-    func configureCorporationNameLabel(){
+    
+    func configureCorporationNameLabel() {
         corporationNameLabel.font = UIFont(name: "Helvetica", size: 12)
         corporationNameLabel.adjustsFontSizeToFitWidth = false
         corporationNameLabel.minimumScaleFactor = 0.5
         corporationNameLabel.adjustsFontSizeToFitWidth = false
         corporationNameLabel.lineBreakMode = .byTruncatingTail
     }
+    
     func configureStarImageView() {
         starImageView.image = UIImage(named: "star")
         starImageView.isHidden = true
-        
     }
+    
     func configureCurrentPriceLabel() {
         currentPriceLabel.font = UIFont(name: "Helvetica Bold", size: 18)
         currentPriceLabel.textAlignment = .right
@@ -90,6 +93,7 @@ class CustomCell: UITableViewCell {
             logoCompanyImageView.widthAnchor.constraint(equalTo: logoCompanyImageView.heightAnchor),
         ])
     }
+    
     func setStarImageViewConstraints() {
         starImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

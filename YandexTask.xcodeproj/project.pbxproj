@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		731B8C922619CC1E00627E10 /* FinancialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B8C912619CC1E00627E10 /* FinancialsView.swift */; };
+		731B8C922619CC1E00627E10 /* PreviousDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B8C912619CC1E00627E10 /* PreviousDayView.swift */; };
 		73694D3A260E36FA00EFEAFB /* AddInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D39260E36FA00EFEAFB /* AddInfoViewController.swift */; };
 		73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D3C260E379E00EFEAFB /* AddInfoPresenter.swift */; };
 		73694D43260E37CB00EFEAFB /* AddInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D42260E37CB00EFEAFB /* AddInfoModel.swift */; };
@@ -32,7 +32,7 @@
 /* Begin PBXFileReference section */
 		3C8A51CD277723ED991CA79B /* Pods_YandexTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YandexTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		709315CF0E277DEF1B326934 /* Pods-YandexTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexTask.debug.xcconfig"; path = "Target Support Files/Pods-YandexTask/Pods-YandexTask.debug.xcconfig"; sourceTree = "<group>"; };
-		731B8C912619CC1E00627E10 /* FinancialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialsView.swift; sourceTree = "<group>"; };
+		731B8C912619CC1E00627E10 /* PreviousDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousDayView.swift; sourceTree = "<group>"; };
 		73694D39260E36FA00EFEAFB /* AddInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoViewController.swift; sourceTree = "<group>"; };
 		73694D3C260E379E00EFEAFB /* AddInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoPresenter.swift; sourceTree = "<group>"; };
 		73694D42260E37CB00EFEAFB /* AddInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoModel.swift; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 			children = (
 				739C90282617856200BC1C93 /* NewsCell.swift */,
 				739C902C2617858200BC1C93 /* AboutView.swift */,
-				731B8C912619CC1E00627E10 /* FinancialsView.swift */,
+				731B8C912619CC1E00627E10 /* PreviousDayView.swift */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 				7382F0A42617836700651E45 /* UIColor.swift in Sources */,
 				73C7A1F325F53BEB007BB42F /* ModuleBuilder.swift in Sources */,
 				73C7A1CA25F534E6007BB42F /* AppDelegate.swift in Sources */,
-				731B8C922619CC1E00627E10 /* FinancialsView.swift in Sources */,
+				731B8C922619CC1E00627E10 /* PreviousDayView.swift in Sources */,
 				739C90292617856200BC1C93 /* NewsCell.swift in Sources */,
 				7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */,
 				73C7A1F025F53BB8007BB42F /* ListPresenter.swift in Sources */,

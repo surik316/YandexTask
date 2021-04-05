@@ -11,6 +11,7 @@ protocol AddInfoViewProtocol: class{
     func succes(model: ModelStock)
     func gotNews()
     func gotAbout()
+    func gotPreviousDay()
     func failure(error: Error)
 }
 
@@ -21,10 +22,10 @@ protocol AddInfoPresenterProtocol: class {
     func getTitles() -> [String]
     func getStorageCount() -> Int?
     func getAboutCompanyData()
-    func getFinancialData()
+    func getPreviousDayData()
     var storageNews: [NewsElement]? {get}
     var storageAbout: ModelAbout? {get}
-    //func getNewsImage(url: String,  completion: @escaping (Result<Data,Error>) -> ())
+    var storagePreviousDay: ModelPreviousDay? {get}
 }
 
 class AddInfoPresenter: AddInfoPresenterProtocol {
@@ -34,8 +35,8 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
     var modelStock: ModelStock?
     var storageNews : [NewsElement]?
     var storageAbout: ModelAbout?
-    var storageFinancial: ModelFinancial?
-    let segmentTitles = [ "News", "About", "Financials"]
+    var storagePreviousDay: ModelPreviousDay?
+    let segmentTitles = [ "News", "About", "PreviousDay"]
     
     required init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock) {
         self.view = view
@@ -56,25 +57,13 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
             }
         }
     }
-//    func getNewsImage(url: String,  completion: @escaping (Result<Data,Error>) -> ()) {
-//        let urlNews = URL(string: url )  ?? apiClient.defalulturlNews
-//        apiClient.fetchDataImage(url: urlNews) { (result) in
-//                switch result{
-//                case.success(let data):
-//                    DispatchQueue.main.async {
-//                        completion(.success(data))
-//                    }
-//                case .failure(let error):
-//                    print("apiClinetLOAD:\(error.localizedDescription)")
-//                }
-//        }
-//    }
-    func getFinancialData() {
-        apiClient.fetchFinancialData(for: modelStock?.symbol ?? "") { (result) in
+    func getPreviousDayData() {
+        apiClient.fetchPreviousDayData(for: modelStock?.symbol ?? "") { (result) in
             switch result{
             
-            case .success(let financialData):
-                self.storageFinancial = financialData
+            case .success(let previousDayData):
+                self.storagePreviousDay = previousDayData
+                self.view?.gotPreviousDay()
             case .failure(let error):
                 print("fetctFinancialData Error: \(error)")
             }
