@@ -57,6 +57,7 @@ class NewsCell: UITableViewCell {
         urlTextView.isScrollEnabled = false
         
         summaryTextView.font = UIFont(name: "Helvetica", size: 14)
+        summaryTextView.isEditable = false
         stackView.addArrangedSubview(summaryTextView)
         stackView.addArrangedSubview(containerView)
         setupContainerViewConstraints()
