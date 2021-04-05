@@ -170,7 +170,7 @@ extension APIClient: NetworkServiceProtocol{
     }
     
     func getStocksData(completion: @escaping (Result<[ModelStock], Error>) -> Void) {
-        let stockURL = makeNoticableUrl(for: "mostactive?")
+        let stockURL = makeNoticableUrl(for: "iexvolume?")
             dataTask = URLSession.shared.dataTask(with: stockURL!) { (data, response, error) in
                 if let error = error {
                    print("DataTask error: \(error.localizedDescription)")
@@ -184,6 +184,7 @@ extension APIClient: NetworkServiceProtocol{
                do {
                 let decoder = JSONDecoder()
                 let jsonData = try decoder.decode(ListStock.self, from: data)
+                print(jsonData)
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }

@@ -19,7 +19,6 @@ protocol ListViewPresenterProtocol: class {
     func fetchStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
     var storageStocks: [ModelStock] {get set}
     var storageLikedStocks: [ModelStock] {get set}
-    //func load(url: URL, completion: @escaping (Result<Data, Error>)->Void)
 }
 
 class ListPresenter: ListViewPresenterProtocol {
@@ -35,20 +34,6 @@ class ListPresenter: ListViewPresenterProtocol {
         self.view = view
         self.apiClient = networkService
     }
-//    func load(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-//
-//        apiClient.fetchDataImage(url: url) { (result) in
-//
-//            switch result{
-//            case.success(let data):
-//                DispatchQueue.main.async {
-//                    completion(.success(data))
-//                }
-//            case .failure(let error):
-//                print("apiClinetLOAD:\(error.localizedDescription)")
-//            }
-//        }
-//    }
     
     func fetchStockData(completion: @escaping () -> ()) {
             apiClient.getStocksData() { [weak self] (result) in
@@ -68,10 +53,7 @@ class ListPresenter: ListViewPresenterProtocol {
 
             switch result{
             case .success(let logo):
-                
                 completion(.success(URL(string: logo.url)))
-                //self.load(url: URL(string: logo.url) ?? self.defaultUrl!, completion: completion)
-                
             case .failure(let error):
 
                 print("LOGO:\(error.localizedDescription)")
