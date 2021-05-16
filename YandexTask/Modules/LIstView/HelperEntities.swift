@@ -21,3 +21,9 @@ func delete( arrayStocks: inout [ModelStock], stock: ModelStock) {
         arrayStocks.remove(at: index)
     }
 }
+
+func change_isFavourite(arrayStocks: inout [ModelStock], stock: ModelStock) {
+    if let index = arrayStocks.firstIndex(where: {$0.companyName == stock.companyName}){
+        arrayStocks[index].isFavourite = false
+    }
+}

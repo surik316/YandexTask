@@ -172,12 +172,13 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeDeleteFavourite = UIContextualAction(style: .normal, title: "удалить") { (action, view, completion) in
                 if self.isLableTappedFavourite {
-                    self.presenter.storageStocks[indexPath.row].isFavourite = false
+                    change_isFavourite(arrayStocks: &self.presenter.storageStocks, stock: self.presenter.storageLikedStocks[indexPath.row])
+                    //self.presenter.storageStocks[indexPath.row].isFavourite = false
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageLikedStocks[indexPath.row])
-                    
+                        
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
-                    }
+                }
                 }
                 else{
                     self.presenter.storageStocks[indexPath.row].isFavourite = false
@@ -215,6 +216,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 print("error \(error)")
             }
         }
+        //print(stock?.isFavourite)
         cell.starImageView.isHidden = !(stock?.isFavourite ?? false)
         cell.abbreviationLabel.text = stock?.symbol
         cell.corporationNameLabel.text = stock?.companyName
