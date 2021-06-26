@@ -20,4 +20,4 @@
     pod install
     cmd+r в Xcode 
 ## Screencast
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![first](https://user-images.githubusercontent.com/60616688/123515084-ddd78d00-d69e-11eb-8c2b-ef597c48cd7a.gif)
