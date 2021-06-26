@@ -21,5 +21,5 @@
     pod install
     cmd+r в Xcode 
 ## Screencast
-![IMG_5927]]<img src="https://user-images.githubusercontent.com/60616688/123515486-3fe4c200-d6a0-11eb-9489-69614a0b8423.PNG" width="400" height="790">
+![IMG_5927]<img src="https://user-images.githubusercontent.com/60616688/123515486-3fe4c200-d6a0-11eb-9489-69614a0b8423.PNG" width="400" height="790">
 
