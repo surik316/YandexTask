@@ -10,16 +10,17 @@ import UIKit
 
 class CustomCell: UITableViewCell {
     
-    var logoCompany: UIImage?
-    var messageView = UITextView()
-    var abbreviationLabel =  UILabel()
-    var corporationNameLabel = UILabel()
-    var currentPriceLabel = UILabel()
-    var differenceLabel = UILabel()
-    var isFavourite: Bool = false
-    var starIcon = UIImage(systemName: "star.square")
-    var logoCompanyImageView = UIImageView ()
-    var starImageView = UIImageView()
+     var logoCompany: UIImage?
+     let messageView = UITextView()
+     let abbreviationLabel =  UILabel()
+     let corporationNameLabel = UILabel()
+     let currentPriceLabel = UILabel()
+     let differenceLabel = UILabel()
+     var isFavourite: Bool = false
+     let starIcon = UIImage(systemName: "star.square")
+     let logoCompanyImageView = UIImageView ()
+     let starImageView = UIImageView()
+     let buttonStar = UIButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,61 +31,37 @@ class CustomCell: UITableViewCell {
         self.addSubview(currentPriceLabel)
         self.addSubview(differenceLabel)
         self.addSubview(starImageView)
+        self.addSubview(buttonStar)
+        contentView.isUserInteractionEnabled = false
         
         configureLogoView()
         configureAbbreviationLabel()
         configureCorporationNameLabel()
         configureCurrentPriceLabel()
         configureDifferenceLabel()
-        configureStarImageView()
-        
-        
-        setLogoViewConstraint()
-        setAbbreviationLabelConstraint()
-        setCorporationNameLabelConstraint()
-        setCurrentPriceLabelConstraint()
-        setDiffernceConstraint()
-        setStarImageViewConstraints()
-       
+        configureStarButton()
+
     }
-    
-    func configureLogoView() {
+    private func configureStarButton() {
+        buttonStar.translatesAutoresizingMaskIntoConstraints = false
+        buttonStar.setImage(UIImage(named: "emptyStar"), for: .normal)
+        buttonStar.addTarget(self, action: #selector(starTapped), for: .touchUpInside)
+        buttonStar.resignFirstResponder()
+        NSLayoutConstraint.activate([
+            buttonStar.topAnchor.constraint(equalTo: abbreviationLabel.topAnchor, constant: 1),
+            buttonStar.leadingAnchor.constraint(equalTo: abbreviationLabel.trailingAnchor, constant: 6),
+            buttonStar.heightAnchor.constraint(equalToConstant: 16),
+            buttonStar.widthAnchor.constraint(equalTo: starImageView.heightAnchor)
+            
+        ])
+    }
+    @objc func starTapped() {
+        
+        print("asdasd")
+    }
+    private func configureLogoView() {
         logoCompanyImageView.layer.cornerRadius = 10
         logoCompanyImageView.clipsToBounds = true
-    }
-    
-    func configureAbbreviationLabel() {
-    
-        abbreviationLabel.font = UIFont(name: "Helvetica Bold", size: 18)
-        abbreviationLabel.textAlignment = .left
-    }
-    
-    func configureCorporationNameLabel() {
-        corporationNameLabel.font = UIFont(name: "Helvetica", size: 12)
-        corporationNameLabel.adjustsFontSizeToFitWidth = false
-        corporationNameLabel.minimumScaleFactor = 0.5
-        corporationNameLabel.adjustsFontSizeToFitWidth = false
-        corporationNameLabel.lineBreakMode = .byTruncatingTail
-    }
-    
-    func configureStarImageView() {
-        starImageView.image = UIImage(named: "star")
-        starImageView.isHidden = true
-    }
-    
-    func configureCurrentPriceLabel() {
-        currentPriceLabel.font = UIFont(name: "Helvetica Bold", size: 18)
-        currentPriceLabel.textAlignment = .right
-        currentPriceLabel.sizeToFit()
-    }
-    
-    func configureDifferenceLabel() {
-        differenceLabel.font = UIFont(name: "Helvetica", size: 12)
-        differenceLabel.textAlignment = .right
-        differenceLabel.sizeToFit()
-    }
-    
-    func setLogoViewConstraint() {
         logoCompanyImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             logoCompanyImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -94,23 +71,23 @@ class CustomCell: UITableViewCell {
         ])
     }
     
-    func setStarImageViewConstraints() {
-        starImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            starImageView.topAnchor.constraint(equalTo: abbreviationLabel.topAnchor, constant: 1),
-            starImageView.leadingAnchor.constraint(equalTo: abbreviationLabel.trailingAnchor, constant: 6),
-            starImageView.heightAnchor.constraint(equalToConstant: 16),
-            starImageView.widthAnchor.constraint(equalTo: starImageView.heightAnchor),
-        ])
-    }
-    func setAbbreviationLabelConstraint() {
+    private func configureAbbreviationLabel() {
+    
+        abbreviationLabel.font = UIFont(name: "Helvetica Bold", size: 18)
+        abbreviationLabel.textAlignment = .left
         abbreviationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             abbreviationLabel.leadingAnchor.constraint(equalTo: self.logoCompanyImageView.trailingAnchor, constant: 12),
             abbreviationLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14),
         ])
     }
-    func setCorporationNameLabelConstraint() {
+    
+    private func configureCorporationNameLabel() {
+        corporationNameLabel.font = UIFont(name: "Helvetica", size: 12)
+        corporationNameLabel.adjustsFontSizeToFitWidth = false
+        corporationNameLabel.minimumScaleFactor = 0.5
+        corporationNameLabel.adjustsFontSizeToFitWidth = false
+        corporationNameLabel.lineBreakMode = .byTruncatingTail
         corporationNameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             corporationNameLabel.leadingAnchor.constraint(equalTo: self.abbreviationLabel.leadingAnchor),
@@ -120,14 +97,21 @@ class CustomCell: UITableViewCell {
         corporationNameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
     }
     
-    func setCurrentPriceLabelConstraint() {
+    private func configureCurrentPriceLabel() {
+        currentPriceLabel.font = UIFont(name: "Helvetica Bold", size: 18)
+        currentPriceLabel.textAlignment = .right
+        currentPriceLabel.sizeToFit()
         currentPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             currentPriceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -17),
             currentPriceLabel.topAnchor.constraint(equalTo: self.abbreviationLabel.topAnchor)
         ])
     }
-    func setDiffernceConstraint() {
+    
+    private func configureDifferenceLabel() {
+        differenceLabel.font = UIFont(name: "Helvetica", size: 12)
+        differenceLabel.textAlignment = .right
+        differenceLabel.sizeToFit()
         differenceLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             differenceLabel.topAnchor.constraint(equalTo: self.currentPriceLabel.bottomAnchor),

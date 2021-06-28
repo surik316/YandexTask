@@ -76,6 +76,7 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         
         view.addSubview(headerStock)
         view.addSubview(headerFavourite)
+        
         headerStock.translatesAutoresizingMaskIntoConstraints = false
         headerStock.text = "Stocks"
         headerStock.font = UIFont(name: "Helvetica-Bold", size: 28)
@@ -182,7 +183,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 }
                 else{
                     self.presenter.storageStocks[indexPath.row].isFavourite = false
-                    tableView.reloadRows(at: [indexPath], with: .fade)
+                    tableView.reloadRows(at: [indexPath], with: .none)
                     YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageStocks[indexPath.row])
                 }
         }
@@ -216,11 +217,11 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 print("error \(error)")
             }
         }
-        //print(stock?.isFavourite)
+        cell.buttonStar.tag = indexPath.row
         cell.starImageView.isHidden = !(stock?.isFavourite ?? false)
         cell.abbreviationLabel.text = stock?.symbol
         cell.corporationNameLabel.text = stock?.companyName
-        cell.currentPriceLabel.text = "$"+String(format: "%.2f", stock?.latestPrice ?? 0)
+        cell.currentPriceLabel.text = "$" + String(format: "%.2f", stock?.latestPrice ?? 0)
         let change = String(format: "%.2f", abs((stock?.iexClose ?? 0) - (stock?.previousClose ?? 0)))
         let mod_iexClose = (stock?.iexClose ?? 0).truncatingRemainder(dividingBy: (stock?.previousClose ?? 0))
         let percentage = String(format: "%.2f", abs( mod_iexClose / (stock?.previousClose ?? 0)))
@@ -259,8 +260,7 @@ extension ListViewController{
         label.textColor = .systemGray3
     }
     
-    @objc
-        func stockLabelTapped(sender:UITapGestureRecognizer) {
+    @objc func stockLabelTapped(sender:UITapGestureRecognizer) {
             isLableTappedFavourite = false
             setToDefaultLabelConfig(label: headerFavourite)
             setToSelectedLabel(label: headerStock)
@@ -268,8 +268,7 @@ extension ListViewController{
                 self.tableView.reloadData()
             }
         }
-    @objc
-        func favouriteLabelTapped(sender: UITapGestureRecognizer) {
+    @objc func favouriteLabelTapped(sender: UITapGestureRecognizer) {
             
             isLableTappedFavourite = true
             setToDefaultLabelConfig(label: headerStock)
