@@ -11,12 +11,17 @@
 		73694D3A260E36FA00EFEAFB /* AddInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D39260E36FA00EFEAFB /* AddInfoViewController.swift */; };
 		73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D3C260E379E00EFEAFB /* AddInfoPresenter.swift */; };
 		73694D43260E37CB00EFEAFB /* AddInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73694D42260E37CB00EFEAFB /* AddInfoModel.swift */; };
+		737F2D5626A35C4500303BB9 /* ListViewTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F2D5526A35C4500303BB9 /* ListViewTableViewDataSource.swift */; };
+		737F2D5826A36FC000303BB9 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F2D5726A36FC000303BB9 /* HapticsManager.swift */; };
+		737F2D5A26A3782300303BB9 /* ListTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F2D5926A3782300303BB9 /* ListTableViewHeader.swift */; };
+		737FDF10269095B40017C7A9 /* LIstViewTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737FDF0F269095B40017C7A9 /* LIstViewTableViewDelegate.swift */; };
 		7382F0A02617835C00651E45 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F09F2617835C00651E45 /* Date.swift */; };
 		7382F0A42617836700651E45 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F0A32617836700651E45 /* UIColor.swift */; };
 		7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F0A62617837600651E45 /* NSAttributedString.swift */; };
 		7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7382F0A9261783F700651E45 /* HelperEntities.swift */; };
 		739C90292617856200BC1C93 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739C90282617856200BC1C93 /* NewsCell.swift */; };
 		739C902D2617858200BC1C93 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739C902C2617858200BC1C93 /* AboutView.swift */; };
+		73B0CEC22697534A00E944A0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B0CEC12697534A00E944A0 /* Colors.swift */; };
 		73C7A1CA25F534E6007BB42F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1C925F534E6007BB42F /* AppDelegate.swift */; };
 		73C7A1D325F534E9007BB42F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73C7A1D225F534E9007BB42F /* Assets.xcassets */; };
 		73C7A1D625F534E9007BB42F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C7A1D425F534E9007BB42F /* LaunchScreen.storyboard */; };
@@ -36,12 +41,17 @@
 		73694D39260E36FA00EFEAFB /* AddInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoViewController.swift; sourceTree = "<group>"; };
 		73694D3C260E379E00EFEAFB /* AddInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoPresenter.swift; sourceTree = "<group>"; };
 		73694D42260E37CB00EFEAFB /* AddInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoModel.swift; sourceTree = "<group>"; };
+		737F2D5526A35C4500303BB9 /* ListViewTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewTableViewDataSource.swift; sourceTree = "<group>"; };
+		737F2D5726A36FC000303BB9 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		737F2D5926A3782300303BB9 /* ListTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewHeader.swift; sourceTree = "<group>"; };
+		737FDF0F269095B40017C7A9 /* LIstViewTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIstViewTableViewDelegate.swift; sourceTree = "<group>"; };
 		7382F09F2617835C00651E45 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		7382F0A32617836700651E45 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		7382F0A62617837600651E45 /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		7382F0A9261783F700651E45 /* HelperEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HelperEntities.swift; path = Modules/LIstView/HelperEntities.swift; sourceTree = "<group>"; };
 		739C90282617856200BC1C93 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		739C902C2617858200BC1C93 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		73B0CEC12697534A00E944A0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		73C7A1C625F534E6007BB42F /* YandexTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandexTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C7A1C925F534E6007BB42F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73C7A1D225F534E9007BB42F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,6 +95,7 @@
 				7382F09F2617835C00651E45 /* Date.swift */,
 				7382F0A32617836700651E45 /* UIColor.swift */,
 				7382F0A62617837600651E45 /* NSAttributedString.swift */,
+				73B0CEC12697534A00E944A0 /* Colors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -121,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				73C7A1C925F534E6007BB42F /* AppDelegate.swift */,
-				73C7A1F225F53BEB007BB42F /* ModuleBuilder.swift */,
+				737F2D5726A36FC000303BB9 /* HapticsManager.swift */,
 				73C7A1F825F53C34007BB42F /* Modules */,
 				73C7A1F525F53C0A007BB42F /* APIClient.swift */,
 				7382F0A9261783F700651E45 /* HelperEntities.swift */,
@@ -136,6 +147,7 @@
 		73C7A1F825F53C34007BB42F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				73C7A1F225F53BEB007BB42F /* ModuleBuilder.swift */,
 				73694D38260E36AD00EFEAFB /* AdditionalInfo */,
 				73C7A1F925F53C46007BB42F /* LIstView */,
 			);
@@ -156,7 +168,10 @@
 		73C7A21125F55FBA007BB42F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				737F2D5926A3782300303BB9 /* ListTableViewHeader.swift */,
 				73C7A21225F55FD0007BB42F /* CustomCell.swift */,
+				737FDF0F269095B40017C7A9 /* LIstViewTableViewDelegate.swift */,
+				737F2D5526A35C4500303BB9 /* ListViewTableViewDataSource.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -298,14 +313,19 @@
 				73C7A1CA25F534E6007BB42F /* AppDelegate.swift in Sources */,
 				731B8C922619CC1E00627E10 /* PreviousDayView.swift in Sources */,
 				739C90292617856200BC1C93 /* NewsCell.swift in Sources */,
+				737F2D5626A35C4500303BB9 /* ListViewTableViewDataSource.swift in Sources */,
 				7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */,
+				737F2D5826A36FC000303BB9 /* HapticsManager.swift in Sources */,
 				73C7A1F025F53BB8007BB42F /* ListPresenter.swift in Sources */,
 				73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */,
 				7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */,
 				73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */,
+				737F2D5A26A3782300303BB9 /* ListTableViewHeader.swift in Sources */,
+				73B0CEC22697534A00E944A0 /* Colors.swift in Sources */,
 				73C7A21325F55FD0007BB42F /* CustomCell.swift in Sources */,
 				73694D3A260E36FA00EFEAFB /* AddInfoViewController.swift in Sources */,
 				73C7A1F625F53C0A007BB42F /* APIClient.swift in Sources */,
+				737FDF10269095B40017C7A9 /* LIstViewTableViewDelegate.swift in Sources */,
 				7382F0A02617835C00651E45 /* Date.swift in Sources */,
 				73694D43260E37CB00EFEAFB /* AddInfoModel.swift in Sources */,
 			);

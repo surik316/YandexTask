@@ -18,6 +18,7 @@ protocol NetworkServiceProtocol{
 class APIClient {
     
     private var dataTask: URLSessionDataTask?
+    private let decoder = JSONDecoder()
     
     private func makeNoticableUrl(for symbol: String) -> URL?{
         var result = URLComponents()
@@ -54,7 +55,6 @@ class APIClient {
     }
     
     private func makePreviousDayUrl(for symbol: String) -> URL? {
-        //https://cloud.iexapis.com/stable/time-series/REPORTED_FINANCIALS/AAP
         var result = URLComponents()
         result.scheme = "https"
         result.host = "cloud.iexapis.com"
@@ -82,8 +82,7 @@ extension APIClient: NetworkServiceProtocol{
                return
             }
             do {
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(ModelPreviousDay.self, from: data)
+                let jsonData = try self.decoder.decode(ModelPreviousDay.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
@@ -107,8 +106,7 @@ extension APIClient: NetworkServiceProtocol{
                return
             }
             do {
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(News.self, from: data)
+                let jsonData = try self.decoder.decode(News.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
@@ -132,8 +130,7 @@ extension APIClient: NetworkServiceProtocol{
                return
             }
             do {
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(ModelAbout.self, from: data)
+                let jsonData = try self.decoder.decode(ModelAbout.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
@@ -158,8 +155,7 @@ extension APIClient: NetworkServiceProtocol{
                return
             }
             do {
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(ModelLogo.self, from: data)
+                let jsonData = try self.decoder.decode(ModelLogo.self, from: data)
                 completion(.success(jsonData))
             }
             catch let error {
@@ -182,9 +178,7 @@ extension APIClient: NetworkServiceProtocol{
                }
                print("Response status code: \(response.statusCode)")
                do {
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(ListStock.self, from: data)
-                print(jsonData)
+                let jsonData = try self.decoder.decode(ListStock.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }

@@ -12,13 +12,12 @@ import Kingfisher
 class ListViewController: UIViewController, UISearchBarDelegate{
     
     var presenter: ListViewPresenterProtocol!
-    private let searchController = UISearchController(searchResultsController: nil)
-    private let headerStock = UILabel()
-    private let headerFavourite = UILabel()
+    let searchController = UISearchController(searchResultsController: nil)
+    private let headerView = ListTableViewHeader()
     var tableView = UITableView()
     var isLableTappedFavourite = false
     var filteredStocks: [ModelStock]?
-    
+    private let refreshControl = UIRefreshControl()
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -29,17 +28,21 @@ class ListViewController: UIViewController, UISearchBarDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        UserDefaults.standard.setValue("pk_5e1cf781419e4cc79ccf56075a4cbf6f", forKey: "apiToken")
+        view.backgroundColor = Colors.backgroundColor
         navigationItem.hidesSearchBarWhenScrolling = true
         navigationItem.searchController = searchController
         
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
         loadStocksData()
         setupTableView()
-        setupHeaders()
+        setupHeaderView()
         setupSearchController()
     }
-    
+    @objc func refresh(_ sender: UIRefreshControl) {
+        sender.endRefreshing()
+        loadStocksData()
+    }
     func setupSearchController(){
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -65,42 +68,19 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         tableView.showsVerticalScrollIndicator = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),//верх
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16), //лево
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16), // право
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)//низ
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    func setupHeaders(){
-        
-        view.addSubview(headerStock)
-        view.addSubview(headerFavourite)
-        
-        headerStock.translatesAutoresizingMaskIntoConstraints = false
-        headerStock.text = "Stocks"
-        headerStock.font = UIFont(name: "Helvetica-Bold", size: 28)
-        headerStock.isUserInteractionEnabled = true
+    func setupHeaderView(){
         let tapStockHeader = UITapGestureRecognizer(target: self, action:
                                                         #selector(ListViewController.stockLabelTapped))
-        headerStock.addGestureRecognizer(tapStockHeader)
-        
-        headerFavourite.translatesAutoresizingMaskIntoConstraints = false
-        headerFavourite.text = "Favourite"
-        headerFavourite.font = UIFont(name: "Helvetica Bold", size: 18)
-        headerFavourite.textColor = .systemGray3
-        headerFavourite.isUserInteractionEnabled = true
+        headerView.headerStock.addGestureRecognizer(tapStockHeader)
         let tapFavouriteHeader = UITapGestureRecognizer(target: self, action: #selector(ListViewController.favouriteLabelTapped))
-        headerFavourite.addGestureRecognizer(tapFavouriteHeader)
-        
-        NSLayoutConstraint.activate([
-            headerStock.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 4),
-            headerStock.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20),
-            
-            headerFavourite.leadingAnchor.constraint(equalTo: headerStock.trailingAnchor, constant: 20),
-            headerFavourite.bottomAnchor.constraint(equalTo: headerStock.bottomAnchor),
-            
-        ])
+        headerView.headerFavourite.addGestureRecognizer(tapFavouriteHeader)
     }
     
     private func filterStocks(for searchText: String) {
@@ -151,45 +131,11 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
         navigationController?.pushViewController(viewController, animated: true)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let headerView = UIView()
-            headerView.backgroundColor = view.backgroundColor
-            return headerView
-        }
+        
+        return headerView
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8
-    }
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeAddFavourite = UIContextualAction(style: .normal, title: "Добавить") { (action, view, completion) in
-            if (!constist(arrayStocks: self.presenter.storageLikedStocks, stock: self.presenter.storageStocks[indexPath.row]) && !self.isLableTappedFavourite){
-                self.presenter.storageStocks[indexPath.row].isFavourite = true
-                self.presenter.storageLikedStocks.append(self.presenter.storageStocks[indexPath.row])
-                tableView.reloadRows(at: [indexPath], with: .fade)
-            }
-        }
-        swipeAddFavourite.image = UIImage(systemName: "hand.thumbsup.fill")
-        swipeAddFavourite.backgroundColor = .systemGreen
-        return UISwipeActionsConfiguration(actions: [swipeAddFavourite])
-    }
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeDeleteFavourite = UIContextualAction(style: .normal, title: "удалить") { (action, view, completion) in
-                if self.isLableTappedFavourite {
-                    change_isFavourite(arrayStocks: &self.presenter.storageStocks, stock: self.presenter.storageLikedStocks[indexPath.row])
-                    //self.presenter.storageStocks[indexPath.row].isFavourite = false
-                    YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageLikedStocks[indexPath.row])
-                        
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                }
-                }
-                else{
-                    self.presenter.storageStocks[indexPath.row].isFavourite = false
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                    YandexTask.delete(arrayStocks: &self.presenter.storageLikedStocks, stock:  self.presenter.storageStocks[indexPath.row])
-                }
-        }
-        swipeDeleteFavourite.image = UIImage(systemName: "delete.left.fill")
-        swipeDeleteFavourite.backgroundColor = .red
-        return UISwipeActionsConfiguration(actions: [swipeDeleteFavourite])
+        return 50
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "custom", for:  indexPath) as!
@@ -207,7 +153,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 stock = presenter.storageLikedStocks[indexPath.row]
             }
         }
-        presenter.fetchStocksImage(symbol: stock?.symbol ?? "BOWX") { (result) in
+        presenter.fetchStocksImage(symbol: (stock?.symbol)!) { (result) in
             switch result{
             case .success(let url):
                 DispatchQueue.main.async {
@@ -217,8 +163,9 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
                 print("error \(error)")
             }
         }
-        cell.buttonStar.tag = indexPath.row
-        cell.starImageView.isHidden = !(stock?.isFavourite ?? false)
+        cell.tag = indexPath.row
+        cell.buttonStar.addTarget(cell, action: #selector(cell.starButtonClick), for: .touchUpInside)
+        cell.tapDelegate = self
         cell.abbreviationLabel.text = stock?.symbol
         cell.corporationNameLabel.text = stock?.companyName
         cell.currentPriceLabel.text = "$" + String(format: "%.2f", stock?.latestPrice ?? 0)
@@ -234,8 +181,19 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate{
             cell.differenceLabel.textColor = UIColor.rgba(178, 36, 36)
         }
         cell.layer.cornerRadius = 16
-        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor.rgba(240, 244, 247) : .white
+        cell.backgroundColor = indexPath.row % 2 == 0 ? Colors.evenCellColor : Colors.oddCellColor
         return cell
+    }
+    func starTapped(cell: CustomCell) {
+        HapticsManager.shared.selectionVibrate()
+        if !cell.isFavourite {
+            cell.buttonStar.setImage(UIImage(named: "star"), for: .normal)
+            cell.isFavourite = true
+        } else {
+            cell.buttonStar.setImage(UIImage(named: "emptyStar"), for: .normal)
+            cell.isFavourite = false
+
+        }
     }
 }
 extension ListViewController: UISearchResultsUpdating {
@@ -249,34 +207,31 @@ extension ListViewController{
     
     func setToSelectedLabel(label: UILabel){
         label.font = UIFont(name: "Helvetica Bold", size: 28)
-        label.textColor = .black
-        label.transform = label.transform.scaledBy(x: 0.35, y: 0.35)
-        UIView.animate(withDuration: 0.5) {
-             label.transform = CGAffineTransform(scaleX: 1, y: 1)
-         }
+        label.textColor = Colors.selectedLabelColor
     }
     func setToDefaultLabelConfig(label: UILabel){
         label.font = UIFont(name: "Helvetica Bold", size: 18)
-        label.textColor = .systemGray3
+        label.textColor = Colors.unselectedLabelColor
     }
     
     @objc func stockLabelTapped(sender:UITapGestureRecognizer) {
-            isLableTappedFavourite = false
-            setToDefaultLabelConfig(label: headerFavourite)
-            setToSelectedLabel(label: headerStock)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        isLableTappedFavourite = false
+        setToDefaultLabelConfig(label: headerView.headerFavourite)
+        setToSelectedLabel(label: headerView.headerStock)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
+    }
     @objc func favouriteLabelTapped(sender: UITapGestureRecognizer) {
+        
             
-            isLableTappedFavourite = true
-            setToDefaultLabelConfig(label: headerStock)
-            setToSelectedLabel(label: headerFavourite)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        isLableTappedFavourite = true
+        setToDefaultLabelConfig(label: headerView.headerStock)
+        setToSelectedLabel(label: headerView.headerFavourite)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
+    }
 }
 
 extension ListViewController: ListViewProtocol{

@@ -19,7 +19,7 @@ class CustomCell: UITableViewCell {
      var isFavourite: Bool = false
      let starIcon = UIImage(systemName: "star.square")
      let logoCompanyImageView = UIImageView ()
-     let starImageView = UIImageView()
+     weak var tapDelegate: ListViewController!
      let buttonStar = UIButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -30,7 +30,7 @@ class CustomCell: UITableViewCell {
         self.addSubview(corporationNameLabel)
         self.addSubview(currentPriceLabel)
         self.addSubview(differenceLabel)
-        self.addSubview(starImageView)
+        //self.addSubview(starImageView)
         self.addSubview(buttonStar)
         contentView.isUserInteractionEnabled = false
         
@@ -45,19 +45,14 @@ class CustomCell: UITableViewCell {
     private func configureStarButton() {
         buttonStar.translatesAutoresizingMaskIntoConstraints = false
         buttonStar.setImage(UIImage(named: "emptyStar"), for: .normal)
-        buttonStar.addTarget(self, action: #selector(starTapped), for: .touchUpInside)
         buttonStar.resignFirstResponder()
         NSLayoutConstraint.activate([
             buttonStar.topAnchor.constraint(equalTo: abbreviationLabel.topAnchor, constant: 1),
             buttonStar.leadingAnchor.constraint(equalTo: abbreviationLabel.trailingAnchor, constant: 6),
             buttonStar.heightAnchor.constraint(equalToConstant: 16),
-            buttonStar.widthAnchor.constraint(equalTo: starImageView.heightAnchor)
+            buttonStar.widthAnchor.constraint(equalTo: buttonStar.heightAnchor)
             
         ])
-    }
-    @objc func starTapped() {
-        
-        print("asdasd")
     }
     private func configureLogoView() {
         logoCompanyImageView.layer.cornerRadius = 10
@@ -70,7 +65,10 @@ class CustomCell: UITableViewCell {
             logoCompanyImageView.widthAnchor.constraint(equalTo: logoCompanyImageView.heightAnchor),
         ])
     }
-    
+    @objc func starButtonClick() {
+        
+        tapDelegate.starTapped(cell: self)
+    }
     private func configureAbbreviationLabel() {
     
         abbreviationLabel.font = UIFont(name: "Helvetica Bold", size: 18)
@@ -137,4 +135,3 @@ class CustomCell: UITableViewCell {
     }
     
 }
-

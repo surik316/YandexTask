@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol ListViewProtocol: class{
+protocol ListViewProtocol: AnyObject{
     func succes()
     func failure(error: Error)
 }
 
-protocol ListViewPresenterProtocol: class {
+protocol ListViewPresenterProtocol: AnyObject {
     init(view: ListViewProtocol, networkService: NetworkServiceProtocol)
     func fetchStockData(completion: @escaping () -> ())
     func fetchStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
@@ -28,7 +28,7 @@ class ListPresenter: ListViewPresenterProtocol {
     var apiClient : NetworkServiceProtocol!
     var storageStocks = [ModelStock]()
     var storageLikedStocks = [ModelStock]()
-    
+    var filteredStocks: [ModelStock]?
     let defaultUrl = URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/768px-No_image_available.svg.png")
     required init(view: ListViewProtocol, networkService: NetworkServiceProtocol) {
         self.view = view
