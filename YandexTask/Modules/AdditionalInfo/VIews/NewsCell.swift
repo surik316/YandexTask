@@ -37,11 +37,10 @@ class NewsCell: UITableViewCell {
         newsImageView.clipsToBounds  = true
     }
     func setupStackView() {
-        
         stackView.layer.cornerRadius = 23
         stackView.clipsToBounds  = true
-        summaryTextView.backgroundColor = UIColor(red: 240/255, green: 244/255, blue: 247/255, alpha: 1)
-        containerView.backgroundColor = UIColor(red: 240/255, green: 244/255, blue: 247/255, alpha: 1)
+        summaryTextView.backgroundColor = Colors.newsDescriptionColor
+        containerView.backgroundColor = Colors.newsDescriptionColor
         
         urlTextView.font = UIFont(name: "Helvetica", size: 12)
         sourceAndDataTimeLabel.font = UIFont(name: "Helvetica", size: 12)
@@ -53,7 +52,7 @@ class NewsCell: UITableViewCell {
         urlTextView.text = "Article"
         urlTextView.textColor = .black
         urlTextView.textAlignment = .center
-        urlTextView.backgroundColor = UIColor(red: 240/255, green: 244/255, blue: 247/255, alpha: 1)
+        urlTextView.backgroundColor = Colors.newsDescriptionColor
         urlTextView.isScrollEnabled = false
         
         summaryTextView.font = UIFont(name: "Helvetica", size: 14)

@@ -59,7 +59,10 @@ class PreviousDayView: UIView {
         setupView(subView: lowestPriceView, labelName: lowestPriceNameLabel, labelPrice: lowestPriceLabel)
         setupView(subView: openPriceView, labelName: openPriceNameLabel, labelPrice: openPriceLabel)
         setupView(subView: closePriceView, labelName: closePriceNameLabel, labelPrice: closePriceLabel)
-
+        highestPriceView.backgroundColor = Colors.evenCellColor
+        lowestPriceView.backgroundColor = Colors.evenCellColor
+        openPriceView.backgroundColor = Colors.evenCellColor
+        closePriceView.backgroundColor = Colors.evenCellColor
     }
     func setupLabels() {
         closePriceNameLabel.text = "Close price:"

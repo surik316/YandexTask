@@ -20,6 +20,7 @@ class AboutView: UIView {
         setup()
     }
     func setup() {
+        aboutCompany.backgroundColor = Colors.backgroundColor
         addSubview(corpNameLable)
         addSubview(sectorOfCompanyLable)
         addSubview(aboutCompany)

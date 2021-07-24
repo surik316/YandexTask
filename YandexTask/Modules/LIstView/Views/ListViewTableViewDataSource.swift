@@ -7,15 +7,16 @@
 
 import Foundation
 import UIKit
-class ListViewTableViewDataSource: NSObject, UITableViewDataSource {
-    weak var presenter: ListPresenter!
-    weak var viewController: ListViewController!
+
+
+
+extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if viewController.isFiltering && viewController.searchController.searchBar.text != ""{
-            return viewController.filteredStocks?.count ?? 0
+        if isFiltering && searchController.searchBar.text != ""{
+            return presenter.filteredStocks?.count ?? 0
         }
         else if (presenter.storageStocks.count != 0){
-            if viewController.isLableTappedFavourite {
+            if presenter.isLableTappedFavourite {
                 return presenter.storageLikedStocks.count
             }
             return presenter.storageStocks.count
@@ -24,24 +25,25 @@ class ListViewTableViewDataSource: NSObject, UITableViewDataSource {
             return 0
         }
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "custom", for:  indexPath) as!
         CustomCell
         
         var stock: ModelStock?
-        if viewController.isFiltering {
+        if isFiltering {
             stock = presenter.filteredStocks?[indexPath.row]
         }
         else {
-            if !viewController.isLableTappedFavourite{
+            if !presenter.isLableTappedFavourite{
                 stock = presenter.storageStocks[indexPath.row]
+                cell.tag = indexPath.row
             }
             else {
+                
                 stock = presenter.storageLikedStocks[indexPath.row]
             }
         }
-        presenter.fetchStocksImage(symbol: stock?.symbol ?? "BOWX") { (result) in
+        presenter.fetchStocksImage(symbol: (stock?.symbol)!) { (result) in
             switch result{
             case .success(let url):
                 DispatchQueue.main.async {
@@ -51,9 +53,13 @@ class ListViewTableViewDataSource: NSObject, UITableViewDataSource {
                 print("error \(error)")
             }
         }
-        cell.tag = indexPath.row
+        if stock?.isFavourite == true {
+            cell.buttonStar.setImage(UIImage(named: "star"), for: .normal)
+        } else {
+            cell.buttonStar.setImage(UIImage(named: "emptyStar"), for: .normal)
+        }
         cell.buttonStar.addTarget(cell, action: #selector(cell.starButtonClick), for: .touchUpInside)
-        cell.tapDelegate = viewController
+        cell.tapDelegate = self
         cell.abbreviationLabel.text = stock?.symbol
         cell.corporationNameLabel.text = stock?.companyName
         cell.currentPriceLabel.text = "$" + String(format: "%.2f", stock?.latestPrice ?? 0)

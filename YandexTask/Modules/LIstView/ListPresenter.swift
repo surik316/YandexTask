@@ -17,8 +17,12 @@ protocol ListViewPresenterProtocol: AnyObject {
     init(view: ListViewProtocol, networkService: NetworkServiceProtocol)
     func fetchStockData(completion: @escaping () -> ())
     func fetchStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
+    func filterStorageStocks(searchText: String)
     var storageStocks: [ModelStock] {get set}
+    var filteredStocks: [ModelStock]? {get set}
     var storageLikedStocks: [ModelStock] {get set}
+    var isLableTappedFavourite: Bool {get}
+    func changeStateLableFavourite(state: Bool)
 }
 
 class ListPresenter: ListViewPresenterProtocol {
@@ -29,7 +33,7 @@ class ListPresenter: ListViewPresenterProtocol {
     var storageStocks = [ModelStock]()
     var storageLikedStocks = [ModelStock]()
     var filteredStocks: [ModelStock]?
-    let defaultUrl = URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/768px-No_image_available.svg.png")
+    var isLableTappedFavourite = false
     required init(view: ListViewProtocol, networkService: NetworkServiceProtocol) {
         self.view = view
         self.apiClient = networkService
@@ -60,4 +64,19 @@ class ListPresenter: ListViewPresenterProtocol {
             }
         }
     }
+    func filterStorageStocks(searchText: String) {
+        if isLableTappedFavourite {
+            filteredStocks = storageLikedStocks.filter { stock in
+                return stock.symbol.lowercased().contains(searchText.lowercased()) || stock.companyName.lowercased().contains(searchText.lowercased())
+            }
+        } else {
+            filteredStocks = storageStocks.filter { stock in
+                return stock.symbol.lowercased().contains(searchText.lowercased()) || stock.companyName.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
+    func changeStateLableFavourite(state: Bool) {
+        isLableTappedFavourite = state
+    }
+    
 }

@@ -23,19 +23,28 @@ struct Colors {
     static var oddCellColor: UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { tc -> UIColor in
-                return StockStyle.isLight(traitCollection: tc) ? .white: .black
+                return StockStyle.isLight(traitCollection: tc) ? .white:  UIColor.rgba(32, 28, 26)
             }
         } else {
-            return  StockStyle.isLight() ? .white: .black
+            return  StockStyle.isLight() ? .white:  UIColor.rgba(32, 28, 26)
+        }
+    }
+    static var newsDescriptionColor: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor.init { tc -> UIColor in
+                return StockStyle.isLight(traitCollection: tc) ? UIColor(red: 240/255, green: 244/255, blue: 247/255, alpha: 1):  UIColor.rgba(69, 70, 71)
+            }
+        } else {
+            return  StockStyle.isLight() ? UIColor(red: 240/255, green: 244/255, blue: 247/255, alpha: 1):  UIColor.rgba(69, 70, 71)
         }
     }
     static var backgroundColor: UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { tc -> UIColor in
-                return StockStyle.isLight(traitCollection: tc) ? .white: .black
+                return StockStyle.isLight(traitCollection: tc) ? .white:  UIColor.rgba(32, 28, 26)
             }
         } else {
-            return  StockStyle.isLight() ? .white: .black
+            return  StockStyle.isLight() ? .white: UIColor.rgba(32, 28, 26)
         }
     }
     static var unselectedLabelColor: UIColor {
