@@ -8,4 +8,5 @@ target 'YandexTask' do
   # Pods for YandexTask
   pod 'TinyConstraints'
   pod 'Kingfisher'
+  pod 'GoogleMobileAdsMediationAppLovin'
 end

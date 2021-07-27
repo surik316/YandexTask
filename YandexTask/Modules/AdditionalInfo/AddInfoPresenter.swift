@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AddInfoViewProtocol: class{
+protocol AddInfoViewProtocol: AnyObject{
     func succes(model: ModelStock)
     func gotNews()
     func gotAbout()
@@ -15,7 +15,7 @@ protocol AddInfoViewProtocol: class{
     func failure(error: Error)
 }
 
-protocol AddInfoPresenterProtocol: class {
+protocol AddInfoPresenterProtocol: AnyObject {
     init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock)
     func setView()
     func getNewsData()
@@ -36,7 +36,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
     var storageNews : [NewsElement]?
     var storageAbout: ModelAbout?
     var storagePreviousDay: ModelPreviousDay?
-    let segmentTitles = [ "News", "About", "PreviousDay"]
+    let segmentTitles = [ "News", "About", "PreviousDay", "Chart"]
     
     required init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock) {
         self.view = view

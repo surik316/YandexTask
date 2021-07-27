@@ -32,6 +32,8 @@
 		73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1FB25F53C63007BB42F /* LIstViewController.swift */; };
 		73C7A21325F55FD0007BB42F /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A21225F55FD0007BB42F /* CustomCell.swift */; };
 		9D64627FA6EFC8A22A56073B /* Pods_YandexTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8A51CD277723ED991CA79B /* Pods_YandexTask.framework */; };
+		AA4492AB26ADBE1B00BD30ED /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4492AA26ADBE1B00BD30ED /* ChartView.swift */; };
+		AA4492AD26ADC78700BD30ED /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4492AC26ADC78700BD30ED /* LineChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		73C7A1FB25F53C63007BB42F /* LIstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIstViewController.swift; sourceTree = "<group>"; };
 		73C7A21225F55FD0007BB42F /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		85EEFE1EAB6B3950E9605E27 /* Pods-YandexTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexTask.release.xcconfig"; path = "Target Support Files/Pods-YandexTask/Pods-YandexTask.release.xcconfig"; sourceTree = "<group>"; };
+		AA4492AA26ADBE1B00BD30ED /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		AA4492AC26ADC78700BD30ED /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 		739C90272617855300BC1C93 /* VIews */ = {
 			isa = PBXGroup;
 			children = (
+				AA4492AA26ADBE1B00BD30ED /* ChartView.swift */,
+				AA4492AC26ADC78700BD30ED /* LineChartView.swift */,
 				739C90282617856200BC1C93 /* NewsCell.swift */,
 				739C902C2617858200BC1C93 /* AboutView.swift */,
 				731B8C912619CC1E00627E10 /* PreviousDayView.swift */,
@@ -205,6 +211,7 @@
 				73C7A1C325F534E6007BB42F /* Frameworks */,
 				73C7A1C425F534E6007BB42F /* Resources */,
 				8752255336E76890A826B2B2 /* [CP] Embed Pods Frameworks */,
+				C2D975A89B7CEB5F4157D397 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -299,6 +306,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C2D975A89B7CEB5F4157D397 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -312,10 +336,12 @@
 				73C7A1F325F53BEB007BB42F /* ModuleBuilder.swift in Sources */,
 				73C7A1CA25F534E6007BB42F /* AppDelegate.swift in Sources */,
 				731B8C922619CC1E00627E10 /* PreviousDayView.swift in Sources */,
+				AA4492AB26ADBE1B00BD30ED /* ChartView.swift in Sources */,
 				739C90292617856200BC1C93 /* NewsCell.swift in Sources */,
 				737F2D5626A35C4500303BB9 /* ListViewTableViewDataSource.swift in Sources */,
 				7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */,
 				737F2D5826A36FC000303BB9 /* HapticsManager.swift in Sources */,
+				AA4492AD26ADC78700BD30ED /* LineChartView.swift in Sources */,
 				73C7A1F025F53BB8007BB42F /* ListPresenter.swift in Sources */,
 				73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */,
 				7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */,

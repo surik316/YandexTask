@@ -19,7 +19,7 @@ class AddInfoViewController: UIViewController {
     var tableView = UITableView()
     var aboutView = AboutView()
     var previousDayView = PreviousDayView()
-    
+    var chartView = ChartView()
     lazy var segmnetedControll : UISegmentedControl = {
         let controll = UISegmentedControl(items: presenter.getTitles())
         controll.selectedSegmentIndex = 0
@@ -39,6 +39,7 @@ class AddInfoViewController: UIViewController {
         setupTableView()
         setupAboutView()
         setupPreviousDayView()
+        setupChartView()
     }
     override func viewWillLayoutSubviews() {
           super.viewWillLayoutSubviews()
@@ -57,6 +58,18 @@ class AddInfoViewController: UIViewController {
                                            insets: UIEdgeInsets(top: 24, left: 20, bottom: 0, right: 20), usingSafeArea: true)
         segmnetedControll.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         segmnetedControll.height(30)
+    }
+    private func setupChartView() {
+        view.addSubview(chartView)
+        chartView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            chartView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            chartView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            chartView.topAnchor.constraint(equalTo: segmnetedControll.bottomAnchor, constant: 3),
+            chartView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        chartView.isHidden = true
     }
     private func setupTableView() {
         view.addSubview(tableView)
@@ -117,14 +130,22 @@ class AddInfoViewController: UIViewController {
             tableView.isHidden = false
             aboutView.isHidden = true
             previousDayView.isHidden = true
+            chartView.isHidden = true
         case 1:
             tableView.isHidden = true
             aboutView.isHidden = false
             previousDayView.isHidden = true
+            chartView.isHidden = true
         case 2:
             tableView.isHidden = true
             aboutView.isHidden = true
             previousDayView.isHidden = false
+            chartView.isHidden = true
+        case 3:
+            tableView.isHidden = true
+            aboutView.isHidden = true
+            previousDayView.isHidden = true
+            chartView.isHidden = false
         default:
             print("Other index")
         }

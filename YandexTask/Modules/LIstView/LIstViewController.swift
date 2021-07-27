@@ -16,6 +16,7 @@ class ListViewController: UIViewController, UISearchBarDelegate{
     let headerView = ListTableViewHeader()
     let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
+    let chart = LineChatView()
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -56,22 +57,31 @@ class ListViewController: UIViewController, UISearchBarDelegate{
     }
     
     func setupTableView(){
-        view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight =  68.0
-        tableView.register(CustomCell.self, forCellReuseIdentifier: "custom")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.separatorColor = UIColor.clear
-        tableView.showsVerticalScrollIndicator = false
-        
+        view.addSubview(chart)
+        chart.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            chart.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            chart.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            chart.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            chart.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300)
         ])
-        tableView.backgroundColor = Colors.backgroundColor
+        chart.backgroundColor = .yellow
+//        view.addSubview(tableView)
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.rowHeight =  68.0
+//        tableView.register(CustomCell.self, forCellReuseIdentifier: "custom")
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        self.tableView.separatorColor = UIColor.clear
+//        tableView.showsVerticalScrollIndicator = false
+//
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
+//        tableView.backgroundColor = Colors.backgroundColor
     }
     
     func setupHeaderView(){

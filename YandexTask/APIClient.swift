@@ -93,6 +93,30 @@ extension APIClient: NetworkServiceProtocol{
         }
         dataTask?.resume()
     }
+    func getDataForGraph(for symbol: String, completion: @escaping (Result<News, Error>) -> Void) {
+        let newsURL = URL(string: "https://mboum.com/api/v1/hi/history/?symbol=F&interval=5m&diffandsplits=true&apikey=demo")
+        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
+            
+            if let error = error {
+               print("DataTask error: \(error.localizedDescription)")
+               return
+            }
+            guard let data = data else {
+               print("Empty Response")
+               return
+            }
+            do {
+                let jsonData = try self.decoder.decode(News.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(jsonData))
+                }
+            }
+            catch let error {
+                completion(.failure(error))
+            }
+        }
+        dataTask?.resume()
+    }
     func fetchNewsData(for symbol: String, completion: @escaping (Result<News, Error>) -> Void) {
         let newsURL = makeNewsUrl(for: symbol)
         dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
