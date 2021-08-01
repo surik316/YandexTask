@@ -13,10 +13,10 @@ class NewsCell: UITableViewCell {
     var  newsImageView = UIImageView()
     var imageNews: UIImage?
     var containerView = UIView()
-    var stackView = UIStackView()
+    var infoView = UIView()
     var headLineLabel = UILabel()
     var urlTextView = UITextView()
-    var summaryTextView = UITextView()
+    var summaryTextView = UILabel()
     var sourceAndDataTimeLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -24,10 +24,10 @@ class NewsCell: UITableViewCell {
         
         contentView.addSubview(newsImageView)
         contentView.addSubview(headLineLabel)
-        contentView.addSubview(stackView)
+        contentView.addSubview(infoView)
         setupNewsImageView()
         setupNewsImageViewConstraints()
-        
+        backgroundColor = Colors.backgroundColor
         setupStackView()
         setupStackViewConstraints()
         
@@ -37,10 +37,27 @@ class NewsCell: UITableViewCell {
         newsImageView.clipsToBounds  = true
     }
     func setupStackView() {
-        stackView.layer.cornerRadius = 23
-        stackView.clipsToBounds  = true
-        summaryTextView.backgroundColor = Colors.newsDescriptionColor
-        containerView.backgroundColor = Colors.newsDescriptionColor
+        infoView.layer.cornerRadius = 23
+        infoView.backgroundColor = Colors.newsDescriptionColor
+        infoView.addSubview(summaryTextView)
+        infoView.addSubview(containerView)
+        //summaryTextView.
+        summaryTextView.numberOfLines = 0
+        summaryTextView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            summaryTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 6),
+            summaryTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -6),
+            summaryTextView.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 6),
+            summaryTextView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -35),
+
+            containerView.leadingAnchor.constraint(equalTo: summaryTextView.leadingAnchor),
+            containerView.topAnchor.constraint(equalTo: summaryTextView.bottomAnchor, constant: 10)
+
+
+
+        ])
         
         urlTextView.font = UIFont(name: "Helvetica", size: 12)
         sourceAndDataTimeLabel.font = UIFont(name: "Helvetica", size: 12)
@@ -52,13 +69,10 @@ class NewsCell: UITableViewCell {
         urlTextView.text = "Article"
         urlTextView.textColor = .black
         urlTextView.textAlignment = .center
-        urlTextView.backgroundColor = Colors.newsDescriptionColor
-        urlTextView.isScrollEnabled = false
-        
+        urlTextView.backgroundColor = .white
+        urlTextView.isScrollEnabled = true
         summaryTextView.font = UIFont(name: "Helvetica", size: 14)
-        summaryTextView.isEditable = false
-        stackView.addArrangedSubview(summaryTextView)
-        stackView.addArrangedSubview(containerView)
+        //summaryTextView.isEditable = false
         setupContainerViewConstraints()
         
     }
@@ -80,14 +94,12 @@ class NewsCell: UITableViewCell {
     }
     func setupStackViewConstraints() {
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        infoView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: newsImageView.bottomAnchor, constant: 7),
-            stackView.leadingAnchor.constraint(equalTo: newsImageView.leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            infoView.topAnchor.constraint(equalTo: newsImageView.bottomAnchor, constant: 4),
+            infoView.leadingAnchor.constraint(equalTo: newsImageView.leadingAnchor),
+            infoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            infoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
     
@@ -104,8 +116,8 @@ class NewsCell: UITableViewCell {
             sourceAndDataTimeLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
             sourceAndDataTimeLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5),
             
-            urlTextView.topAnchor.constraint(equalTo: sourceAndDataTimeLabel.topAnchor),
-            urlTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5),
+            urlTextView.centerYAnchor.constraint(equalTo: sourceAndDataTimeLabel.centerYAnchor, constant: -4),
+            urlTextView.leadingAnchor.constraint(equalTo: sourceAndDataTimeLabel.trailingAnchor, constant: 15),
             urlTextView.heightAnchor.constraint(equalToConstant: 25),
             urlTextView.widthAnchor.constraint(equalToConstant: 50),
             

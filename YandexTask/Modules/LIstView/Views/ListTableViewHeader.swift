@@ -28,7 +28,7 @@ final class ListTableViewHeader: UIView  {
         headerFavourite.font = UIFont(name: "Helvetica Bold", size: 18)
         headerFavourite.textColor = Colors.unselectedLabelColor
         headerFavourite.isUserInteractionEnabled = true
-        
+
         NSLayoutConstraint.activate([
             headerStock.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             headerStock.centerYAnchor.constraint(equalTo: centerYAnchor),

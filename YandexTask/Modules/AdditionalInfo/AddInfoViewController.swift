@@ -13,14 +13,14 @@ import Kingfisher
 class AddInfoViewController: UIViewController {
     
     var presenter: AddInfoPresenterProtocol!
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
-    var titleStackView = UIStackView()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private var titleStackView = UIStackView()
     var tableView = UITableView()
-    var aboutView = AboutView()
-    var previousDayView = PreviousDayView()
-    var chartView = ChartView()
-    lazy var segmnetedControll : UISegmentedControl = {
+    private let aboutView = AboutView()
+    private let previousDayView = PreviousDayView()
+    private let chartView = ChartView()
+    private lazy var segmnetedControll : UISegmentedControl = {
         let controll = UISegmentedControl(items: presenter.getTitles())
         controll.selectedSegmentIndex = 0
         controll.backgroundColor = .clear
@@ -62,7 +62,19 @@ class AddInfoViewController: UIViewController {
     private func setupChartView() {
         view.addSubview(chartView)
         chartView.translatesAutoresizingMaskIntoConstraints = false
+        chartView.currentPriceLabel.text =  "$" + (presenter.modelStock?.latestPrice!.description ?? 0.0.description)
         
+        let change = String(format: "%.2f", abs((presenter.modelStock?.iexClose ?? 0) - (presenter.modelStock?.previousClose ?? 0)))
+        let mod_iexClose = (presenter.modelStock?.iexClose ?? 0).truncatingRemainder(dividingBy: (presenter.modelStock?.previousClose ?? 0))
+        let percentage = String(format: "%.2f", abs( mod_iexClose / (presenter.modelStock?.previousClose ?? 0)))
+        if presenter.modelStock?.iexClose ?? 0 > presenter.modelStock?.previousClose ?? 0{
+            chartView.changePriceLabel.text = "+$" + change + "(" + percentage + "%" + ")"
+            chartView.changePriceLabel.textColor = UIColor.rgba(36, 178, 93)
+        }
+        else{
+            chartView.changePriceLabel.text = "-$" + change + "(" + percentage + "%" + ")"
+            chartView.changePriceLabel.textColor = UIColor.rgba(178, 36, 36)
+        }
         NSLayoutConstraint.activate([
             chartView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             chartView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -80,6 +92,7 @@ class AddInfoViewController: UIViewController {
         tableView.dataSource = self
         tableView.canCancelContentTouches = false
         tableView.separatorStyle = .none
+        tableView.backgroundColor = view.backgroundColor
         setupTableViewConstraints()
     }
     
@@ -114,7 +127,7 @@ class AddInfoViewController: UIViewController {
             
         ])
     }
-    func setupPreviousDayConstraint() {
+    private func setupPreviousDayConstraint() {
         previousDayView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             previousDayView.topAnchor.constraint(equalTo: segmnetedControll.bottomAnchor, constant: 18),

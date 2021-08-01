@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 class LineChatView: UIView {
-    var lainColor = UIColor.green
+    private let lainColor = Colors.graphColor
     private var graphPoints = [0.1, 0.4, 0.5, 0.1, 0.9, 0.3, 0.6, 0.2, 0.43]
     private struct Constans {
         static let margin: CGFloat = 0.0
@@ -21,8 +21,7 @@ class LineChatView: UIView {
         let width = rect.width
         let height = rect.height
         let margin = Constans.margin
-        let graphWidth = width - margin * 2
-        
+        let graphWidth = width - margin * 2 - 5
         
         let columnXPoint = {
             (clumnl: Float) -> CGFloat in

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         window.rootViewController = navController
         self.window = window
-        UserDefaults.standard.setValue("pk_5e1cf781419e4cc79ccf56075a4cbf6f", forKey: "apiToken")
+        UserDefaults.standard.setValue("pk_deb8bb69cbaf4393ba7b74e98ee6c463", forKey: "apiToken")
         return true
     }
 

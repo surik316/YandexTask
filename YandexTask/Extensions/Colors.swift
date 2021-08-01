@@ -29,6 +29,15 @@ struct Colors {
             return  StockStyle.isLight() ? .white:  UIColor.rgba(32, 28, 26)
         }
     }
+    static var graphColor: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor.init { tc -> UIColor in
+                return StockStyle.isLight(traitCollection: tc) ? UIColor.gray: .white
+            }
+        } else {
+            return  StockStyle.isLight()  ? UIColor.gray: .white
+        }
+    }
     static var newsDescriptionColor: UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { tc -> UIColor in

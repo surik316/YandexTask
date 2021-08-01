@@ -26,6 +26,7 @@ protocol AddInfoPresenterProtocol: AnyObject {
     var storageNews: [NewsElement]? {get}
     var storageAbout: ModelAbout? {get}
     var storagePreviousDay: ModelPreviousDay? {get}
+    var modelStock: ModelStock? {get}
 }
 
 class AddInfoPresenter: AddInfoPresenterProtocol {
@@ -36,7 +37,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
     var storageNews : [NewsElement]?
     var storageAbout: ModelAbout?
     var storagePreviousDay: ModelPreviousDay?
-    let segmentTitles = [ "News", "About", "PreviousDay", "Chart"]
+    let segmentTitles = [ "News", "About", "PrevDay", "Chart"]
     
     required init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock) {
         self.view = view

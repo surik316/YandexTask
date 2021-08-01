@@ -13,7 +13,7 @@ class ChartView: UIView {
     var buttonBuy = UIButton()
     var currentPriceLabel = UILabel()
     var changePriceLabel = UILabel()
-    var chartView = LineChatView()
+    var chartView =  LineChatView()
     
     init() {
         super.init(frame: .zero)
@@ -21,25 +21,24 @@ class ChartView: UIView {
     }
     func setup() {
         buttonBuy.backgroundColor = .black
-        buttonBuy.titleLabel?.text = "Buy"
+        buttonBuy.setTitle("Buy", for: .normal)
         buttonBuy.titleLabel?.textColor = .white
         buttonBuy.titleLabel?.textAlignment = .center
         buttonBuy.layer.cornerRadius = 16
         buttonBuy.translatesAutoresizingMaskIntoConstraints = false
         
-        currentPriceLabel.text = "$132.93"
         currentPriceLabel.textAlignment = .center
         currentPriceLabel.textColor = .black
         currentPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        changePriceLabel.text = "+$0.12(1.15%)"
         changePriceLabel.textAlignment = .center
         changePriceLabel.textColor = .green
         changePriceLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
         chartView.translatesAutoresizingMaskIntoConstraints = false
-        chartView.backgroundColor = .yellow
+        chartView.layer.cornerRadius = 20
+        chartView.layer.borderWidth = 4
+        chartView.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         
         addSubview(currentPriceLabel)
         NSLayoutConstraint.activate([
@@ -55,8 +54,8 @@ class ChartView: UIView {
         
         addSubview(chartView)
         NSLayoutConstraint.activate([
-            chartView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            chartView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            chartView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            chartView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             chartView.topAnchor.constraint(equalTo: changePriceLabel.bottomAnchor, constant: 8),
             chartView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -212)
         ])
