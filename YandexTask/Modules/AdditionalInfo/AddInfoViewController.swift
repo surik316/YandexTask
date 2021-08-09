@@ -19,7 +19,7 @@ class AddInfoViewController: UIViewController {
     var tableView = UITableView()
     private let aboutView = AboutView()
     private let previousDayView = PreviousDayView()
-    private let chartView = ChartView()
+    private var chartView: ChartView!
     private lazy var segmnetedControll : UISegmentedControl = {
         let controll = UISegmentedControl(items: presenter.getTitles())
         controll.selectedSegmentIndex = 0
@@ -33,6 +33,8 @@ class AddInfoViewController: UIViewController {
         presenter.getNewsData()
         presenter.getAboutCompanyData()
         presenter.getPreviousDayData()
+        presenter.getGraphData()
+        chartView = ChartView(chartV: LineChatView(points: presenter.storageGraph?[presenter.modelStock?.tag ?? 0] ?? [1,2,3]))
         navigationItem.titleView = titleStackView
         
         setupSegmentControl()
@@ -187,8 +189,8 @@ extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UI
         cell.sourceAndDataTimeLabel.text = relatedText + ", " + myNSDate.asString()
         
         let attributedString = NSAttributedString.makeHyperlink(for: presenter.storageNews?[indexPath.row].url ?? "", in: cell.urlTextView.text ?? "", as: "Article")
+        print("attr \(attributedString)")
         cell.urlTextView.attributedText = attributedString
-        
         cell.newsImageView.kf.indicatorType = .activity
         cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""), placeholder: UIImage(named: "bnImage"))
         return cell

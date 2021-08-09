@@ -16,6 +16,7 @@ struct ModelStock: Codable {
     let iexOpen: Double?
     let iexClose: Double?
     var isFavourite: Bool? = false;
+    var tag: Int?
     init() {
         self.symbol = "SMTH"
         self.companyName = "someName"

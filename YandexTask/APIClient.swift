@@ -13,6 +13,7 @@ protocol NetworkServiceProtocol{
     func fetchAboutCompanyData(for symbol: String, completion: @escaping (Result<ModelAbout, Error>) -> Void)
     func fetchPreviousDayData(for symbol: String, completion: @escaping (Result<ModelPreviousDay, Error>) -> Void)
     var defalulturlNews: URL {get}
+    func getDataForGraph()->[[Int]]
 }
 
 class APIClient {
@@ -93,29 +94,16 @@ extension APIClient: NetworkServiceProtocol{
         }
         dataTask?.resume()
     }
-    func getDataForGraph(for symbol: String, completion: @escaping (Result<News, Error>) -> Void) {
-        let newsURL = URL(string: "https://mboum.com/api/v1/hi/history/?symbol=F&interval=5m&diffandsplits=true&apikey=demo")
-        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
-            
-            if let error = error {
-               print("DataTask error: \(error.localizedDescription)")
-               return
-            }
-            guard let data = data else {
-               print("Empty Response")
-               return
-            }
-            do {
-                let jsonData = try self.decoder.decode(News.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(jsonData))
-                }
-            }
-            catch let error {
-                completion(.failure(error))
-            }
-        }
-        dataTask?.resume()
+    func getDataForGraph()->[[Int]] {
+        let graphData = [[1,2,3,4,5,6,7,6,5,4,10,5,6],
+                         [10,1,4,5,6,3,2,1,5,6],
+                         [1,6,7,2,3,4,5,7,3,4,1],
+                         [1,4,5,6,2,3,4,5,5,6,2],
+                         [10,3,4,4,12,2,3,5,5,3],
+                         [1,4,5,6,7,2,3,1,3,10,1],
+                         [1,6,7,2,3,4,5,7,3,4,1],
+                         [1,4,5,6,2,3,4,5,5,6,2]]
+        return graphData
     }
     func fetchNewsData(for symbol: String, completion: @escaping (Result<News, Error>) -> Void) {
         let newsURL = makeNewsUrl(for: symbol)

@@ -15,7 +15,7 @@ class NewsCell: UITableViewCell {
     var containerView = UIView()
     var infoView = UIView()
     var headLineLabel = UILabel()
-    var urlTextView = UITextView()
+    var urlTextView = UILabel()
     var summaryTextView = UILabel()
     var sourceAndDataTimeLabel = UILabel()
     
@@ -36,6 +36,9 @@ class NewsCell: UITableViewCell {
         newsImageView.layer.cornerRadius = 27
         newsImageView.clipsToBounds  = true
     }
+    @objc func a() {
+        print("asdasdasd")
+    }
     func setupStackView() {
         infoView.layer.cornerRadius = 23
         infoView.backgroundColor = Colors.newsDescriptionColor
@@ -45,7 +48,9 @@ class NewsCell: UITableViewCell {
         summaryTextView.numberOfLines = 0
         summaryTextView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
-
+        
+        let g = UITapGestureRecognizer(target: self, action: #selector(a))
+        urlTextView.addGestureRecognizer(g)
         NSLayoutConstraint.activate([
             summaryTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 6),
             summaryTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -6),
@@ -65,12 +70,15 @@ class NewsCell: UITableViewCell {
         headLineLabel.textColor = .white
         headLineLabel.font = UIFont(name: "Helvetica Bold", size: 14)
         headLineLabel.backgroundColor = UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1)
-        
         urlTextView.text = "Article"
         urlTextView.textColor = .black
         urlTextView.textAlignment = .center
         urlTextView.backgroundColor = .white
-        urlTextView.isScrollEnabled = true
+        
+        urlTextView.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
+        isUserInteractionEnabled = true
+        containerView.isUserInteractionEnabled = true
         summaryTextView.font = UIFont(name: "Helvetica", size: 14)
         //summaryTextView.isEditable = false
         setupContainerViewConstraints()
@@ -107,7 +115,7 @@ class NewsCell: UITableViewCell {
         
         containerView.addSubview(urlTextView)
         containerView.addSubview(sourceAndDataTimeLabel)
-        
+        isUserInteractionEnabled = true
         sourceAndDataTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         urlTextView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false

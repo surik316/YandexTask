@@ -21,6 +21,7 @@ extension ListViewController: UITableViewDelegate {
         else {
             model = presenter.storageStocks[indexPath.row]
         }
+        model.tag = indexPath.row
         let viewController = ListBuilder.createAddInfoModule(modelStock: model)
         navigationController?.pushViewController(viewController, animated: true)
     }

@@ -23,8 +23,10 @@ protocol AddInfoPresenterProtocol: AnyObject {
     func getStorageCount() -> Int?
     func getAboutCompanyData()
     func getPreviousDayData()
+    func getGraphData()
     var storageNews: [NewsElement]? {get}
     var storageAbout: ModelAbout? {get}
+    var storageGraph: [[Int]]? {get}
     var storagePreviousDay: ModelPreviousDay? {get}
     var modelStock: ModelStock? {get}
 }
@@ -37,6 +39,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
     var storageNews : [NewsElement]?
     var storageAbout: ModelAbout?
     var storagePreviousDay: ModelPreviousDay?
+    var storageGraph: [[Int]]?
     let segmentTitles = [ "News", "About", "PrevDay", "Chart"]
     
     required init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock) {
@@ -57,6 +60,9 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
                 print("fetchNewsData Error: \(error)")
             }
         }
+    }
+    func getGraphData()  {
+        storageGraph = apiClient.getDataForGraph()
     }
     func getPreviousDayData() {
         apiClient.fetchPreviousDayData(for: modelStock?.symbol ?? "") { (result) in

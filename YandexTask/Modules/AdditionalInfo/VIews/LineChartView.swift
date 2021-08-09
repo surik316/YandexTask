@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 class LineChatView: UIView {
     private let lainColor = Colors.graphColor
-    private var graphPoints = [0.1, 0.4, 0.5, 0.1, 0.9, 0.3, 0.6, 0.2, 0.43]
+    private var graphPoints = [Int]()
     private struct Constans {
         static let margin: CGFloat = 0.0
         static let topBorder: CGFloat = 50
@@ -17,6 +17,14 @@ class LineChatView: UIView {
         static let colorAlpha: CGFloat = 1
     }
     private var circleLayer: CAShapeLayer!
+    init(points: [Int]) {
+        super.init(frame: .zero)
+        graphPoints = points
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func draw(_ rect: CGRect) {
         let width = rect.width
         let height = rect.height
