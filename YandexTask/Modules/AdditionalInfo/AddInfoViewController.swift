@@ -34,7 +34,8 @@ class AddInfoViewController: UIViewController {
         presenter.getAboutCompanyData()
         presenter.getPreviousDayData()
         presenter.getGraphData()
-        chartView = ChartView(chartV: LineChatView(points: presenter.storageGraph?[presenter.modelStock?.tag ?? 0] ?? [1,2,3]))
+        
+        chartView = ChartView(chartV: LineChatView(points: presenter.storageGraph?[(presenter.modelStock.tag ?? 1 - 1) ] ?? []))
         navigationItem.titleView = titleStackView
         
         setupSegmentControl()
@@ -64,12 +65,12 @@ class AddInfoViewController: UIViewController {
     private func setupChartView() {
         view.addSubview(chartView)
         chartView.translatesAutoresizingMaskIntoConstraints = false
-        chartView.currentPriceLabel.text =  "$" + (presenter.modelStock?.latestPrice!.description ?? 0.0.description)
+        chartView.currentPriceLabel.text =  "$" + (presenter.modelStock.latestPrice!.description )
         
-        let change = String(format: "%.2f", abs((presenter.modelStock?.iexClose ?? 0) - (presenter.modelStock?.previousClose ?? 0)))
-        let mod_iexClose = (presenter.modelStock?.iexClose ?? 0).truncatingRemainder(dividingBy: (presenter.modelStock?.previousClose ?? 0))
-        let percentage = String(format: "%.2f", abs( mod_iexClose / (presenter.modelStock?.previousClose ?? 0)))
-        if presenter.modelStock?.iexClose ?? 0 > presenter.modelStock?.previousClose ?? 0{
+        let change = String(format: "%.2f", abs((presenter.modelStock.iexClose ?? 0) - (presenter.modelStock.previousClose ?? 0)))
+        let mod_iexClose = (presenter.modelStock.iexClose ?? 0).truncatingRemainder(dividingBy: (presenter.modelStock.previousClose ?? 0))
+        let percentage = String(format: "%.2f", abs( mod_iexClose / (presenter.modelStock.previousClose ?? 0)))
+        if presenter.modelStock.iexClose ?? 0 > presenter.modelStock.previousClose ?? 0{
             chartView.changePriceLabel.text = "+$" + change + "(" + percentage + "%" + ")"
             chartView.changePriceLabel.textColor = UIColor.rgba(36, 178, 93)
         }

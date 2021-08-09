@@ -28,14 +28,14 @@ protocol AddInfoPresenterProtocol: AnyObject {
     var storageAbout: ModelAbout? {get}
     var storageGraph: [[Int]]? {get}
     var storagePreviousDay: ModelPreviousDay? {get}
-    var modelStock: ModelStock? {get}
+    var modelStock: ModelStock {get}
 }
 
 class AddInfoPresenter: AddInfoPresenterProtocol {
     
     weak var view: AddInfoViewProtocol?
     var apiClient : NetworkServiceProtocol!
-    var modelStock: ModelStock?
+    var modelStock: ModelStock
     var storageNews : [NewsElement]?
     var storageAbout: ModelAbout?
     var storagePreviousDay: ModelPreviousDay?
@@ -48,10 +48,10 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
         self.modelStock = model
     }
     public func setView(){
-        self.view?.succes(model: modelStock ?? ModelStock()) //сделать дефолтную модель
+        self.view?.succes(model: modelStock) //сделать дефолтную модель
     }
     func getNewsData() {
-        apiClient.fetchNewsData(for: modelStock?.symbol ?? "") { (result) in
+        apiClient.fetchNewsData(for: modelStock.symbol) { (result) in
             switch result {
             case .success(let news):
                 self.storageNews = news
@@ -65,7 +65,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
         storageGraph = apiClient.getDataForGraph()
     }
     func getPreviousDayData() {
-        apiClient.fetchPreviousDayData(for: modelStock?.symbol ?? "") { (result) in
+        apiClient.fetchPreviousDayData(for: modelStock.symbol) { (result) in
             switch result{
             
             case .success(let previousDayData):
@@ -77,7 +77,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
         }
     }
     func getAboutCompanyData() {
-        apiClient.fetchAboutCompanyData(for: modelStock?.symbol ?? "") { (result) in
+        apiClient.fetchAboutCompanyData(for: modelStock.symbol) { (result) in
             switch result {
             case .success(let aboutCompanyData):
                 self.storageAbout = aboutCompanyData

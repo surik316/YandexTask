@@ -102,7 +102,13 @@ extension APIClient: NetworkServiceProtocol{
                          [10,3,4,4,12,2,3,5,5,3],
                          [1,4,5,6,7,2,3,1,3,10,1],
                          [1,6,7,2,3,4,5,7,3,4,1],
-                         [1,4,5,6,2,3,4,5,5,6,2]]
+                         [1,4,5,6,2,3,4,5,5,6,2],
+                         [1,4,6,7,2,3,1,5,7,8,8],
+                         [1,4,6,7,2,3,1,5,7,8,8],
+                         [1,4,6,7,2,3,1,5,7,8,8],
+                         [1,4,6,7,2,3,1,5,7,8,8]
+                         
+        ]
         return graphData
     }
     func fetchNewsData(for symbol: String, completion: @escaping (Result<News, Error>) -> Void) {
