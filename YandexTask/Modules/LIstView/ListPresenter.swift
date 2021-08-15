@@ -9,50 +9,62 @@ import Foundation
 import UIKit
 
 protocol ListViewProtocol: AnyObject{
-    func succes()
+    func sucess()
     func failure(error: Error)
 }
 
 protocol ListViewPresenterProtocol: AnyObject {
     init(view: ListViewProtocol, networkService: NetworkServiceProtocol)
-    func fetchStockData(completion: @escaping () -> ())
-    func fetchStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
+    func getStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
     func filterStorageStocks(searchText: String)
     var storageStocks: [ModelStock] {get set}
     var filteredStocks: [ModelStock]? {get set}
     var storageLikedStocks: [ModelStock] {get set}
     var isLableTappedFavourite: Bool {get}
     func changeStateLableFavourite(state: Bool)
+    func load()
 }
 
 class ListPresenter: ListViewPresenterProtocol {
-    
-
-    weak var view: ListViewProtocol?
+   
+    private weak var view: ListViewProtocol?
     var apiClient : NetworkServiceProtocol!
     var storageStocks = [ModelStock]()
     var storageLikedStocks = [ModelStock]()
     var filteredStocks: [ModelStock]?
-    var isLableTappedFavourite = false
+    private(set) var isLableTappedFavourite = false
+    private let databaseService = DatabaseService(coreDataStack: CoreDataStack())
+    private let accessibilityService = AccessibilityService()
     required init(view: ListViewProtocol, networkService: NetworkServiceProtocol) {
         self.view = view
         self.apiClient = networkService
+        accessibilityService.start()
     }
-    
-    func fetchStockData(completion: @escaping () -> ()) {
-            apiClient.getStocksData() { [weak self] (result) in
-                guard let self = self else {return }
-                switch result{
-                case .success(let stocks):
-                    self.storageStocks = stocks
-                    self.view?.succes()
-                case .failure(let error):
-                    self.view?.failure(error: error)
-                }
+
+    func load() {
+        if accessibilityService.isNetworkAccessable {
+            networkLoad()
+        } else {
+            offlineLoad()
+        }
+    }
+    private func offlineLoad() {
+        storageStocks = databaseService.getStonks()
+    }
+    private func networkLoad() {
+        apiClient.getStocksData() { [weak self] (result) in
+            guard let self = self else {return }
+            switch result{
+            case .success(let stocks):
+                self.storageStocks = stocks
+                self.view?.sucess()
+            case .failure(let error):
+                self.view?.failure(error: error)
             }
+        }
     }
     
-    func fetchStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ()) {
+    func getStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ()) {
         self.apiClient.getLogoUrl(for: (symbol)) { (result)  in
 
             switch result{

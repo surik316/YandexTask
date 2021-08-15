@@ -5,6 +5,7 @@
 //  Created by Максим Сурков on 07.03.2021.
 //
 import Foundation
+import CoreData
 
 protocol NetworkServiceProtocol{
     func getStocksData(completion: @escaping (Result<[ModelStock], Error>) -> Void)
@@ -20,7 +21,8 @@ class APIClient {
     
     private var dataTask: URLSessionDataTask?
     private let decoder = JSONDecoder()
-    
+    private let context = CoreDataStack.shared.viewContext
+    private let databaseService = DatabaseService(coreDataStack: CoreDataStack())
     private func makeNoticableUrl(for symbol: String) -> URL?{
         var result = URLComponents()
         result.scheme = "https"
@@ -196,7 +198,9 @@ extension APIClient: NetworkServiceProtocol{
                }
                print("Response status code: \(response.statusCode)")
                do {
-                let jsonData = try self.decoder.decode(ListStock.self, from: data)
+                let jsonData = try self.decoder.decode([ModelStock].self, from: data)
+                self.databaseService.deleteAllData(entity: "StockModel")
+                self.databaseService.update(stoks: jsonData)
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }

@@ -32,14 +32,14 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
-        loadStocksData()
         setupTableView()
         setupHeaderView()
         setupSearchController()
+        presenter.load()
     }
     @objc func refresh(_ sender: UIRefreshControl) {
         sender.endRefreshing()
-        loadStocksData()
+        presenter.load()
     }
     func setupSearchController(){
         searchController.searchResultsUpdater = self
@@ -48,12 +48,12 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         definesPresentationContext = true
     }
     
-    private func loadStocksData() {
-            presenter.fetchStockData{ [weak self] in
-                self?.tableView.dataSource = self
-                self?.tableView.reloadData()
-            }
-    }
+//    private func loadStocksData() {
+//            presenter.getStockData{ [weak self] in
+//                self?.tableView.dataSource = self
+//                self?.tableView.reloadData()
+//            }
+//    }
     
     func setupTableView(){
         view.addSubview(tableView)
@@ -162,7 +162,7 @@ extension ListViewController{
 }
 
 extension ListViewController: ListViewProtocol{
-    func succes() {
+    func sucess() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

@@ -43,7 +43,7 @@ extension ListViewController: UITableViewDataSource {
                 stock = presenter.storageLikedStocks[indexPath.row]
             }
         }
-        presenter.fetchStocksImage(symbol: (stock?.symbol)!) { (result) in
+        presenter.getStocksImage(symbol: (stock?.symbol)!) { (result) in
             switch result{
             case .success(let url):
                 DispatchQueue.main.async {

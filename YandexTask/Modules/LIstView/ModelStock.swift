@@ -29,7 +29,7 @@ struct ModelStock: Codable {
     }
 }
 
-typealias ListStock = [ModelStock]
+typealias ListStock = [StockModel]
 
 struct ModelLogo: Codable {
     let url: String

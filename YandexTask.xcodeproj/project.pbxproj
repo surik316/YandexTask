@@ -34,6 +34,13 @@
 		9D64627FA6EFC8A22A56073B /* Pods_YandexTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8A51CD277723ED991CA79B /* Pods_YandexTask.framework */; };
 		AA4492AB26ADBE1B00BD30ED /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4492AA26ADBE1B00BD30ED /* ChartView.swift */; };
 		AA4492AD26ADC78700BD30ED /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4492AC26ADC78700BD30ED /* LineChartView.swift */; };
+		AA931DEE26C92F5B00565455 /* DataBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DED26C92F5B00565455 /* DataBaseService.swift */; };
+		AA931DF026C92F7900565455 /* DataBaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DEF26C92F7900565455 /* DataBaseProtocol.swift */; };
+		AA931DF226C92F8500565455 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF126C92F8500565455 /* CoreDataStack.swift */; };
+		AA931DF426C9543B00565455 /* AccessibilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF326C9543A00565455 /* AccessibilityService.swift */; };
+		AA931DFB26C9602E00565455 /* StockModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF926C9602E00565455 /* StockModel+CoreDataClass.swift */; };
+		AA931DFC26C9602E00565455 /* StockModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DFA26C9602E00565455 /* StockModel+CoreDataProperties.swift */; };
+		AAF6759526C1B32F00367972 /* StockModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAF6759326C1B32F00367972 /* StockModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +75,13 @@
 		85EEFE1EAB6B3950E9605E27 /* Pods-YandexTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexTask.release.xcconfig"; path = "Target Support Files/Pods-YandexTask/Pods-YandexTask.release.xcconfig"; sourceTree = "<group>"; };
 		AA4492AA26ADBE1B00BD30ED /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		AA4492AC26ADC78700BD30ED /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
+		AA931DED26C92F5B00565455 /* DataBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseService.swift; sourceTree = "<group>"; };
+		AA931DEF26C92F7900565455 /* DataBaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseProtocol.swift; sourceTree = "<group>"; };
+		AA931DF126C92F8500565455 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		AA931DF326C9543A00565455 /* AccessibilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityService.swift; sourceTree = "<group>"; };
+		AA931DF926C9602E00565455 /* StockModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AA931DFA26C9602E00565455 /* StockModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAF6759426C1B32F00367972 /* StockModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StockModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +154,9 @@
 				73C7A1C925F534E6007BB42F /* AppDelegate.swift */,
 				737F2D5726A36FC000303BB9 /* HapticsManager.swift */,
 				73C7A1F825F53C34007BB42F /* Modules */,
+				AAF896A826C2CB7100BF02D3 /* CoreData */,
 				73C7A1F525F53C0A007BB42F /* APIClient.swift */,
+				AA931DF326C9543A00565455 /* AccessibilityService.swift */,
 				7382F0A9261783F700651E45 /* HelperEntities.swift */,
 				7382F09E2617834100651E45 /* Extensions */,
 				73C7A1D225F534E9007BB42F /* Assets.xcassets */,
@@ -180,6 +196,28 @@
 				737F2D5526A35C4500303BB9 /* ListViewTableViewDataSource.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AAF8969F26C2C73E00BF02D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA931DFA26C9602E00565455 /* StockModel+CoreDataProperties.swift */,
+				AA931DF926C9602E00565455 /* StockModel+CoreDataClass.swift */,
+			);
+			name = Model;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		AAF896A826C2CB7100BF02D3 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AAF6759326C1B32F00367972 /* StockModel.xcdatamodeld */,
+				AAF8969F26C2C73E00BF02D3 /* Model */,
+				AA931DED26C92F5B00565455 /* DataBaseService.swift */,
+				AA931DEF26C92F7900565455 /* DataBaseProtocol.swift */,
+				AA931DF126C92F8500565455 /* CoreDataStack.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		BA4AA7B2017B72120A86AC49 /* Frameworks */ = {
@@ -338,13 +376,19 @@
 				731B8C922619CC1E00627E10 /* PreviousDayView.swift in Sources */,
 				AA4492AB26ADBE1B00BD30ED /* ChartView.swift in Sources */,
 				739C90292617856200BC1C93 /* NewsCell.swift in Sources */,
+				AA931DEE26C92F5B00565455 /* DataBaseService.swift in Sources */,
+				AA931DF226C92F8500565455 /* CoreDataStack.swift in Sources */,
 				737F2D5626A35C4500303BB9 /* ListViewTableViewDataSource.swift in Sources */,
 				7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */,
+				AA931DFB26C9602E00565455 /* StockModel+CoreDataClass.swift in Sources */,
+				AAF6759526C1B32F00367972 /* StockModel.xcdatamodeld in Sources */,
 				737F2D5826A36FC000303BB9 /* HapticsManager.swift in Sources */,
 				AA4492AD26ADC78700BD30ED /* LineChartView.swift in Sources */,
 				73C7A1F025F53BB8007BB42F /* ListPresenter.swift in Sources */,
 				73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */,
+				AA931DF026C92F7900565455 /* DataBaseProtocol.swift in Sources */,
 				7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */,
+				AA931DFC26C9602E00565455 /* StockModel+CoreDataProperties.swift in Sources */,
 				73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */,
 				737F2D5A26A3782300303BB9 /* ListTableViewHeader.swift in Sources */,
 				73B0CEC22697534A00E944A0 /* Colors.swift in Sources */,
@@ -354,6 +398,7 @@
 				737FDF10269095B40017C7A9 /* LIstViewTableViewDelegate.swift in Sources */,
 				7382F0A02617835C00651E45 /* Date.swift in Sources */,
 				73694D43260E37CB00EFEAFB /* AddInfoModel.swift in Sources */,
+				AA931DF426C9543B00565455 /* AccessibilityService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +594,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AAF6759326C1B32F00367972 /* StockModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AAF6759426C1B32F00367972 /* StockModel.xcdatamodel */,
+			);
+			currentVersion = AAF6759426C1B32F00367972 /* StockModel.xcdatamodel */;
+			path = StockModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 73C7A1BE25F534E6007BB42F /* Project object */;
 }
