@@ -49,6 +49,7 @@ class ListPresenter: ListViewPresenterProtocol {
         }
     }
     private func offlineLoad() {
+        storageStocks = []
         storageStocks = databaseService.getStonks()
     }
     private func networkLoad() {
@@ -90,5 +91,4 @@ class ListPresenter: ListViewPresenterProtocol {
     func changeStateLableFavourite(state: Bool) {
         isLableTappedFavourite = state
     }
-    
 }

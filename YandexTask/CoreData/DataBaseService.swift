@@ -19,10 +19,20 @@ final class DatabaseService {
 extension DatabaseService: DatabaseServiceProtocol {
     func update(stoks: [ModelStock]) {
         let backgroundContext = coreDataStack.backgroundContext
-        backgroundContext.perform {
+//        let stock = StockModel(context: backgroundContext)
+//        stock.symbol = stoks[0].symbol
+        
+        //backgroundContext.perform {
             stoks.forEach {
                 let stock = StockModel(context: backgroundContext)
                 stock.update(with: $0)
+            }
+       // }
+        if backgroundContext.hasChanges {
+            do {
+                try backgroundContext.save()
+            } catch {
+                print("Error saving while updating objects \(error.localizedDescription)")
             }
         }
     }
@@ -32,7 +42,7 @@ extension DatabaseService: DatabaseServiceProtocol {
         let context = coreDataStack.viewContext
         
         let request: NSFetchRequest<StockModel> = StockModel.fetchRequest()
-        
+        request.returnsObjectsAsFaults = false
         context.performAndWait {
             guard let response = try? context.fetch(request) else { return }
             result = response.map { ModelStock(with: $0) }
@@ -40,25 +50,19 @@ extension DatabaseService: DatabaseServiceProtocol {
         
         return  result
     }
-    func deleteAllData(entity: String)
-    {
+    func deleteAllData(entity: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.returnsObjectsAsFaults = false
-
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         do
         {
-            let results = try coreDataStack.viewContext.fetch(fetchRequest)
-            for managedObject in results
-            {
-                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                self.coreDataStack.viewContext.delete(managedObjectData)
-            }
+            try self.coreDataStack.backgroundContext.execute(deleteRequest)
+            try self.coreDataStack.backgroundContext.save()
         } catch let error as NSError {
             print("Detele all data in \(entity) error : \(error) \(error.userInfo)")
         }
+        
     }
-    
-    
 }
 private extension StockModel {
     func update(with stock: ModelStock) {
@@ -76,7 +80,7 @@ private extension StockModel {
 private extension ModelStock {
     init(with stock: StockModel, isFavorite: Bool? = nil) {
         
-        self.symbol = stock.symbol!
+        self.symbol = stock.symbol ?? ""
         self.change = stock.change
         self.changePercent = stock.changePercent
         self.companyName = stock.companyName ?? ""
@@ -86,4 +90,13 @@ private extension ModelStock {
         self.latestPrice = stock.latestPrice
         self.previousClose = stock.previousClose
     }
+}
+public extension NSManagedObject {
+
+    convenience init(context: NSManagedObjectContext) {
+        let name = String(describing: type(of: self))
+        let entity = NSEntityDescription.entity(forEntityName: name, in: context)!
+        self.init(entity: entity, insertInto: context)
+    }
+
 }

@@ -200,7 +200,9 @@ extension APIClient: NetworkServiceProtocol{
                do {
                 let jsonData = try self.decoder.decode([ModelStock].self, from: data)
                 self.databaseService.deleteAllData(entity: "StockModel")
+                
                 self.databaseService.update(stoks: jsonData)
+                
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }

@@ -2,7 +2,7 @@
 //  StockModel+CoreDataClass.swift
 //  YandexTask
 //
-//  Created by maksim.surkov on 15.08.2021.
+//  Created by maksim.surkov on 21.08.2021.
 //
 //
 

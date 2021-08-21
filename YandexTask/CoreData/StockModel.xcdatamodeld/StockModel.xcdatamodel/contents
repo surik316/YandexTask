@@ -6,12 +6,13 @@
         <attribute name="companyName" optional="YES" attributeType="String"/>
         <attribute name="iexClose" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="iexOpen" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="latestPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="previousClose" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="StockModel" positionX="-63" positionY="-18" width="128" height="164"/>
+        <element name="StockModel" positionX="-63" positionY="-18" width="128" height="179"/>
     </elements>
 </model>

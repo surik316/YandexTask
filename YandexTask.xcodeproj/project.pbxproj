@@ -38,8 +38,8 @@
 		AA931DF026C92F7900565455 /* DataBaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DEF26C92F7900565455 /* DataBaseProtocol.swift */; };
 		AA931DF226C92F8500565455 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF126C92F8500565455 /* CoreDataStack.swift */; };
 		AA931DF426C9543B00565455 /* AccessibilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF326C9543A00565455 /* AccessibilityService.swift */; };
-		AA931DFB26C9602E00565455 /* StockModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF926C9602E00565455 /* StockModel+CoreDataClass.swift */; };
-		AA931DFC26C9602E00565455 /* StockModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DFA26C9602E00565455 /* StockModel+CoreDataProperties.swift */; };
+		AAC7B3CA26D1737700BCE3CC /* StockModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3C826D1737700BCE3CC /* StockModel+CoreDataClass.swift */; };
+		AAC7B3CB26D1737700BCE3CC /* StockModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3C926D1737700BCE3CC /* StockModel+CoreDataProperties.swift */; };
 		AAF6759526C1B32F00367972 /* StockModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAF6759326C1B32F00367972 /* StockModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -79,8 +79,8 @@
 		AA931DEF26C92F7900565455 /* DataBaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseProtocol.swift; sourceTree = "<group>"; };
 		AA931DF126C92F8500565455 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AA931DF326C9543A00565455 /* AccessibilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityService.swift; sourceTree = "<group>"; };
-		AA931DF926C9602E00565455 /* StockModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AA931DFA26C9602E00565455 /* StockModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAC7B3C826D1737700BCE3CC /* StockModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAC7B3C926D1737700BCE3CC /* StockModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AAF6759426C1B32F00367972 /* StockModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StockModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,8 +201,8 @@
 		AAF8969F26C2C73E00BF02D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AA931DFA26C9602E00565455 /* StockModel+CoreDataProperties.swift */,
-				AA931DF926C9602E00565455 /* StockModel+CoreDataClass.swift */,
+				AAC7B3C826D1737700BCE3CC /* StockModel+CoreDataClass.swift */,
+				AAC7B3C926D1737700BCE3CC /* StockModel+CoreDataProperties.swift */,
 			);
 			name = Model;
 			path = ../..;
@@ -380,7 +380,7 @@
 				AA931DF226C92F8500565455 /* CoreDataStack.swift in Sources */,
 				737F2D5626A35C4500303BB9 /* ListViewTableViewDataSource.swift in Sources */,
 				7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */,
-				AA931DFB26C9602E00565455 /* StockModel+CoreDataClass.swift in Sources */,
+				AAC7B3CA26D1737700BCE3CC /* StockModel+CoreDataClass.swift in Sources */,
 				AAF6759526C1B32F00367972 /* StockModel.xcdatamodeld in Sources */,
 				737F2D5826A36FC000303BB9 /* HapticsManager.swift in Sources */,
 				AA4492AD26ADC78700BD30ED /* LineChartView.swift in Sources */,
@@ -388,7 +388,7 @@
 				73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */,
 				AA931DF026C92F7900565455 /* DataBaseProtocol.swift in Sources */,
 				7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */,
-				AA931DFC26C9602E00565455 /* StockModel+CoreDataProperties.swift in Sources */,
+				AAC7B3CB26D1737700BCE3CC /* StockModel+CoreDataProperties.swift in Sources */,
 				73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */,
 				737F2D5A26A3782300303BB9 /* ListTableViewHeader.swift in Sources */,
 				73B0CEC22697534A00E944A0 /* Colors.swift in Sources */,
