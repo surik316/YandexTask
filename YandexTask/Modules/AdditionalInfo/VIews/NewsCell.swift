@@ -15,13 +15,14 @@ class NewsCell: UITableViewCell {
     var containerView = UIView()
     var infoView = UIView()
     var headLineLabel = UILabel()
-    var urlTextView = UILabel()
+    var urlTextLabel = UILabel()
+    var url: URL!
     var summaryTextView = UILabel()
     var sourceAndDataTimeLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.isUserInteractionEnabled = true
         contentView.addSubview(newsImageView)
         contentView.addSubview(headLineLabel)
         contentView.addSubview(infoView)
@@ -36,9 +37,6 @@ class NewsCell: UITableViewCell {
         newsImageView.layer.cornerRadius = 27
         newsImageView.clipsToBounds  = true
     }
-    @objc func a() {
-        print("asdasdasd")
-    }
     func setupStackView() {
         infoView.layer.cornerRadius = 23
         infoView.backgroundColor = Colors.newsDescriptionColor
@@ -49,8 +47,6 @@ class NewsCell: UITableViewCell {
         summaryTextView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        let g = UITapGestureRecognizer(target: self, action: #selector(a))
-        urlTextView.addGestureRecognizer(g)
         NSLayoutConstraint.activate([
             summaryTextView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 6),
             summaryTextView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -6),
@@ -64,25 +60,30 @@ class NewsCell: UITableViewCell {
 
         ])
         
-        urlTextView.font = UIFont(name: "Helvetica", size: 12)
+        urlTextLabel.font = UIFont(name: "Helvetica", size: 12)
         sourceAndDataTimeLabel.font = UIFont(name: "Helvetica", size: 12)
         headLineLabel.numberOfLines = 2
         headLineLabel.textColor = .white
         headLineLabel.font = UIFont(name: "Helvetica Bold", size: 14)
         headLineLabel.backgroundColor = UIColor(red: 137/255, green: 137/255, blue: 137/255, alpha: 1)
-        urlTextView.text = "Article"
-        urlTextView.textColor = .black
-        urlTextView.textAlignment = .center
-        urlTextView.backgroundColor = .white
-        
-        urlTextView.isUserInteractionEnabled = true
+        urlTextLabel.text = "Article"
+        urlTextLabel.textColor = .white
+        urlTextLabel.textAlignment = .center
+        urlTextLabel.backgroundColor = .white
+        urlTextLabel.isUserInteractionEnabled = true
+        urlTextLabel.backgroundColor = Colors.newsDescriptionColor
         contentView.isUserInteractionEnabled = true
         isUserInteractionEnabled = true
         containerView.isUserInteractionEnabled = true
         summaryTextView.font = UIFont(name: "Helvetica", size: 14)
+        let gestrure = UITapGestureRecognizer(target: self, action: #selector(taped))
         //summaryTextView.isEditable = false
+        contentView.addGestureRecognizer(gestrure)
         setupContainerViewConstraints()
         
+    }
+    @objc func taped() {
+        UIApplication.shared.openURL(self.url)
     }
     func setupNewsImageViewConstraints() {
         newsImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,21 +114,21 @@ class NewsCell: UITableViewCell {
     
     func setupContainerViewConstraints() {
         
-        containerView.addSubview(urlTextView)
+        containerView.addSubview(urlTextLabel)
         containerView.addSubview(sourceAndDataTimeLabel)
         isUserInteractionEnabled = true
         sourceAndDataTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        urlTextView.translatesAutoresizingMaskIntoConstraints = false
+        urlTextLabel.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             
             sourceAndDataTimeLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
             sourceAndDataTimeLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5),
             
-            urlTextView.centerYAnchor.constraint(equalTo: sourceAndDataTimeLabel.centerYAnchor, constant: -4),
-            urlTextView.leadingAnchor.constraint(equalTo: sourceAndDataTimeLabel.trailingAnchor, constant: 15),
-            urlTextView.heightAnchor.constraint(equalToConstant: 25),
-            urlTextView.widthAnchor.constraint(equalToConstant: 50),
+            urlTextLabel.centerYAnchor.constraint(equalTo: sourceAndDataTimeLabel.centerYAnchor, constant: -2),
+            urlTextLabel.leadingAnchor.constraint(equalTo: sourceAndDataTimeLabel.trailingAnchor, constant: 15),
+            urlTextLabel.heightAnchor.constraint(equalToConstant: 25),
+            urlTextLabel.widthAnchor.constraint(equalToConstant: 50),
             
         ])
     }

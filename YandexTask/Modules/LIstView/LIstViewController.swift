@@ -12,15 +12,15 @@ import Kingfisher
 class ListViewController: UIViewController, UISearchBarDelegate{
     
     var presenter: ListViewPresenterProtocol!
-    let searchController = UISearchController(searchResultsController: nil)
-    let headerView = ListTableViewHeader()
-    let tableView = UITableView()
-    private let refreshControl = UIRefreshControl()
-    var isSearchBarEmpty: Bool {
+     let searchController = UISearchController(searchResultsController: nil)
+     let headerView = ListTableViewHeader()
+     let tableView = UITableView()
+     let refreshControl = UIRefreshControl()
+     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    var isFiltering: Bool {
+     var isFiltering: Bool {
       return searchController.isActive && !isSearchBarEmpty
     }
     
@@ -41,21 +41,14 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         sender.endRefreshing()
         presenter.load()
     }
-    func setupSearchController(){
+    private func setupSearchController(){
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Find company or ticker"
         definesPresentationContext = true
     }
-    
-//    private func loadStocksData() {
-//            presenter.getStockData{ [weak self] in
-//                self?.tableView.dataSource = self
-//                self?.tableView.reloadData()
-//            }
-//    }
-    
-    func setupTableView(){
+
+    private func setupTableView(){
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -74,7 +67,7 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         tableView.backgroundColor = Colors.backgroundColor
     }
     
-    func setupHeaderView(){
+    private func setupHeaderView(){
         let tapStockHeader = UITapGestureRecognizer(target: self, action:
                                                         #selector(ListViewController.stockLabelTapped))
         headerView.headerStock.addGestureRecognizer(tapStockHeader)
@@ -91,16 +84,21 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         }
       tableView.reloadData()
     }
-    func starTapped(cell: CustomCell) {
+     func starTapped(cell: CustomCell) {
         HapticsManager.shared.selectionVibrate()
         if !cell.isFavourite && !presenter.isLableTappedFavourite{
             cell.buttonStar.setImage(UIImage(named: "star"), for: .normal)
             cell.isFavourite = true
             presenter.storageStocks[cell.tag].isFavourite = true
             presenter.storageLikedStocks.append(presenter.storageStocks[cell.tag])
-            
+            var dict = [String: Bool]()
+            presenter.storageStocks.compactMap { model in
+                if model.isFavourite == true{
+                    dict[model.symbol] = true
+                }
+            }
+            Services.userDefaults.save(object: dict, for: "isFavourite")
         } else {
-            
             
             cell.buttonStar.setImage(UIImage(named: "emptyStar"), for: .normal)
             cell.isFavourite = false
@@ -117,8 +115,6 @@ class ListViewController: UIViewController, UISearchBarDelegate{
                     self.tableView.reloadData()
                 }
             }
-            
-
         }
     }
 }

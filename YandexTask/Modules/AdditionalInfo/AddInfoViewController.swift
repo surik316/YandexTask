@@ -89,7 +89,7 @@ class AddInfoViewController: UIViewController {
     private func setupTableView() {
         view.addSubview(tableView)
         self.tableView.rowHeight = 400
-        tableView.allowsSelection = false
+        //tableView.selec
         tableView.register(NewsCell.self, forCellReuseIdentifier: "news")
         tableView.delegate = self
         tableView.dataSource = self
@@ -189,11 +189,9 @@ extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UI
         let relatedText = (presenter.storageNews?[indexPath.row].source) ?? "No related"
         cell.sourceAndDataTimeLabel.text = relatedText + ", " + myNSDate.asString()
         
-        let attributedString = NSAttributedString.makeHyperlink(for: presenter.storageNews?[indexPath.row].url ?? "", in: cell.urlTextView.text ?? "", as: "Article")
-        print("attr \(attributedString)")
-        cell.urlTextView.attributedText = attributedString
         cell.newsImageView.kf.indicatorType = .activity
-        cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""), placeholder: UIImage(named: "bnImage"))
+        cell.url = URL(string: presenter.storageNews?[indexPath.row].url ?? "")
+        cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""))
         return cell
     }
 }

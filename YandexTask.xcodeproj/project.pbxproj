@@ -28,7 +28,7 @@
 		73C7A1E525F537A2007BB42F /* ModelStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1E425F537A2007BB42F /* ModelStock.swift */; };
 		73C7A1F025F53BB8007BB42F /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1EF25F53BB8007BB42F /* ListPresenter.swift */; };
 		73C7A1F325F53BEB007BB42F /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1F225F53BEB007BB42F /* ModuleBuilder.swift */; };
-		73C7A1F625F53C0A007BB42F /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1F525F53C0A007BB42F /* APIClient.swift */; };
+		73C7A1F625F53C0A007BB42F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1F525F53C0A007BB42F /* Network.swift */; };
 		73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A1FB25F53C63007BB42F /* LIstViewController.swift */; };
 		73C7A21325F55FD0007BB42F /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7A21225F55FD0007BB42F /* CustomCell.swift */; };
 		9D64627FA6EFC8A22A56073B /* Pods_YandexTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8A51CD277723ED991CA79B /* Pods_YandexTask.framework */; };
@@ -38,8 +38,13 @@
 		AA931DF026C92F7900565455 /* DataBaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DEF26C92F7900565455 /* DataBaseProtocol.swift */; };
 		AA931DF226C92F8500565455 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF126C92F8500565455 /* CoreDataStack.swift */; };
 		AA931DF426C9543B00565455 /* AccessibilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA931DF326C9543A00565455 /* AccessibilityService.swift */; };
-		AAC7B3CA26D1737700BCE3CC /* StockModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3C826D1737700BCE3CC /* StockModel+CoreDataClass.swift */; };
-		AAC7B3CB26D1737700BCE3CC /* StockModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3C926D1737700BCE3CC /* StockModel+CoreDataProperties.swift */; };
+		AAC7B3CD26D2BB7400BCE3CC /* ListProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3CC26D2BB7300BCE3CC /* ListProtocols.swift */; };
+		AAC7B3CF26D2C4BC00BCE3CC /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3CE26D2C4BC00BCE3CC /* Services.swift */; };
+		AAC7B3D226D2C59800BCE3CC /* UserDefaultStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3D126D2C59800BCE3CC /* UserDefaultStorageService.swift */; };
+		AAC7B3D426D2C5D600BCE3CC /* UserDefaultsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3D326D2C5D600BCE3CC /* UserDefaultsServiceProtocol.swift */; };
+		AAC7B3DE26D2C76100BCE3CC /* StockModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3DC26D2C76100BCE3CC /* StockModel+CoreDataClass.swift */; };
+		AAC7B3DF26D2C76100BCE3CC /* StockModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3DD26D2C76100BCE3CC /* StockModel+CoreDataProperties.swift */; };
+		AAC7B3E126D2D0AE00BCE3CC /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7B3E026D2D0AE00BCE3CC /* NetworkProtocol.swift */; };
 		AAF6759526C1B32F00367972 /* StockModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAF6759326C1B32F00367972 /* StockModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +74,7 @@
 		73C7A1E425F537A2007BB42F /* ModelStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelStock.swift; sourceTree = "<group>"; };
 		73C7A1EF25F53BB8007BB42F /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
 		73C7A1F225F53BEB007BB42F /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
-		73C7A1F525F53C0A007BB42F /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		73C7A1F525F53C0A007BB42F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		73C7A1FB25F53C63007BB42F /* LIstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIstViewController.swift; sourceTree = "<group>"; };
 		73C7A21225F55FD0007BB42F /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		85EEFE1EAB6B3950E9605E27 /* Pods-YandexTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexTask.release.xcconfig"; path = "Target Support Files/Pods-YandexTask/Pods-YandexTask.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,8 +84,13 @@
 		AA931DEF26C92F7900565455 /* DataBaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseProtocol.swift; sourceTree = "<group>"; };
 		AA931DF126C92F8500565455 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AA931DF326C9543A00565455 /* AccessibilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityService.swift; sourceTree = "<group>"; };
-		AAC7B3C826D1737700BCE3CC /* StockModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataClass.swift"; sourceTree = "<group>"; };
-		AAC7B3C926D1737700BCE3CC /* StockModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAC7B3CC26D2BB7300BCE3CC /* ListProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProtocols.swift; sourceTree = "<group>"; };
+		AAC7B3CE26D2C4BC00BCE3CC /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		AAC7B3D126D2C59800BCE3CC /* UserDefaultStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultStorageService.swift; sourceTree = "<group>"; };
+		AAC7B3D326D2C5D600BCE3CC /* UserDefaultsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceProtocol.swift; sourceTree = "<group>"; };
+		AAC7B3DC26D2C76100BCE3CC /* StockModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAC7B3DD26D2C76100BCE3CC /* StockModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAC7B3E026D2D0AE00BCE3CC /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		AAF6759426C1B32F00367972 /* StockModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StockModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,9 +164,7 @@
 				73C7A1C925F534E6007BB42F /* AppDelegate.swift */,
 				737F2D5726A36FC000303BB9 /* HapticsManager.swift */,
 				73C7A1F825F53C34007BB42F /* Modules */,
-				AAF896A826C2CB7100BF02D3 /* CoreData */,
-				73C7A1F525F53C0A007BB42F /* APIClient.swift */,
-				AA931DF326C9543A00565455 /* AccessibilityService.swift */,
+				AAC7B3D026D2C56D00BCE3CC /* Services */,
 				7382F0A9261783F700651E45 /* HelperEntities.swift */,
 				7382F09E2617834100651E45 /* Extensions */,
 				73C7A1D225F534E9007BB42F /* Assets.xcassets */,
@@ -181,6 +189,7 @@
 			children = (
 				73C7A1E425F537A2007BB42F /* ModelStock.swift */,
 				73C7A1EF25F53BB8007BB42F /* ListPresenter.swift */,
+				AAC7B3CC26D2BB7300BCE3CC /* ListProtocols.swift */,
 				73C7A1FB25F53C63007BB42F /* LIstViewController.swift */,
 				73C7A21125F55FBA007BB42F /* Views */,
 			);
@@ -198,11 +207,41 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		AAC7B3D026D2C56D00BCE3CC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AAC7B3CE26D2C4BC00BCE3CC /* Services.swift */,
+				AA931DF326C9543A00565455 /* AccessibilityService.swift */,
+				AAF896A826C2CB7100BF02D3 /* CoreData */,
+				AAC7B3E226D2D0C700BCE3CC /* Network */,
+				AAC7B3D526D2C63F00BCE3CC /* UserDefaults */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AAC7B3D526D2C63F00BCE3CC /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				AAC7B3D326D2C5D600BCE3CC /* UserDefaultsServiceProtocol.swift */,
+				AAC7B3D126D2C59800BCE3CC /* UserDefaultStorageService.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		AAC7B3E226D2D0C700BCE3CC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AAC7B3E026D2D0AE00BCE3CC /* NetworkProtocol.swift */,
+				73C7A1F525F53C0A007BB42F /* Network.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		AAF8969F26C2C73E00BF02D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AAC7B3C826D1737700BCE3CC /* StockModel+CoreDataClass.swift */,
-				AAC7B3C926D1737700BCE3CC /* StockModel+CoreDataProperties.swift */,
+				AAC7B3DC26D2C76100BCE3CC /* StockModel+CoreDataClass.swift */,
+				AAC7B3DD26D2C76100BCE3CC /* StockModel+CoreDataProperties.swift */,
 			);
 			name = Model;
 			path = ../..;
@@ -372,31 +411,36 @@
 				73C7A1E525F537A2007BB42F /* ModelStock.swift in Sources */,
 				7382F0A42617836700651E45 /* UIColor.swift in Sources */,
 				73C7A1F325F53BEB007BB42F /* ModuleBuilder.swift in Sources */,
+				AAC7B3D426D2C5D600BCE3CC /* UserDefaultsServiceProtocol.swift in Sources */,
 				73C7A1CA25F534E6007BB42F /* AppDelegate.swift in Sources */,
 				731B8C922619CC1E00627E10 /* PreviousDayView.swift in Sources */,
 				AA4492AB26ADBE1B00BD30ED /* ChartView.swift in Sources */,
 				739C90292617856200BC1C93 /* NewsCell.swift in Sources */,
 				AA931DEE26C92F5B00565455 /* DataBaseService.swift in Sources */,
+				AAC7B3DE26D2C76100BCE3CC /* StockModel+CoreDataClass.swift in Sources */,
 				AA931DF226C92F8500565455 /* CoreDataStack.swift in Sources */,
 				737F2D5626A35C4500303BB9 /* ListViewTableViewDataSource.swift in Sources */,
 				7382F0AA261783F700651E45 /* HelperEntities.swift in Sources */,
-				AAC7B3CA26D1737700BCE3CC /* StockModel+CoreDataClass.swift in Sources */,
 				AAF6759526C1B32F00367972 /* StockModel.xcdatamodeld in Sources */,
 				737F2D5826A36FC000303BB9 /* HapticsManager.swift in Sources */,
+				AAC7B3CD26D2BB7400BCE3CC /* ListProtocols.swift in Sources */,
 				AA4492AD26ADC78700BD30ED /* LineChartView.swift in Sources */,
 				73C7A1F025F53BB8007BB42F /* ListPresenter.swift in Sources */,
+				AAC7B3D226D2C59800BCE3CC /* UserDefaultStorageService.swift in Sources */,
 				73C7A1FC25F53C63007BB42F /* LIstViewController.swift in Sources */,
 				AA931DF026C92F7900565455 /* DataBaseProtocol.swift in Sources */,
 				7382F0A72617837600651E45 /* NSAttributedString.swift in Sources */,
-				AAC7B3CB26D1737700BCE3CC /* StockModel+CoreDataProperties.swift in Sources */,
 				73694D3D260E379E00EFEAFB /* AddInfoPresenter.swift in Sources */,
 				737F2D5A26A3782300303BB9 /* ListTableViewHeader.swift in Sources */,
 				73B0CEC22697534A00E944A0 /* Colors.swift in Sources */,
+				AAC7B3CF26D2C4BC00BCE3CC /* Services.swift in Sources */,
 				73C7A21325F55FD0007BB42F /* CustomCell.swift in Sources */,
 				73694D3A260E36FA00EFEAFB /* AddInfoViewController.swift in Sources */,
-				73C7A1F625F53C0A007BB42F /* APIClient.swift in Sources */,
+				73C7A1F625F53C0A007BB42F /* Network.swift in Sources */,
 				737FDF10269095B40017C7A9 /* LIstViewTableViewDelegate.swift in Sources */,
 				7382F0A02617835C00651E45 /* Date.swift in Sources */,
+				AAC7B3E126D2D0AE00BCE3CC /* NetworkProtocol.swift in Sources */,
+				AAC7B3DF26D2C76100BCE3CC /* StockModel+CoreDataProperties.swift in Sources */,
 				73694D43260E37CB00EFEAFB /* AddInfoModel.swift in Sources */,
 				AA931DF426C9543B00565455 /* AccessibilityService.swift in Sources */,
 			);

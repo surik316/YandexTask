@@ -16,7 +16,7 @@ protocol AddInfoViewProtocol: AnyObject{
 }
 
 protocol AddInfoPresenterProtocol: AnyObject {
-    init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock)
+    init(view: AddInfoViewProtocol, model: ModelStock)
     func setView()
     func getNewsData()
     func getTitles() -> [String]
@@ -34,7 +34,6 @@ protocol AddInfoPresenterProtocol: AnyObject {
 class AddInfoPresenter: AddInfoPresenterProtocol {
     
     weak var view: AddInfoViewProtocol?
-    var apiClient : NetworkServiceProtocol!
     var modelStock: ModelStock
     var storageNews : [NewsElement]?
     var storageAbout: ModelAbout?
@@ -42,16 +41,15 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
     var storageGraph: [[Int]]?
     let segmentTitles = [ "News", "About", "PrevDay", "Chart"]
     
-    required init(view: AddInfoViewProtocol, networkService: NetworkServiceProtocol, model: ModelStock) {
+    required init(view: AddInfoViewProtocol, model: ModelStock) {
         self.view = view
-        self.apiClient = networkService
         self.modelStock = model
     }
     public func setView(){
         self.view?.succes(model: modelStock) //сделать дефолтную модель
     }
     func getNewsData() {
-        apiClient.fetchNewsData(for: modelStock.symbol) { (result) in
+        Services.network.fetchNewsData(for: modelStock.symbol) { (result) in
             switch result {
             case .success(let news):
                 self.storageNews = news
@@ -62,10 +60,10 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
         }
     }
     func getGraphData()  {
-        storageGraph = apiClient.getDataForGraph()
+        storageGraph =  Services.network.getDataForGraph()
     }
     func getPreviousDayData() {
-        apiClient.fetchPreviousDayData(for: modelStock.symbol) { (result) in
+        Services.network.fetchPreviousDayData(for: modelStock.symbol) { (result) in
             switch result{
             
             case .success(let previousDayData):
@@ -77,7 +75,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
         }
     }
     func getAboutCompanyData() {
-        apiClient.fetchAboutCompanyData(for: modelStock.symbol) { (result) in
+        Services.network.fetchAboutCompanyData(for: modelStock.symbol) { (result) in
             switch result {
             case .success(let aboutCompanyData):
                 self.storageAbout = aboutCompanyData

@@ -8,41 +8,20 @@
 import Foundation
 import UIKit
 
-protocol ListViewProtocol: AnyObject{
-    func sucess()
-    func failure(error: Error)
-}
-
-protocol ListViewPresenterProtocol: AnyObject {
-    init(view: ListViewProtocol, networkService: NetworkServiceProtocol)
-    func getStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
-    func filterStorageStocks(searchText: String)
-    var storageStocks: [ModelStock] {get set}
-    var filteredStocks: [ModelStock]? {get set}
-    var storageLikedStocks: [ModelStock] {get set}
-    var isLableTappedFavourite: Bool {get}
-    func changeStateLableFavourite(state: Bool)
-    func load()
-}
-
 class ListPresenter: ListViewPresenterProtocol {
    
     private weak var view: ListViewProtocol?
-    var apiClient : NetworkServiceProtocol!
     var storageStocks = [ModelStock]()
     var storageLikedStocks = [ModelStock]()
     var filteredStocks: [ModelStock]?
     private(set) var isLableTappedFavourite = false
-    private let databaseService = DatabaseService(coreDataStack: CoreDataStack())
-    private let accessibilityService = AccessibilityService()
-    required init(view: ListViewProtocol, networkService: NetworkServiceProtocol) {
+    required init(view: ListViewProtocol) {
         self.view = view
-        self.apiClient = networkService
-        accessibilityService.start()
+        Services.networkConnection.start()
     }
 
     func load() {
-        if accessibilityService.isNetworkAccessable {
+        if Services.networkConnection.isNetworkAccessable {
             networkLoad()
         } else {
             offlineLoad()
@@ -50,14 +29,26 @@ class ListPresenter: ListViewPresenterProtocol {
     }
     private func offlineLoad() {
         storageStocks = []
-        storageStocks = databaseService.getStonks()
+        storageStocks = Services.coreData.getStonks()
+        let isFavDict = Services.userDefaults.get(for: "isFavourite")
+        for var element in storageStocks {
+            if  isFavDict[element.symbol] != nil {
+                element.isFavourite = true
+            }
+        }
     }
     private func networkLoad() {
-        apiClient.getStocksData() { [weak self] (result) in
+        Services.network.getStocksData() { [weak self] (result) in
             guard let self = self else {return }
             switch result{
             case .success(let stocks):
                 self.storageStocks = stocks
+                let isFavDict = Services.userDefaults.get(for: "isFavourite")
+                for var element in self.storageStocks {
+                    if  isFavDict[element.symbol] != nil {
+                        element.isFavourite = true
+                    }
+                }
                 self.view?.sucess()
             case .failure(let error):
                 self.view?.failure(error: error)
@@ -66,7 +57,7 @@ class ListPresenter: ListViewPresenterProtocol {
     }
     
     func getStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ()) {
-        self.apiClient.getLogoUrl(for: (symbol)) { (result)  in
+        Services.network.getLogoUrl(for: (symbol)) { (result)  in
 
             switch result{
             case .success(let logo):

@@ -66,7 +66,6 @@ class CustomCell: UITableViewCell {
         ])
     }
     @objc func starButtonClick() {
-        
         tapDelegate.starTapped(cell: self)
     }
     private func configureAbbreviationLabel() {

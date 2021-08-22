@@ -74,6 +74,7 @@ private extension StockModel {
         self.iexOpen = stock.iexOpen ?? 0.0
         self.isFavourite = stock.isFavourite ?? false
         self.previousClose = stock.previousClose ?? 0.0
+        self.latestPrice = stock.latestPrice ?? 0.0
         
     }
 }

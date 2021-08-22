@@ -2,7 +2,7 @@
 //  StockModel+CoreDataProperties.swift
 //  YandexTask
 //
-//  Created by maksim.surkov on 21.08.2021.
+//  Created by maksim.surkov on 22.08.2021.
 //
 //
 
@@ -21,11 +21,11 @@ extension StockModel {
     @NSManaged public var companyName: String?
     @NSManaged public var iexClose: Double
     @NSManaged public var iexOpen: Double
+    @NSManaged public var image: Data?
     @NSManaged public var isFavourite: Bool
     @NSManaged public var latestPrice: Double
     @NSManaged public var previousClose: Double
     @NSManaged public var symbol: String?
-    @NSManaged public var image: Data?
 
 }
 

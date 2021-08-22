@@ -21,12 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         window.rootViewController = navController
         self.window = window
-        UserDefaults.standard.setValue("sk_54429456ae874549bce0fafb459ec168", forKey: "apiToken")
+        UserDefaults.standard.setValue("sk_37ca0f740a514ca48f1c08863ad7295a", forKey: "apiToken")
         return true
     }
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
         CoreDataStack.shared.saveContext()
     }
 

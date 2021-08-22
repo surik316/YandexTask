@@ -15,16 +15,14 @@ protocol Builder {
 
 class ListBuilder: Builder{
     static func createModule() -> UIViewController {
-        let networkService = APIClient()
         let view = ListViewController()
-        let presenter = ListPresenter(view: view, networkService: networkService)
+        let presenter = ListPresenter(view: view)
         view.presenter = presenter
         return view
     }
     static func createAddInfoModule(modelStock: ModelStock) -> UIViewController {
-        let networkService = APIClient()
         let view = AddInfoViewController()
-        let presenter = AddInfoPresenter(view: view , networkService: networkService, model: modelStock)
+        let presenter = AddInfoPresenter(view: view, model: modelStock)
         view.presenter = presenter
         return view
     }

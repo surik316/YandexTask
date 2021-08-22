@@ -7,22 +7,12 @@
 import Foundation
 import CoreData
 
-protocol NetworkServiceProtocol{
-    func getStocksData(completion: @escaping (Result<[ModelStock], Error>) -> Void)
-    func getLogoUrl(for symbol: String, completion: @escaping (Result<ModelLogo, Error>) -> Void)
-    func fetchNewsData(for symbol: String, completion: @escaping (Result<[NewsElement], Error>) -> Void)
-    func fetchAboutCompanyData(for symbol: String, completion: @escaping (Result<ModelAbout, Error>) -> Void)
-    func fetchPreviousDayData(for symbol: String, completion: @escaping (Result<ModelPreviousDay, Error>) -> Void)
-    var defalulturlNews: URL {get}
-    func getDataForGraph()->[[Int]]
-}
 
-class APIClient {
+
+class Network {
     
     private var dataTask: URLSessionDataTask?
     private let decoder = JSONDecoder()
-    private let context = CoreDataStack.shared.viewContext
-    private let databaseService = DatabaseService(coreDataStack: CoreDataStack())
     private func makeNoticableUrl(for symbol: String) -> URL?{
         var result = URLComponents()
         result.scheme = "https"
@@ -70,7 +60,7 @@ class APIClient {
         return URL(string: "https://us.123rf.com/450wm/alhovik/alhovik1709/alhovik170900031/86481591-stock-vector-breaking-news-background-world-global-tv-news-banner-design.jpg?ver=6")!
     }
 }
-extension APIClient: NetworkServiceProtocol{
+extension Network: NetworkServiceProtocol{
     
     func fetchPreviousDayData(for symbol: String, completion: @escaping (Result<ModelPreviousDay, Error>) -> Void) {
         let newsURL = makePreviousDayUrl(for: symbol)
@@ -199,9 +189,9 @@ extension APIClient: NetworkServiceProtocol{
                print("Response status code: \(response.statusCode)")
                do {
                 let jsonData = try self.decoder.decode([ModelStock].self, from: data)
-                self.databaseService.deleteAllData(entity: "StockModel")
+                Services.coreData.deleteAllData(entity: "StockModel")
                 
-                self.databaseService.update(stoks: jsonData)
+                Services.coreData.update(stoks: jsonData)
                 
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
