@@ -22,7 +22,7 @@ extension DatabaseService: DatabaseServiceProtocol {
 //        let stock = StockModel(context: backgroundContext)
 //        stock.symbol = stoks[0].symbol
         
-        //backgroundContext.perform {
+//        backgroundContext.perform {
             stoks.forEach {
                 let stock = StockModel(context: backgroundContext)
                 stock.update(with: $0)
@@ -54,8 +54,7 @@ extension DatabaseService: DatabaseServiceProtocol {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.returnsObjectsAsFaults = false
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        do
-        {
+        do {
             try self.coreDataStack.backgroundContext.execute(deleteRequest)
             try self.coreDataStack.backgroundContext.save()
         } catch let error as NSError {

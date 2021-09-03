@@ -1,11 +1,11 @@
-////
-////  LIstViewTableViewDelegate.swift
-////  YandexTask
-////
-////  Created by Максим Сурков on 03.07.2021.
-////
 //
-//import Foundation
+//  LIstViewTableViewDelegate.swift
+//  YandexTask
+//
+//  Created by Максим Сурков on 03.07.2021.
+//
+//
+import Foundation
 import UIKit
 extension ListViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -15,10 +15,9 @@ extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         var model: ModelStock
-        if (presenter.isLableTappedFavourite) {
+        if presenter.isLableTappedFavourite {
             model = presenter.storageLikedStocks[indexPath.row]
-        }
-        else {
+        } else {
             model = presenter.storageStocks[indexPath.row]
         }
         model.tag = indexPath.row

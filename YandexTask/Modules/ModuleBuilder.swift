@@ -13,7 +13,7 @@ protocol Builder {
     static func createAddInfoModule(modelStock: ModelStock) -> UIViewController
 }
 
-class ListBuilder: Builder{
+class ListBuilder: Builder {
     static func createModule() -> UIViewController {
         let view = ListViewController()
         let presenter = ListPresenter(view: view)

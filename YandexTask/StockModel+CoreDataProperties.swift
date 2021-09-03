@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension StockModel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<StockModel> {
@@ -29,6 +28,4 @@ extension StockModel {
 
 }
 
-extension StockModel : Identifiable {
-
-}
+extension StockModel: Identifiable {}

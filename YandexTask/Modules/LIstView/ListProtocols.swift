@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol ListViewProtocol: AnyObject{
+protocol ListViewProtocol: AnyObject {
     func sucess()
     func failure(error: Error)
 }
 
 protocol ListViewPresenterProtocol: AnyObject {
     init(view: ListViewProtocol)
-    func getStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ())
+    func getStocksImage(symbol: String, completion: @escaping (Result<URL?, Error>) -> Void)
     func filterStorageStocks(searchText: String)
     var storageStocks: [ModelStock] {get set}
     var filteredStocks: [ModelStock]? {get set}

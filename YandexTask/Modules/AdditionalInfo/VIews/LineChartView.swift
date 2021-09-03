@@ -31,15 +31,13 @@ class LineChatView: UIView {
         let margin = Constans.margin
         let graphWidth = width - margin * 2 - 5
         
-        let columnXPoint = {
-            (clumnl: Float) -> CGFloat in
+        let columnXPoint = { (clumnl: Float) -> CGFloat in
             let spacing = graphWidth / CGFloat(self.graphPoints.count - 1)
             return CGFloat(clumnl) * spacing + margin
         }
         let graphHeight = CGFloat(height) - Constans.topBorder - Constans.bottomBorder
         let maxValue = graphPoints.max()!
-        let cloumnYPoint =  {
-            (graphPoint: Float) -> CGFloat in
+        let cloumnYPoint = { (graphPoint: Float) -> CGFloat in
             let y = CGFloat(graphPoint) / CGFloat(maxValue) * CGFloat(graphHeight)
             return CGFloat(graphHeight + Constans.topBorder - y)
         }

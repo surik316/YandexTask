@@ -20,7 +20,7 @@ class AddInfoViewController: UIViewController {
     private let aboutView = AboutView()
     private let previousDayView = PreviousDayView()
     private var chartView: ChartView!
-    private lazy var segmnetedControll : UISegmentedControl = {
+    private lazy var segmnetedControll: UISegmentedControl = {
         let controll = UISegmentedControl(items: presenter.getTitles())
         controll.selectedSegmentIndex = 0
         controll.backgroundColor = .clear
@@ -55,7 +55,7 @@ class AddInfoViewController: UIViewController {
               titleStackView.spacing = 20.0
           }
     }
-    private func setupSegmentControl(){
+    private func setupSegmentControl() {
         view.addSubview(segmnetedControll)
         segmnetedControll.edgesToSuperview(excluding: .bottom,
                                            insets: UIEdgeInsets(top: 24, left: 20, bottom: 0, right: 20), usingSafeArea: true)
@@ -70,11 +70,10 @@ class AddInfoViewController: UIViewController {
         let change = String(format: "%.2f", abs((presenter.modelStock.iexClose ?? 0) - (presenter.modelStock.previousClose ?? 0)))
         let mod_iexClose = (presenter.modelStock.iexClose ?? 0).truncatingRemainder(dividingBy: (presenter.modelStock.previousClose ?? 0))
         let percentage = String(format: "%.2f", abs( mod_iexClose / (presenter.modelStock.previousClose ?? 0)))
-        if presenter.modelStock.iexClose ?? 0 > presenter.modelStock.previousClose ?? 0{
+        if presenter.modelStock.iexClose ?? 0 > presenter.modelStock.previousClose ?? 0 {
             chartView.changePriceLabel.text = "+$" + change + "(" + percentage + "%" + ")"
             chartView.changePriceLabel.textColor = UIColor.rgba(36, 178, 93)
-        }
-        else{
+        } else {
             chartView.changePriceLabel.text = "-$" + change + "(" + percentage + "%" + ")"
             chartView.changePriceLabel.textColor = UIColor.rgba(178, 36, 36)
         }
@@ -89,7 +88,6 @@ class AddInfoViewController: UIViewController {
     private func setupTableView() {
         view.addSubview(tableView)
         self.tableView.rowHeight = 400
-        //tableView.selec
         tableView.register(NewsCell.self, forCellReuseIdentifier: "news")
         tableView.delegate = self
         tableView.dataSource = self
@@ -141,7 +139,7 @@ class AddInfoViewController: UIViewController {
         ])
     }
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex{
+        switch sender.selectedSegmentIndex {
         case 0:
             tableView.isHidden = false
             aboutView.isHidden = true
@@ -167,7 +165,7 @@ class AddInfoViewController: UIViewController {
         }
     }
 }
-extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UITextViewDelegate {
+extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
             UIApplication.shared.open(URL)
@@ -179,23 +177,22 @@ extension AddInfoViewController: UITableViewDelegate, UITableViewDataSource,  UI
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "news", for:  indexPath) as!
-        NewsCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "news", for: indexPath) as? NewsCell else {
+            return NewsCell()
+        }
         cell.headLineLabel.text = presenter.storageNews?[indexPath.row].headline
         cell.summaryTextView.text = presenter.storageNews?[indexPath.row].summary
         let timeInterval = Double(presenter.storageNews?[indexPath.row].datetime ?? 0)
         let myNSDate = Date(timeIntervalSince1970: timeInterval/1000)
         let relatedText = (presenter.storageNews?[indexPath.row].source) ?? "No related"
         cell.sourceAndDataTimeLabel.text = relatedText + ", " + myNSDate.asString()
-        
         cell.newsImageView.kf.indicatorType = .activity
         cell.url = URL(string: presenter.storageNews?[indexPath.row].url ?? "")
         cell.newsImageView.kf.setImage(with: URL(string: presenter.storageNews?[indexPath.row].image ?? ""))
         return cell
     }
 }
-extension AddInfoViewController: AddInfoViewProtocol{
+extension AddInfoViewController: AddInfoViewProtocol {
     func gotPreviousDay() {
         DispatchQueue.main.async {
             self.previousDayView.closePriceLabel.text = "$ " + String(self.presenter.storagePreviousDay?.closePrice ?? 0)
@@ -239,7 +236,7 @@ extension AddInfoViewController: AddInfoViewProtocol{
         titleStackView.setCustomSpacing(4, after: titleLabel)
         
         navigationController?.navigationBar.barTintColor = view.backgroundColor
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.layoutIfNeeded()
     }
@@ -248,5 +245,3 @@ extension AddInfoViewController: AddInfoViewProtocol{
         print("ViewController addInfo: \(error.localizedDescription)")
     }
 }
-
-

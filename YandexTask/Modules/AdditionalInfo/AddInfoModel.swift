@@ -18,7 +18,6 @@ struct NewsElement: Codable {
 
 typealias News = [NewsElement]
 
-
 struct ModelAbout: Codable {
     let symbol, companyName, industry: String
     let website: String
@@ -38,4 +37,3 @@ struct ModelPreviousDay: Codable {
         case openPrice = "open"
     }
 }
-

@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-final class ListTableViewHeader: UIView  {
+final class ListTableViewHeader: UIView {
     let headerStock = UILabel()
     let headerFavourite = UILabel()
     override init(frame: CGRect) {
@@ -34,7 +34,7 @@ final class ListTableViewHeader: UIView  {
             headerStock.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             headerFavourite.leadingAnchor.constraint(equalTo: headerStock.trailingAnchor, constant: 20),
-            headerFavourite.bottomAnchor.constraint(equalTo: headerStock.bottomAnchor),
+            headerFavourite.bottomAnchor.constraint(equalTo: headerStock.bottomAnchor)
             
         ])
     }

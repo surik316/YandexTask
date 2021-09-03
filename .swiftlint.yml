@@ -1,0 +1,9 @@
+disabled_rules:
+    - identifier_name
+    - trailing_whitespace
+    - line_length
+opt_in_rules:
+    - empty_count
+excluded:
+    - Carthage
+    - Pods

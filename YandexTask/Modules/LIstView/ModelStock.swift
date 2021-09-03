@@ -15,7 +15,7 @@ struct ModelStock: Codable {
     let change, changePercent: Double?
     let iexOpen: Double?
     let iexClose: Double?
-    var isFavourite: Bool? = false;
+    var isFavourite: Bool? = false
     var tag: Int?
     init() {
         self.symbol = "SMTH"
@@ -34,4 +34,3 @@ typealias ListStock = [StockModel]
 struct ModelLogo: Codable {
     let url: String
 }
-

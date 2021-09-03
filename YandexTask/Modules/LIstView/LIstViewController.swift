@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class ListViewController: UIViewController, UISearchBarDelegate{
+class ListViewController: UIViewController, UISearchBarDelegate {
     
     var presenter: ListViewPresenterProtocol!
      let searchController = UISearchController(searchResultsController: nil)
@@ -41,14 +41,14 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         sender.endRefreshing()
         presenter.load()
     }
-    private func setupSearchController(){
+    private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Find company or ticker"
         definesPresentationContext = true
     }
 
-    private func setupTableView(){
+    private func setupTableView() {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -67,7 +67,7 @@ class ListViewController: UIViewController, UISearchBarDelegate{
         tableView.backgroundColor = Colors.backgroundColor
     }
     
-    private func setupHeaderView(){
+    private func setupHeaderView() {
         let tapStockHeader = UITapGestureRecognizer(target: self, action:
                                                         #selector(ListViewController.stockLabelTapped))
         headerView.headerStock.addGestureRecognizer(tapStockHeader)
@@ -76,33 +76,27 @@ class ListViewController: UIViewController, UISearchBarDelegate{
     }
     
     private func filterStocks(for searchText: String) {
-        if presenter.isLableTappedFavourite{
+        if presenter.isLableTappedFavourite {
             presenter.filterStorageStocks(searchText: searchText)
-        }
-        else{
+        } else {
             presenter.filterStorageStocks(searchText: searchText)
         }
       tableView.reloadData()
     }
      func starTapped(cell: CustomCell) {
         HapticsManager.shared.selectionVibrate()
-        if !cell.isFavourite && !presenter.isLableTappedFavourite{
+        if !cell.isFavourite && !presenter.isLableTappedFavourite {
             cell.buttonStar.setImage(UIImage(named: "star"), for: .normal)
             cell.isFavourite = true
             presenter.storageStocks[cell.tag].isFavourite = true
             presenter.storageLikedStocks.append(presenter.storageStocks[cell.tag])
-            var dict = [String: Bool]()
-            presenter.storageStocks.compactMap { model in
-                if model.isFavourite == true{
-                    dict[model.symbol] = true
-                }
-            }
-            Services.userDefaults.save(object: dict, for: "isFavourite")
-        } else {
+            Services.userDefaults.updateValue(symbol: cell.abbreviationLabel.text ?? "", value: cell.isFavourite, key: .favourite)
             
+        } else {
             cell.buttonStar.setImage(UIImage(named: "emptyStar"), for: .normal)
             cell.isFavourite = false
-            if let index = presenter.storageLikedStocks.firstIndex(where: {$0.companyName == cell.corporationNameLabel.text}){
+            Services.userDefaults.updateValue(symbol: cell.abbreviationLabel.text ?? "", value: cell.isFavourite, key: .favourite)
+            if let index = presenter.storageLikedStocks.firstIndex(where: {$0.companyName == cell.corporationNameLabel.text}) {
                 if let bumber = presenter.storageStocks.firstIndex(where: {$0.companyName == cell.corporationNameLabel.text}) {
                     
                     presenter.storageStocks[bumber].isFavourite = false
@@ -126,18 +120,18 @@ extension ListViewController: UISearchResultsUpdating {
     }
     
 }
-extension ListViewController{
+extension ListViewController {
     
-    func setToSelectedLabel(label: UILabel){
+    func setToSelectedLabel(label: UILabel) {
         label.font = UIFont(name: "Helvetica Bold", size: 28)
         label.textColor = Colors.selectedLabelColor
     }
-    func setToDefaultLabelConfig(label: UILabel){
+    func setToDefaultLabelConfig(label: UILabel) {
         label.font = UIFont(name: "Helvetica Bold", size: 18)
         label.textColor = Colors.unselectedLabelColor
     }
     
-    @objc func stockLabelTapped(sender:UITapGestureRecognizer) {
+    @objc func stockLabelTapped(sender: UITapGestureRecognizer) {
         presenter.changeStateLableFavourite(state: false)
         setToDefaultLabelConfig(label: headerView.headerFavourite)
         setToSelectedLabel(label: headerView.headerStock)
@@ -157,7 +151,7 @@ extension ListViewController{
     }
 }
 
-extension ListViewController: ListViewProtocol{
+extension ListViewController: ListViewProtocol {
     func sucess() {
         DispatchQueue.main.async {
             self.tableView.reloadData()

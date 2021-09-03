@@ -44,11 +44,13 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.0.0)
+  - SwiftLint (0.43.1)
   - TinyConstraints (4.0.1)
 
 DEPENDENCIES:
   - GoogleMobileAdsMediationAppLovin
   - Kingfisher
+  - SwiftLint
   - TinyConstraints
 
 SPEC REPOS:
@@ -62,6 +64,7 @@ SPEC REPOS:
     - Kingfisher
     - nanopb
     - PromisesObjC
+    - SwiftLint
     - TinyConstraints
 
 SPEC CHECKSUMS:
@@ -74,8 +77,9 @@ SPEC CHECKSUMS:
   Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: bfe785504f5fde2a0026a7931e85d4a5f50ca5b1
+PODFILE CHECKSUM: 8e0d674016ccde8f23e0b43b34780fc156ae84f1
 
 COCOAPODS: 1.10.1

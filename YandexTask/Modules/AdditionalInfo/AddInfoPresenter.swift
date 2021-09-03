@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AddInfoViewProtocol: AnyObject{
+protocol AddInfoViewProtocol: AnyObject {
     func succes(model: ModelStock)
     func gotNews()
     func gotAbout()
@@ -35,7 +35,7 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
     
     weak var view: AddInfoViewProtocol?
     var modelStock: ModelStock
-    var storageNews : [NewsElement]?
+    var storageNews: [NewsElement]?
     var storageAbout: ModelAbout?
     var storagePreviousDay: ModelPreviousDay?
     var storageGraph: [[Int]]?
@@ -45,8 +45,8 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
         self.view = view
         self.modelStock = model
     }
-    public func setView(){
-        self.view?.succes(model: modelStock) //сделать дефолтную модель
+    public func setView() {
+        self.view?.succes(model: modelStock)
     }
     func getNewsData() {
         Services.network.fetchNewsData(for: modelStock.symbol) { (result) in
@@ -59,12 +59,12 @@ class AddInfoPresenter: AddInfoPresenterProtocol {
             }
         }
     }
-    func getGraphData()  {
+    func getGraphData() {
         storageGraph =  Services.network.getDataForGraph()
     }
     func getPreviousDayData() {
         Services.network.fetchPreviousDayData(for: modelStock.symbol) { (result) in
-            switch result{
+            switch result {
             
             case .success(let previousDayData):
                 self.storagePreviousDay = previousDayData

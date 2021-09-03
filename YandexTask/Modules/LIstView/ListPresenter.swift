@@ -30,25 +30,25 @@ class ListPresenter: ListViewPresenterProtocol {
     private func offlineLoad() {
         storageStocks = []
         storageStocks = Services.coreData.getStonks()
-        let isFavDict = Services.userDefaults.get(for: "isFavourite")
-        for var element in storageStocks {
-            if  isFavDict[element.symbol] != nil {
-                element.isFavourite = true
+        let isFavDict = Services.userDefaults.get(for: .favourite)
+        for  element in storageStocks where isFavDict[element.symbol] != nil {
+            if let index = storageStocks.firstIndex(where: { $0.symbol == element.symbol }) {
+                storageStocks[index].isFavourite = isFavDict[element.symbol]
             }
         }
     }
     private func networkLoad() {
-        Services.network.getStocksData() { [weak self] (result) in
+        Services.network.getStocksData { [weak self] (result) in
             guard let self = self else {return }
-            switch result{
-            case .success(let stocks):
-                self.storageStocks = stocks
-                let isFavDict = Services.userDefaults.get(for: "isFavourite")
-                for var element in self.storageStocks {
-                    if  isFavDict[element.symbol] != nil {
-                        element.isFavourite = true
+            switch result {
+            case .success(var stocks):
+                let isFavDict = Services.userDefaults.get(for: .favourite)
+                for  element in stocks where isFavDict[element.symbol] != nil {
+                    if let index = stocks.firstIndex(where: { $0.symbol == element.symbol }) {
+                        stocks[index].isFavourite = isFavDict[element.symbol]
                     }
                 }
+                self.storageStocks = stocks
                 self.view?.sucess()
             case .failure(let error):
                 self.view?.failure(error: error)
@@ -56,10 +56,10 @@ class ListPresenter: ListViewPresenterProtocol {
         }
     }
     
-    func getStocksImage(symbol: String, completion: @escaping (Result<URL?,Error>) -> ()) {
+    func getStocksImage(symbol: String, completion: @escaping (Result<URL?, Error>) -> Void) {
         Services.network.getLogoUrl(for: (symbol)) { (result)  in
 
-            switch result{
+            switch result {
             case .success(let logo):
                 completion(.success(URL(string: logo.url)))
             case .failure(let error):

@@ -18,7 +18,7 @@ class CustomCell: UITableViewCell {
      let differenceLabel = UILabel()
      var isFavourite: Bool = false
      let starIcon = UIImage(systemName: "star.square")
-     let logoCompanyImageView = UIImageView ()
+     let logoCompanyImageView = UIImageView()
      weak var tapDelegate: ListViewController!
      let buttonStar = UIButton()
     
@@ -30,7 +30,6 @@ class CustomCell: UITableViewCell {
         self.addSubview(corporationNameLabel)
         self.addSubview(currentPriceLabel)
         self.addSubview(differenceLabel)
-        //self.addSubview(starImageView)
         self.addSubview(buttonStar)
         contentView.isUserInteractionEnabled = false
         
@@ -62,7 +61,7 @@ class CustomCell: UITableViewCell {
             logoCompanyImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             logoCompanyImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             logoCompanyImageView.heightAnchor.constraint(equalToConstant: 52),
-            logoCompanyImageView.widthAnchor.constraint(equalTo: logoCompanyImageView.heightAnchor),
+            logoCompanyImageView.widthAnchor.constraint(equalTo: logoCompanyImageView.heightAnchor)
         ])
     }
     @objc func starButtonClick() {
@@ -75,7 +74,7 @@ class CustomCell: UITableViewCell {
         abbreviationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             abbreviationLabel.leadingAnchor.constraint(equalTo: self.logoCompanyImageView.trailingAnchor, constant: 12),
-            abbreviationLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14),
+            abbreviationLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14)
         ])
     }
     
@@ -123,7 +122,7 @@ class CustomCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if logoCompany != nil{
+        if logoCompany != nil {
             logoCompanyImageView.image = logoCompany
         }
         

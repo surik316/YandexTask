@@ -284,6 +284,7 @@
 			buildConfigurationList = 73C7A1DA25F534E9007BB42F /* Build configuration list for PBXNativeTarget "YandexTask" */;
 			buildPhases = (
 				5CD036E9A4FE34A49CCD92A5 /* [CP] Check Pods Manifest.lock */,
+				AADE2CC826E28F45001D9FA1 /* Run SwiftLint */,
 				73C7A1C225F534E6007BB42F /* Sources */,
 				73C7A1C325F534E6007BB42F /* Frameworks */,
 				73C7A1C425F534E6007BB42F /* Resources */,
@@ -382,6 +383,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YandexTask/Pods-YandexTask-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		AADE2CC826E28F45001D9FA1 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		C2D975A89B7CEB5F4157D397 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

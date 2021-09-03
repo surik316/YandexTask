@@ -9,4 +9,5 @@ target 'YandexTask' do
   pod 'TinyConstraints'
   pod 'Kingfisher'
   pod 'GoogleMobileAdsMediationAppLovin'
+  pod 'SwiftLint'
 end

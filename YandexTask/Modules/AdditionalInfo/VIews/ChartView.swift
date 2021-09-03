@@ -13,7 +13,7 @@ class ChartView: UIView {
     var buttonBuy = UIButton()
     var currentPriceLabel = UILabel()
     var changePriceLabel = UILabel()
-    var chartView:  LineChatView!
+    var chartView: LineChatView!
     
     init(chartV: LineChatView) {
         super.init(frame: .zero)

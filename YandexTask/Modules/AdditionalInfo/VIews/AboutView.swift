@@ -42,7 +42,7 @@ class AboutView: UIView {
         NSLayoutConstraint.activate([
             corpNameLable.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             corpNameLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 98),
-            corpNameLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -98),
+            corpNameLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -98)
         ])
     }
     
@@ -60,7 +60,7 @@ class AboutView: UIView {
         NSLayoutConstraint.activate([
             aboutCompany.topAnchor.constraint(equalTo: sectorOfCompanyLable.bottomAnchor, constant: 40),
             aboutCompany.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            aboutCompany.trailingAnchor.constraint(equalTo:trailingAnchor, constant: -20),
+            aboutCompany.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             aboutCompany.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -96)
         ])
     }
@@ -69,7 +69,7 @@ class AboutView: UIView {
         NSLayoutConstraint.activate([
             placeAndPhoneLable.topAnchor.constraint(equalTo: aboutCompany.bottomAnchor, constant: 67),
             placeAndPhoneLable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 47),
-            placeAndPhoneLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -47),
+            placeAndPhoneLable.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -47)
         ])
     }
     

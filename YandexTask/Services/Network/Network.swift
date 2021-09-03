@@ -7,13 +7,11 @@
 import Foundation
 import CoreData
 
-
-
 class Network {
     
     private var dataTask: URLSessionDataTask?
     private let decoder = JSONDecoder()
-    private func makeNoticableUrl(for symbol: String) -> URL?{
+    private func makeNoticableUrl(for symbol: String) -> URL? {
         var result = URLComponents()
         result.scheme = "https"
         result.host = "cloud.iexapis.com"
@@ -60,11 +58,11 @@ class Network {
         return URL(string: "https://us.123rf.com/450wm/alhovik/alhovik1709/alhovik170900031/86481591-stock-vector-breaking-news-background-world-global-tv-news-banner-design.jpg?ver=6")!
     }
 }
-extension Network: NetworkServiceProtocol{
+extension Network: NetworkServiceProtocol {
     
     func fetchPreviousDayData(for symbol: String, completion: @escaping (Result<ModelPreviousDay, Error>) -> Void) {
         let newsURL = makePreviousDayUrl(for: symbol)
-        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
+        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, _, error) in
             
             if let error = error {
                print("DataTask error: \(error.localizedDescription)")
@@ -79,33 +77,32 @@ extension Network: NetworkServiceProtocol{
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
-            }
-            catch let error {
+            } catch let error {
                 completion(.failure(error))
             }
         }
         dataTask?.resume()
     }
-    func getDataForGraph()->[[Int]] {
-        let graphData = [[1,2,3,4,5,6,7,6,5,4,10,5,6],
-                         [10,1,4,5,6,3,2,1,5,6],
-                         [1,6,7,2,3,4,5,7,3,4,1],
-                         [1,4,5,6,2,3,4,5,5,6,2],
-                         [10,3,4,4,12,2,3,5,5,3],
-                         [1,4,5,6,7,2,3,1,3,10,1],
-                         [1,6,7,2,3,4,5,7,3,4,1],
-                         [1,4,5,6,2,3,4,5,5,6,2],
-                         [1,4,6,7,2,3,1,5,7,8,8],
-                         [1,4,6,7,2,3,1,5,7,8,8],
-                         [1,4,6,7,2,3,1,5,7,8,8],
-                         [1,4,6,7,2,3,1,5,7,8,8]
+    func getDataForGraph() -> [[Int]] {
+        let graphData = [[1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 10, 5, 6],
+                         [10, 1, 4, 5, 6, 3, 2, 1, 5, 6],
+                         [1, 6, 7, 2, 3, 4, 5, 7, 3, 4, 1],
+                         [1, 4, 5, 6, 2, 3, 4, 5, 5, 6, 2],
+                         [10, 3, 4, 4, 12, 2, 3, 5, 5, 3],
+                         [1, 4, 5, 6, 7, 2, 3, 1, 3, 10, 1],
+                         [1, 6, 7, 2, 3, 4, 5, 7, 3, 4, 1],
+                         [1, 4, 5, 6, 2, 3, 4, 5, 5, 6, 2],
+                         [1, 4, 6, 7, 2, 3, 1, 5, 7, 8, 8],
+                         [1, 4, 6, 7, 2, 3, 1, 5, 7, 8, 8],
+                         [1, 4, 6, 7, 2, 3, 1, 5, 7, 8, 8],
+                         [1, 4, 6, 7, 2, 3, 1, 5, 7, 8, 8]
                          
         ]
         return graphData
     }
     func fetchNewsData(for symbol: String, completion: @escaping (Result<News, Error>) -> Void) {
         let newsURL = makeNewsUrl(for: symbol)
-        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
+        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, _, error) in
             
             if let error = error {
                print("DataTask error: \(error.localizedDescription)")
@@ -120,8 +117,7 @@ extension Network: NetworkServiceProtocol{
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
-            }
-            catch let error {
+            } catch let error {
                 completion(.failure(error))
             }
         }
@@ -129,7 +125,7 @@ extension Network: NetworkServiceProtocol{
     }
     func fetchAboutCompanyData(for symbol: String, completion: @escaping (Result<ModelAbout, Error>) -> Void) {
         let newsURL = makeAboutCompanyUrl(for: symbol)
-        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, response, error) in
+        dataTask = URLSession.shared.dataTask(with: newsURL!) { (data, _, error) in
             
             if let error = error {
                print("DataTask error: \(error.localizedDescription)")
@@ -144,8 +140,7 @@ extension Network: NetworkServiceProtocol{
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
-            }
-            catch let error {
+            } catch let error {
                 completion(.failure(error))
             }
         }
@@ -154,7 +149,7 @@ extension Network: NetworkServiceProtocol{
     
     func getLogoUrl(for symbol: String, completion: @escaping (Result<ModelLogo, Error>) -> Void) {
         let stockURL = makeLogoUrl(for: symbol)
-        dataTask = URLSession.shared.dataTask(with: stockURL!) { (data, response, error) in
+        dataTask = URLSession.shared.dataTask(with: stockURL!) { (data, _, error) in
             
             if let error = error {
                print("DataTask error: \(error.localizedDescription)")
@@ -167,8 +162,7 @@ extension Network: NetworkServiceProtocol{
             do {
                 let jsonData = try self.decoder.decode(ModelLogo.self, from: data)
                 completion(.success(jsonData))
-            }
-            catch let error {
+            } catch let error {
                 completion(.failure(error))
             }
         }
@@ -196,12 +190,10 @@ extension Network: NetworkServiceProtocol{
                 DispatchQueue.main.async {
                     completion(.success(jsonData))
                 }
-               }
-               catch let error {
+               } catch let error {
                     completion(.failure(error))
                }
             }
             dataTask?.resume()
         }
 }
-
